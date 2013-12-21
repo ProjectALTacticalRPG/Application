@@ -1,11 +1,11 @@
 package gameframework.game;
 
-import gameframework.base.ObservableValue;
+import gameframework.base.ObservableValue; 
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
-import java.awt.Frame;
+import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.Label;
 import java.awt.Menu;
@@ -38,7 +38,8 @@ public class GameDefaultImpl implements Game, Observer {
 	// initialized before each level
 	protected ObservableValue<Boolean> endOfGame = null;
 
-	private Frame f;
+	// changement en protected
+	protected JFrame f;
 	private GameLevelDefaultImpl currentPlayedLevel = null;
 
 	protected int levelNumber;
@@ -65,7 +66,7 @@ public class GameDefaultImpl implements Game, Observer {
 	}
 
 	public void createGUI() {
-		f = new Frame("Default Game");
+		f = new JFrame("Default Game");
 		f.dispose();
 
 		createMenuBar();
