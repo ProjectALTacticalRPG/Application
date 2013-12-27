@@ -15,7 +15,7 @@ public class InfantryMan extends AbstractSoldier {
 		setHealth(50);
 		setDamage(1);
 		setParry(5);
-		setName("Unnamed");
+		setName("Infantry man");
 	}
 	
 	public InfantryMan(String name){

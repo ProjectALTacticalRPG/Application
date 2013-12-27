@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import units.Army;
 import units.ArmyMember;
-import units.HorseManProxy;
 import units.InfantryManProxy;
+import units.PlaneProxy;
 import units.SoldierWithShield;
 import units.SoldierWithSword;
+import units.TankProxy;
 
 
 public class VisitorImpl implements Visitor {
 
 	private int infantryMen = 0;
-	private int horseMen = 0;
+	private int tanks = 0;
+	private int planes = 0;
 	private int level = 0;
 	
 	@Override
@@ -23,7 +25,8 @@ public class VisitorImpl implements Visitor {
 		
 		if(level == 0){
 			infantryMen = 0;
-			horseMen = 0;
+			tanks = 0;
+			planes = 0;
 		}
 		
 		level++;
@@ -41,13 +44,18 @@ public class VisitorImpl implements Visitor {
 		return infantryMen;
 	}
 	
-	public int totalHorseMen(){
-		return horseMen;
+	public int totalPlanes(){
+		return planes;
+	}
+	
+	public int totalTanks(){
+		return tanks;
 	}
 	
 	public void printSoldiers(){
 		System.out.println("Nombre de InfantryMan : " + infantryMen);
-		System.out.println("Nombre de HorseMan : " + horseMen);
+		System.out.println("Nombre de Tank : " + tanks);
+		System.out.println("Nombre de Plane : " + planes);
 	}
 
 	@Override
@@ -67,18 +75,23 @@ public class VisitorImpl implements Visitor {
 		System.out.println(tab()+"Visite un InfantryMan");
 		infantryMen++;
 	}
-
-	@Override
-	public void visit(HorseManProxy hm) {
-		
-		System.out.println(tab()+"Visite un HorseMan");
-		horseMen++;
-	}
 	
 	private String tab(){
 		String tab ="";
 		for(int i = 0; i < level; i++)
 			tab+="\t";
 		return tab;
+	}
+
+	@Override
+	public void visit(TankProxy tank) {
+		System.out.println(tab()+"Visite un Tank");
+		tanks++;
+	}
+
+	@Override
+	public void visit(PlaneProxy plane) {
+		System.out.println(tab()+"Visite un Plane");
+		planes++;
 	}
 }
