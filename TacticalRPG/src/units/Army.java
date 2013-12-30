@@ -8,7 +8,7 @@ import utils.Visitable;
 import utils.Visitor;
 
 public class Army extends CustomObservable implements ArmyMember, Visitable {
-
+	public static final int MAX_UNIT = 10;
 	private ArrayList<ArmyMember> members = new ArrayList<ArmyMember>();
 	private String name;
 	private boolean unused = true;
@@ -51,7 +51,9 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	}
 	
 	public boolean addMember(ArmyMember army){
-		if(!checkMember(army)){
+		if(members.size() >= MAX_UNIT)
+			return false;
+		else if(!checkMember(army)){
 			members.add(army);
 			unused = false;
 			return true;
