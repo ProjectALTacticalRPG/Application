@@ -1,7 +1,5 @@
 package units;
 
-import java.lang.reflect.Constructor;
-
 import utils.CustomObservable;
 import utils.Visitor;
 
@@ -9,9 +7,11 @@ import utils.Visitor;
 public class SoldierProxy extends CustomObservable implements ArmyMember {
 
 	private Soldier soldier;
+	private String type;
 
 	public SoldierProxy(Soldier s){
 		soldier = s;
+		type = s.getClass().getSimpleName();
 	}
 
 
@@ -30,6 +30,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	//**********************************************
 	//Solution introspection
 	
+	/*
 	public Object upgrade(Class<?> upgrade){
 		try {
 			Constructor<?> constr = upgrade.getConstructor(Soldier.class);
@@ -61,7 +62,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 				it = ((EquippedSoldier) it).soldier;
 			}
 		}
-	}
+	}*/
 	
 	//Solution introspection
 	//**********************************************
@@ -164,6 +165,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	public void addGun() {
 		try {
 			soldier = new UnitWithGun(soldier);
+			type += "WithGun";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,8 +176,13 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	public void addRocket() {
 		try {
 			soldier = new UnitWithRocket(soldier);
+			type += "WithRocket";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getType(){
+		return type;
 	}
 }

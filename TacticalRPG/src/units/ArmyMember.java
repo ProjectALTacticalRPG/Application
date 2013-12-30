@@ -9,6 +9,7 @@ public interface ArmyMember extends Visitable {
 	
 	public void addGun();
 	public void addRocket();
+	public String getType();
 	boolean isAlive();
 	String getName();
 }

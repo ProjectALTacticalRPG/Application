@@ -11,6 +11,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public static final int MAX_UNIT = 10;
 	private ArrayList<ArmyMember> members = new ArrayList<ArmyMember>();
 	private String name;
+	private String type;
 	private boolean unused = true;
 	
 	
@@ -50,11 +51,16 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		return damage;
 	}
 	
-	public boolean addMember(ArmyMember army){
+	public boolean addMember(ArmyMember member){
 		if(members.size() >= MAX_UNIT)
 			return false;
-		else if(!checkMember(army)){
-			members.add(army);
+		else if(!checkMember(member)){
+			if(members.isEmpty())
+				type = member.getType();
+			else if(!member.getType().equals(type))
+				return false;
+			
+			members.add(member);
 			unused = false;
 			return true;
 		}
@@ -156,5 +162,10 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public void addRocket() {
 		for(ArmyMember a : members)
 			a.addRocket();
+	}
+
+	@Override
+	public String getType() {
+		return type;
 	}
 }
