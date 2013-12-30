@@ -7,10 +7,8 @@ public interface ArmyMember extends Visitable {
 	public int strike();
 	public int getHealth();
 	
-	public void addSword();
-	public void addShield();
-	public void removeSword();
-	public void removeShield();
+	public void addGun();
+	public void addRocket();
 	boolean isAlive();
 	String getName();
 }

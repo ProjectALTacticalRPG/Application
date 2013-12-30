@@ -72,19 +72,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	//**********************************************
 	//Solution standard
 	
-	public int nbItems(){
-		
-		Soldier it = soldier;
-		int nb = 0;
-		
-		while(it instanceof EquippedSoldier){ 
-			nb++;
-			it = ((EquippedSoldier) it).soldier;
-		}
-		return nb;
-	}
-	
-	
+	/*
 	public void addSword(){
 		
 		try {
@@ -143,7 +131,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 				it = ((EquippedSoldier) it).soldier;
 			}
 		}
-	}
+	}*/
 	
 	//Solution standard
 	//**********************************************
@@ -169,5 +157,25 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	@Override
 	public void accept(Visitor visitor) {
 		
+	}
+
+
+	@Override
+	public void addGun() {
+		try {
+			soldier = new UnitWithGun(soldier);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	@Override
+	public void addRocket() {
+		try {
+			soldier = new UnitWithRocket(soldier);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

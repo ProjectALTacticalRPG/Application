@@ -63,6 +63,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		members.remove(army);
 	}
 
+	/*
 	@Override
 	public void addSword() {
 		for(ArmyMember a: members)
@@ -85,7 +86,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public void removeShield() {
 		for(ArmyMember a : members)
 			a.removeShield();
-	}
+	}*/
 
 	@Override
 	public int getHealth() {
@@ -141,5 +142,17 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 			else if(a instanceof Army)
 				((Army)a).addObs(o);
 		}
+	}
+
+	@Override
+	public void addGun() {
+		for(ArmyMember a : members)
+			a.addGun();
+	}
+
+	@Override
+	public void addRocket() {
+		for(ArmyMember a : members)
+			a.addRocket();
 	}
 }
