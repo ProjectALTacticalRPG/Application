@@ -4,24 +4,25 @@ import utils.Visitor;
 
 public class InfantryMan extends AbstractSoldier {
 
+	/*
 	public InfantryMan(String name, int health, int damage, int parry) {
 		setHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName(name);
-	}
+	}*/
 	
 	public InfantryMan(){
-		setHealth(50);
+		setHealth(1);
 		setDamage(1);
-		setParry(5);
+		setParry(0);
 		setName("Infantry man");
 	}
 	
 	public InfantryMan(String name){
-		setHealth(50);
+		setHealth(1);
 		setDamage(1);
-		setParry(5);
+		setParry(0);
 		setName(name);
 	}
 

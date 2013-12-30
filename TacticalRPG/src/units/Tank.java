@@ -4,25 +4,18 @@ import utils.Visitor;
 
 public class Tank extends AbstractSoldier{
 
-	public Tank(String name, int health, int damage, int parry) {
-		setHealth(health);
-		setDamage(damage);
-		setParry(parry);
-		setName(name);
-	}
-	
 	//TODO equilibrer valeurs
 	public Tank(){
-		setHealth(50);
+		setHealth(1);
 		setDamage(1);
-		setParry(5);
+		setParry(0);
 		setName("Tank");
 	}
 	
 	public Tank(String name){
-		setHealth(50);
+		setHealth(1);
 		setDamage(1);
-		setParry(5);
+		setParry(0);
 		setName(name);
 	}
 
