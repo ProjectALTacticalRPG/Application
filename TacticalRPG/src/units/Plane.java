@@ -2,7 +2,7 @@ package units;
 
 import utils.Visitor;
 
-public class Plane extends AbstractSoldier{
+class Plane extends AbstractSoldier{
 	
 	//TODO equilibrer les valeurs
 	public Plane(){

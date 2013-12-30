@@ -2,7 +2,7 @@ package units;
 
 import utils.Visitable;
 
-public interface Soldier extends Visitable {
+interface Soldier extends Visitable {
 	
 	public int strike();
 	public void parry(int attack);

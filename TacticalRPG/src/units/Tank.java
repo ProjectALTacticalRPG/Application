@@ -2,7 +2,7 @@ package units;
 
 import utils.Visitor;
 
-public class Tank extends AbstractSoldier{
+class Tank extends AbstractSoldier{
 
 	//TODO equilibrer valeurs
 	public Tank(){

@@ -2,7 +2,7 @@ package units;
 
 import utils.Visitor;
 
-public class InfantryMan extends AbstractSoldier {
+class InfantryMan extends AbstractSoldier {
 
 	/*
 	public InfantryMan(String name, int health, int damage, int parry) {

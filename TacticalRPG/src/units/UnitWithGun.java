@@ -3,7 +3,7 @@ package units;
 import utils.Visitor;
 
 //Pour : soldats de base, tanks standarts, avions de chasse
-public class UnitWithGun extends EquippedSoldier{
+class UnitWithGun extends EquippedSoldier{
 
 	public UnitWithGun(Soldier s) throws Exception {
 		super(s);

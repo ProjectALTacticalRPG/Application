@@ -2,7 +2,7 @@ package tests;
 
 import org.junit.Test;
 import units.Army;
-import units.InfantryMan;
+import units.InfantryManProxy;
 import units.SoldierProxy;
 
 public class TestUnits {
@@ -11,7 +11,7 @@ public class TestUnits {
 	public void test() {
 		Army a1 = new Army();
 		
-		SoldierProxy s1 = new SoldierProxy(new InfantryMan());
+		SoldierProxy s1 = new InfantryManProxy();
 		s1.addGun();
 		
 		s1.addRocket();
