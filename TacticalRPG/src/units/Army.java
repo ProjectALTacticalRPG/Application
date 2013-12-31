@@ -13,62 +13,79 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	private String name;
 	private String type;
 	private boolean unused = true;
-	
-	
+
+
 	public Army(){
-		
+
 	}
-	
+
 	public Army(String name){
 		this.name = name;
 	}
-	
+
 	@Override
 	public void parry(int damage) {
 		int dmgPerArmy = damage / members.size();
-		
+
 		for(ArmyMember a: members){
 			a.parry(dmgPerArmy);
 		}
-		
+
 		ArrayList<ArmyMember> membersTemp = new ArrayList<ArmyMember>();
 		for(ArmyMember a: members){
 			if(a.isAlive())
 				membersTemp.add(a);
 		}
-		
+
 		members = membersTemp;
-	    notifyObservers(this);
+		notifyObservers(this);
 	}
 
 	@Override
 	public int strike() {
 		int damage = 0;
-		
+
 		for(ArmyMember a : members){
 			damage += a.strike();
 		}
 		return damage;
 	}
-	
+
 	public boolean addMember(ArmyMember member){
+		if(member instanceof SoldierProxy){
+			if(((SoldierProxy) member).getArmy()){
+				return false;
+			}
+		}
+
 		if(members.size() >= MAX_UNIT)
 			return false;
-		else if(!checkMember(member)){
+		else{
+			if(member instanceof Army){
+				Army temp = (Army) member;
+				if(temp.getNbUnits() + this.getNbUnits() > MAX_UNIT)
+					return false;
+			}
+			
 			if(members.isEmpty())
 				type = member.getType();
 			else if(!member.getType().equals(type))
 				return false;
 			
 			members.add(member);
+			
+			if(member instanceof SoldierProxy){
+				SoldierProxy s = (SoldierProxy) member;
+				s.setArmy();
+			}	
+
 			unused = false;
 			return true;
 		}
-		return false;
 	}
-	
-	public void removeMember(ArmyMember army){
-		members.remove(army);
+
+	public void removeMember(ArmyMember member){
+		members.remove(member);
 	}
 
 	/*
@@ -98,18 +115,30 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 
 	@Override
 	public int getHealth() {
-		
+
 		int health = 0;
-		
+
 		for(ArmyMember a : members){
 			health += a.getHealth();
 		}
-		
+
 		return health;
 	}
-	
+
 	public ArrayList<ArmyMember> getArmyMembers(){
 		return new ArrayList<ArmyMember>(members);
+	}
+
+	public int getNbUnits(){
+		int result = 0;
+		for(ArmyMember a : members){
+			if(a instanceof Army)
+				result += ((Army) a).getNbUnits();
+			else
+				result += 1; 
+		}
+
+		return result;
 	}
 
 	@Override
@@ -119,7 +148,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		else
 			return (members.size() > 0) ? true : false;
 	}
-	
+
 	public boolean checkMember(ArmyMember member){
 		boolean result = false;
 		for(ArmyMember a : members){
@@ -132,16 +161,16 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public String getName(){
 		return name;
 	}
-	
+
 	public void addObs(CustomObserver o){
 		this.addObserver(o);
 		for(ArmyMember a : members){

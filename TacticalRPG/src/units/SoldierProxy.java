@@ -8,6 +8,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 
 	private Soldier soldier;
 	private String type;
+	private boolean inArmy = false;
 
 	public SoldierProxy(Soldier s){
 		soldier = s;
@@ -184,5 +185,17 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public String getType(){
 		return type;
+	}
+	
+	/**
+	 * Le booléen ne peut pas être remis à false 
+	 * car l'affectation à une armée est définitive
+	 */
+	public void setArmy(){
+		inArmy = true;
+	}
+	
+	public boolean getArmy(){
+		return inArmy;
 	}
 }
