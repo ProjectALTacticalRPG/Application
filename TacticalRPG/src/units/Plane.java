@@ -26,9 +26,9 @@ class Plane extends AbstractSoldier{
 	}
 
 	@Override
-	public void parry(int attack) {
+	public int parry(int attack) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override

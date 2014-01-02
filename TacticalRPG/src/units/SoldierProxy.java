@@ -22,9 +22,10 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	}
 
 	@Override
-	public void parry(int attack) {
+	public int parry(int attack) {
 		
 	    notifyObservers(this);
+	    return soldier.parry(attack);
 	}
 
 	
@@ -168,7 +169,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 			soldier = new UnitWithGun(soldier);
 			type += "WithGun";
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -179,7 +180,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 			soldier = new UnitWithRocket(soldier);
 			type += "WithRocket";
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -197,5 +198,12 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public boolean getArmy(){
 		return inArmy;
+	}
+	
+	public boolean isEquipped(){
+		if(soldier instanceof EquippedSoldier)
+			return true;
+		else
+			return false;
 	}
 }

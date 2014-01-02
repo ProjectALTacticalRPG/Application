@@ -21,6 +21,8 @@ public class TestUnits {
 		SoldierProxy s1 = new InfantryManProxy();
 		SoldierProxy s2 = new PlaneProxy();
 		
+		assertFalse(a1.addMember(s1));
+		
 		ArrayList<InfantryManProxy> soldiers = new ArrayList<InfantryManProxy>();
 		ArrayList<InfantryManProxy> soldiers2 = new ArrayList<InfantryManProxy>();
 		

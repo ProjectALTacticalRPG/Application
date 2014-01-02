@@ -11,7 +11,6 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public static final int MAX_UNIT = 10;
 	private ArrayList<ArmyMember> members = new ArrayList<ArmyMember>();
 	private String name;
-	private String type;
 	private boolean unused = true;
 
 
@@ -23,14 +22,28 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		this.name = name;
 	}
 
+	/*
+	 * Une armée riposte forcément, renvoie les dégâts qu'elle doit infliger
+	 * (non-Javadoc)
+	 * @see units.ArmyMember#parry(int)
+	 */
 	@Override
-	public void parry(int damage) {
+	public int parry(int damage) {
+
+		int dmgLeft = damage;
+		int myDmg = this.strike();
+		int i = 0;
+		while(dmgLeft > 0 && i< members.size()){
+			dmgLeft = members.get(i).parry(dmgLeft);
+			++i;
+		}
+		/*
 		int dmgPerArmy = damage / members.size();
 
 		for(ArmyMember a: members){
 			a.parry(dmgPerArmy);
 		}
-
+		 */
 		ArrayList<ArmyMember> membersTemp = new ArrayList<ArmyMember>();
 		for(ArmyMember a: members){
 			if(a.isAlive())
@@ -39,6 +52,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 
 		members = membersTemp;
 		notifyObservers(this);
+		return myDmg;
 	}
 
 	@Override
@@ -56,6 +70,10 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 			if(((SoldierProxy) member).getArmy()){
 				return false;
 			}
+			
+			if(!((SoldierProxy) member).isEquipped()){
+				return false;
+			}
 		}
 
 		if(members.size() >= MAX_UNIT)
@@ -66,14 +84,13 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 				if(temp.getNbUnits() + this.getNbUnits() > MAX_UNIT)
 					return false;
 			}
-			
-			if(members.isEmpty())
-				type = member.getType();
-			else if(!member.getType().equals(type))
-				return false;
-			
+
+			if(!members.isEmpty())
+				if(!member.getType().equals(members.get(0).getType()))
+					return false;
+
 			members.add(member);
-			
+
 			if(member instanceof SoldierProxy){
 				SoldierProxy s = (SoldierProxy) member;
 				s.setArmy();
@@ -149,7 +166,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 			return (members.size() > 0) ? true : false;
 	}
 
-	public boolean checkMember(ArmyMember member){
+	/*private boolean checkMember(ArmyMember member){
 		boolean result = false;
 		for(ArmyMember a : members){
 			if(a instanceof Army){
@@ -160,7 +177,7 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 			}
 		}
 		return result;
-	}
+	}*/
 
 	@Override
 	public void accept(Visitor visitor) {
@@ -195,6 +212,9 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 
 	@Override
 	public String getType() {
-		return type;
+		if(members.isEmpty())
+			return "";
+		else
+			return members.get(0).getType();
 	}
 }

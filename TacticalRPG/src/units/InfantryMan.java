@@ -35,12 +35,14 @@ class InfantryMan extends AbstractSoldier {
 	}
 
 	@Override
-	public void parry(int attack) {
+	public int parry(int attack) {
+		//TODO
 		int dmgTaken = attack - getParry();
 		if(dmgTaken < 0)
 			dmgTaken = 0;
 		setHealth(getHealth() - dmgTaken);
 		setPreviousDmg(dmgTaken);
+		return 0;
 	}
 
 	@Override

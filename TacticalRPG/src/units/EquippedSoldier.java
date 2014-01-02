@@ -13,8 +13,8 @@ public abstract class EquippedSoldier extends AbstractSoldier{
 	}
 
 	@Override
-	public void parry(int attack){
-		soldier.parry(attack);
+	public int parry(int attack){
+		return soldier.parry(attack);
 	}
 
 	@Override
