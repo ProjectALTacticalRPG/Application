@@ -2,27 +2,26 @@ package units;
 
 import utils.Visitor;
 
-class InfantryMan extends AbstractSoldier {
+public class InfantryMan extends AbstractSoldier {
 
-	/*
 	public InfantryMan(String name, int health, int damage, int parry) {
 		setHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName(name);
-	}*/
+	}
 	
 	public InfantryMan(){
-		setHealth(1);
+		setHealth(50);
 		setDamage(1);
-		setParry(0);
-		setName("Infantry man");
+		setParry(5);
+		setName("Unnamed");
 	}
 	
 	public InfantryMan(String name){
-		setHealth(1);
+		setHealth(50);
 		setDamage(1);
-		setParry(0);
+		setParry(5);
 		setName(name);
 	}
 
@@ -35,14 +34,12 @@ class InfantryMan extends AbstractSoldier {
 	}
 
 	@Override
-	public int parry(int attack) {
-		//TODO
+	public void parry(int attack) {
 		int dmgTaken = attack - getParry();
 		if(dmgTaken < 0)
 			dmgTaken = 0;
 		setHealth(getHealth() - dmgTaken);
 		setPreviousDmg(dmgTaken);
-		return 0;
 	}
 
 	@Override

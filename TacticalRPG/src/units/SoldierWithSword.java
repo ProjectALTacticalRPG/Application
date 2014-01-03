@@ -26,12 +26,11 @@ public class SoldierWithSword extends EquippedSoldier{
 	}
 
 	@Override
-	public int parry(int attack) {
+	public void parry(int attack) {
 		
 		int effAttack = attack - itemDefense;
 		if(effAttack > 0)
 			super.parry(effAttack);
-		return 0;
 	}
 
 	@Override

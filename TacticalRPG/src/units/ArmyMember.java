@@ -3,15 +3,14 @@ package units;
 import utils.Visitable;
 
 public interface ArmyMember extends Visitable {
-	
-	public int parry(int damage);
-	
+	public void parry(int damage);
 	public int strike();
 	public int getHealth();
 	
-	public void addGun();
-	public void addRocket();
-	public String getType();
+	public void addSword();
+	public void addShield();
+	public void removeSword();
+	public void removeShield();
 	boolean isAlive();
 	String getName();
 }

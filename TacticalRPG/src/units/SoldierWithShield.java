@@ -23,13 +23,12 @@ public class SoldierWithShield extends EquippedSoldier{
 	}
 
 	@Override
-	public int parry(int attack) {
+	public void parry(int attack) {
 		int effAttack = attack - itemDefense;
 		if(effAttack > 0)
 			super.parry(effAttack);
 		else
 			System.out.println("Attaque parée");
-		return 0;
 	}
 
 	@Override

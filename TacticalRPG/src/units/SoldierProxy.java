@@ -1,5 +1,7 @@
 package units;
 
+import java.lang.reflect.Constructor;
+
 import utils.CustomObservable;
 import utils.Visitor;
 
@@ -7,12 +9,9 @@ import utils.Visitor;
 public class SoldierProxy extends CustomObservable implements ArmyMember {
 
 	private Soldier soldier;
-	private String type;
-	private boolean inArmy = false;
 
 	public SoldierProxy(Soldier s){
 		soldier = s;
-		type = s.getClass().getSimpleName();
 	}
 
 
@@ -22,17 +21,15 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	}
 
 	@Override
-	public int parry(int attack) {
+	public void parry(int attack) {
 		
 	    notifyObservers(this);
-	    return soldier.parry(attack);
 	}
 
 	
 	//**********************************************
 	//Solution introspection
 	
-	/*
 	public Object upgrade(Class<?> upgrade){
 		try {
 			Constructor<?> constr = upgrade.getConstructor(Soldier.class);
@@ -64,7 +61,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 				it = ((EquippedSoldier) it).soldier;
 			}
 		}
-	}*/
+	}
 	
 	//Solution introspection
 	//**********************************************
@@ -75,7 +72,19 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	//**********************************************
 	//Solution standard
 	
-	/*
+	public int nbItems(){
+		
+		Soldier it = soldier;
+		int nb = 0;
+		
+		while(it instanceof EquippedSoldier){ 
+			nb++;
+			it = ((EquippedSoldier) it).soldier;
+		}
+		return nb;
+	}
+	
+	
 	public void addSword(){
 		
 		try {
@@ -134,7 +143,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 				it = ((EquippedSoldier) it).soldier;
 			}
 		}
-	}*/
+	}
 	
 	//Solution standard
 	//**********************************************
@@ -160,50 +169,5 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	@Override
 	public void accept(Visitor visitor) {
 		
-	}
-
-
-	@Override
-	public void addGun() {
-		try {
-			soldier = new UnitWithGun(soldier);
-			type += "WithGun";
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-
-	@Override
-	public void addRocket() {
-		try {
-			soldier = new UnitWithRocket(soldier);
-			type += "WithRocket";
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public String getType(){
-		return type;
-	}
-	
-	/**
-	 * Le booléen ne peut pas être remis à false 
-	 * car l'affectation à une armée est définitive
-	 */
-	public void setArmy(){
-		inArmy = true;
-	}
-	
-	public boolean getArmy(){
-		return inArmy;
-	}
-	
-	public boolean isEquipped(){
-		if(soldier instanceof EquippedSoldier)
-			return true;
-		else
-			return false;
 	}
 }
