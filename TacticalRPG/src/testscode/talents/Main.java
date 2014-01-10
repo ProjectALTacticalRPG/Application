@@ -21,28 +21,28 @@ public class Main implements Observer {
 		JFrame f = new JFrame();
 		f.setTitle("Test Arbo Talents");
 		f.setVisible(true);
-		f.setSize(1000, 800);
+		f.setSize(1082, 700);
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel pan = new JPanel();
-		JPanel pan2 = new JPanel();
 		
-		f.setLayout(new BorderLayout());
+		/*f.setLayout(new BorderLayout());
 		f.add(pan, BorderLayout.NORTH);
-		pan.setLayout(new BorderLayout());
+		pan.setLayout(new BorderLayout());*/
+		f.add(pan);
 		
 		Statistiques link = new Statistiques(50, 20, 1, 30);
 		Statistiques mob = new Statistiques(30, 5, 1, 10);
 		
-		lblLink = new JLabel(" LINK :: Vie : " + link.getLife() + "   Dégâts : " + link.getDmg() + "   Cadence d'auto-attaque : " + link.getCadence_aa() + "   Armure : " + link.getArmure());
+		/*lblLink = new JLabel(" LINK :: Vie : " + link.getLife() + "   Dégâts : " + link.getDmg() + "   Cadence d'auto-attaque : " + link.getCadence_aa() + "   Armure : " + link.getArmure());
 		lblMob = new JLabel(" MOB :: Vie : " + mob.getLife() + "   Dégâts : " + mob.getDmg() + "   Cadence d'auto-attaque : " + mob.getCadence_aa() + "   Armure : " + mob.getArmure()); 
 		
 		pan.add(lblLink, BorderLayout.NORTH);
-		pan.add(lblMob, BorderLayout.SOUTH);
+		pan.add(lblMob, BorderLayout.SOUTH);*/
 		
 		Arbre a = new Arbre();
-		pan.add(a, BorderLayout.CENTER);
+		f.add(a/*, BorderLayout.CENTER*/);
 	}
 
 	@Override

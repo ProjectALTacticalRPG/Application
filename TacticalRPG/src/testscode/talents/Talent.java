@@ -1,33 +1,65 @@
 package testscode.talents;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Talent extends JButton {
+public class Talent extends JPanel {
 
 	private String nom;
 	private Image image;
-	private String tooltip;
+	private ArrayList<String> tooltip;
 	private int element_mod;
 	private double[] valeur_mod;
 	private int max_points;
 	private int nb_points;
+	private int nb_points_requis;
 	private Talent talent_requis;
+	private boolean isNull;
 	
-	public Talent(String n, Image i, String tt, int em, double[] vm, int mx, int nb, Talent rq) {
+	public Talent(String n, Image i, String tt, int em, double[] vm, int mx, int nbp, int nbpr, Talent rq) {
 		nom = n;
 		image = i;
-		tooltip = tt;
+		tooltip = new ArrayList<String>();
+		setTooltip(tt);
 		element_mod = em;
 		valeur_mod = vm;
 		max_points = mx;
-		nb_points = nb;
+		nb_points = nbp;
+		nb_points_requis = nbpr;
 		talent_requis = rq;
-		this.setText(n + " (0/" + mx + ")");
-		this.setSize(100, 100);
+		isNull = false;
 	}
 	
+	public Talent(Object object) {
+		// Talent vide
+		isNull = true;
+	}
+	
+	public void paintComponent(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.drawImage(image, 0, 0, this);
+	}
+	
+	public boolean getIsNull() {
+		return isNull;
+	}
+
+	public int getNb_points_requis() {
+		return nb_points_requis;
+	}
+
+	public void setNb_points_requis(int nb_points_requis) {
+		this.nb_points_requis = nb_points_requis;
+	}
+
 	public void setNbPoints(int i) {
 		if(i>0)
 			if(nb_points < 4)
@@ -53,12 +85,24 @@ public class Talent extends JButton {
 		this.image = image;
 	}
 
-	public String getTooltip() {
+	public ArrayList<String> getTooltip() {
 		return tooltip;
 	}
 
-	public void setTooltip(String tooltip) {
-		this.tooltip = tooltip;
+	public void setTooltip(String tt) {
+		int start = 0;
+		int end = 29;
+		boolean stop = false;
+		while(!stop) {
+			tooltip.add(tt.substring(start, end));
+			start+=30;
+			end +=30;
+			if(end > tt.length()) {
+				end = tt.length();
+				stop = true;
+			}
+		}
+		tooltip.add(tt.substring(start, end));
 	}
 
 	public int getElement_mod() {
