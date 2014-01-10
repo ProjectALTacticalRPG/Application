@@ -28,7 +28,7 @@ public class Arbre extends JPanel {
 	private Image back = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/ressources/img/back.png"));
 	private Image ignite = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/ressources/img/ignite.png"));
 	private Font fontHeader = new Font("Arial", Font.PLAIN, 25);
-	private Font fontSmall = new Font("Arial", Font.PLAIN, 12);
+	private Font fontSmall = new Font("Arial", Font.BOLD, 12);
 	private Font fontTTHeader = new Font("Arial", Font.BOLD, 17);
 	private Font fontTTDesc = new Font("Arial", Font.PLAIN, 12);
 	public final Arbre ultimAccess = this;
@@ -42,30 +42,36 @@ public class Arbre extends JPanel {
 		nbPointsDepenses = 0;
 		tooltip = null;
 		talents = new ArrayList<Talent>();
+		
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent(null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent(null));
-		talents.add(new Talent(null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
-		talents.add(new Talent(null));
-		talents.add(new Talent(null));
-		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
 		talents.add(new Talent(null));
 		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent(null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+
+		talents.add(new Talent(null));
+		talents.add(new Talent("Puissance", ignite, "Augmente la puissance de Link de 1/2/3.5/5%", 2, p, 4, 0, 0, null));
+		talents.add(new Talent(null));
+		talents.add(new Talent(null));
 		for(final Talent t:talents) {
 			this.add(t);
 			if(!t.getIsNull()) {
@@ -73,13 +79,12 @@ public class Arbre extends JPanel {
 					new MouseAdapter(){
 						public void mouseClicked(MouseEvent e){
 							if(t.getNb_points_requis() <= nbPointsDepenses && nbPointsDispo > 0) {
-								if(SwingUtilities.isLeftMouseButton(e))
+								if(t.getNb_points() < t.getMax_points()) {
 									t.setNbPoints(1);
-								if(SwingUtilities.isRightMouseButton(e))
-									t.setNbPoints(-1);
-								ultimAccess.repaint();
-								nbPointsDispo--;
-								nbPointsDepenses++;
+									ultimAccess.repaint();
+									nbPointsDispo--;
+									nbPointsDepenses++;
+								}
 							}
 						}
 						
@@ -103,6 +108,8 @@ public class Arbre extends JPanel {
 		g2d.drawImage(back, 0, 0, this);
 		g2d.setColor(new Color(0, 0, 0, 128));
 		g2d.fillRect(635, 30, 400, 600);
+		g2d.setColor(new Color(255, 215, 128));
+		g2d.drawRect(635, 30, 400, 600);
 		g2d.setColor(Color.white);
 		g2d.setFont(fontHeader);
 		g2d.drawString("Arbre des talents", 645, 60);
@@ -113,15 +120,20 @@ public class Arbre extends JPanel {
 		for(final Talent t:talents) {
 			this.add(t);
 			t.setSize(50, 50);
-			t.setLocation(700 + i *70, 120 + j * 80);
+			t.setLocation(685 + i * 80, 95 + j * 90);
 			if(t.getIsNull()) {
 				t.setVisible(false);
 			}
 			else {
-				g2d.setColor(Color.white);
-				g2d.fillRect(t.getLocation().x+10, t.getLocation().y+50, 30, 15);
+				g2d.drawImage(t.getImage(), t.getLocation().x, t.getLocation().y, this);
+				g2d.setColor(new Color(255, 215, 0));
+				g2d.drawRect(t.getLocation().x, t.getLocation().y, 64, 64);
 				g2d.setColor(Color.black);
-				g2d.drawString(t.getNb_points() + "/" + t.getMax_points(), t.getLocation().x+17, t.getLocation().y+62);
+				g2d.fillRect(t.getLocation().x+38, t.getLocation().y+57, 30, 15);
+				g2d.setColor(new Color(255, 215, 0));
+				g2d.drawRect(t.getLocation().x+38, t.getLocation().y+57, 30, 15);
+				g2d.setColor(Color.LIGHT_GRAY);
+				g2d.drawString(t.getNb_points() + "/" + t.getMax_points(), t.getLocation().x+46, t.getLocation().y+69);
 				t.setNb_points_requis(j*4);
 			}
 			if(i==3) {
@@ -132,7 +144,7 @@ public class Arbre extends JPanel {
 				i++;
 		}
 		if(tooltip!=null) {
-			g2d.setColor(new Color(0, 0, 0, 220));
+			g2d.setColor(new Color(0, 0, 0, 240));
 			g2d.fillRect(tooltip.getLocation().x-220, tooltip.getLocation().y, 200, 120);
 			g2d.setColor(Color.white);
 			g2d.setFont(fontTTHeader);

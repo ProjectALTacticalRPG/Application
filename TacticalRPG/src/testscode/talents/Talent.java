@@ -8,10 +8,11 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Talent extends JPanel {
+public class Talent extends JComponent {
 
 	private String nom;
 	private Image image;
@@ -41,11 +42,6 @@ public class Talent extends JPanel {
 	public Talent(Object object) {
 		// Talent vide
 		isNull = true;
-	}
-	
-	public void paintComponent(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.drawImage(image, 0, 0, this);
 	}
 	
 	public boolean getIsNull() {
