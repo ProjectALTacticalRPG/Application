@@ -1,10 +1,10 @@
 package testscode.talents;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 public class Talent extends JComponent {
 
 	private String nom;
-	private Image image;
 	private ArrayList<String> tooltip;
 	private int element_mod;
 	private double[] valeur_mod;
@@ -24,10 +23,11 @@ public class Talent extends JComponent {
 	private int nb_points_requis;
 	private Talent talent_requis;
 	private boolean isNull;
+	private Image image;
 	
-	public Talent(String n, Image i, String tt, int em, double[] vm, int mx, int nbp, int nbpr, Talent rq) {
+	public Talent(String n, String i, String tt, int em, double[] vm, int mx, int nbp, int nbpr, Talent rq) {
 		nom = n;
-		image = i;
+		image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/ressources/img/"+i+".png"));
 		tooltip = new ArrayList<String>();
 		setTooltip(tt);
 		element_mod = em;
