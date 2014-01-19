@@ -18,7 +18,7 @@ public class PanelDrawing extends JPanel {
 	protected int height;
 	protected int width;
 	
-	protected Font fontHeader = new Font("Arial", Font.PLAIN, 25);
+	protected Font fontHeader = new Font("Arial", Font.BOLD, 25);
 	protected Font fontSmall = new Font("Arial", Font.BOLD, 12);
 	protected Font fontSmallItalic = new Font("Arial", Font.ITALIC, 12);
 	protected Font fontTTHeader = new Font("Arial", Font.BOLD, 17);
