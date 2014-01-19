@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import javax.swing.JPanel;
 
 public class PanelDrawing extends JPanel {
@@ -18,9 +20,11 @@ public class PanelDrawing extends JPanel {
 	
 	protected Font fontHeader = new Font("Arial", Font.PLAIN, 25);
 	protected Font fontSmall = new Font("Arial", Font.BOLD, 12);
+	protected Font fontSmallItalic = new Font("Arial", Font.ITALIC, 12);
 	protected Font fontTTHeader = new Font("Arial", Font.BOLD, 17);
 	protected Font fontTTDesc = new Font("Arial", Font.PLAIN, 12);
 	protected Font fontTTReq = new Font("Arial", Font.ITALIC, 12);
+	protected Color gold = new Color(255, 215, 0);
 	
 	public PanelDrawing(String pn, int x, int y, int w, int h) {
 		panelName = pn;
@@ -30,8 +34,9 @@ public class PanelDrawing extends JPanel {
 		height = h;
 	}
 
-	public void paintComponents(Graphics g) {
+	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 		g2d.setColor(new Color(0, 0, 0, 128));
 		g2d.fillRect(posX, posY, width, height);
 		g2d.setColor(new Color(255, 215, 128));

@@ -85,9 +85,9 @@ public class Arbre extends PanelDrawing {
 	}
 	
 	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
+		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.drawString("Points disponibles : " + nbPointsDispo, posX+10, 80);
+		g2d.drawString("Points disponibles : " + nbPointsDispo, posX+10, posY+50);
 		int i = 0;
 		int j = 0;
 		for(final Talent t:talents) {
@@ -103,7 +103,7 @@ public class Arbre extends PanelDrawing {
 					g2d.setColor(new Color(0, 0, 0, 180));
 					g2d.fillRect(t.getLocation().x, t.getLocation().y, 64, 64);
 				}
-				g2d.setColor(new Color(255, 215, 0));
+				g2d.setColor(gold);
 				g2d.drawRect(t.getLocation().x, t.getLocation().y, 64, 64);
 				g2d.setColor(Color.black);
 				g2d.fillRect(t.getLocation().x+38, t.getLocation().y+57, 30, 15);
@@ -113,7 +113,7 @@ public class Arbre extends PanelDrawing {
 					g2d.setColor(new Color(0, 0, 0, 180));
 					g2d.fillRect(t.getLocation().x+38, t.getLocation().y+57, 30, 15);
 				}
-				g2d.setColor(new Color(255, 215, 0));
+				g2d.setColor(gold);
 				g2d.drawRect(t.getLocation().x+38, t.getLocation().y+57, 30, 15);
 				t.setNb_points_requis(j*4);
 			}
