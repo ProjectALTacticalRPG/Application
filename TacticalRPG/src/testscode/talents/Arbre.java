@@ -24,13 +24,14 @@ import javax.swing.SwingUtilities;
 public class Arbre extends PanelDrawing {
 	
 	private ArrayList<Talent> talents;
-	public final Arbre ultimAccess = this;
+	public final MainPanel ultimAccess;
 	private int nbPointsDispo;
 	private int nbPointsDepenses;
 	private Talent tooltip;
 	
-	public Arbre(int x, int y, int w, int h) {
+	public Arbre(int x, int y, int w, int h, MainPanel m) {
 		super("Arbre des talents", x, y, w, h);
+		ultimAccess = m;
 		double[] puissance = {1, 2, 3.5, 5};
 		double[] armure = {1, 2, 3.5, 5};
 		double[] vivacité = {5, 10};
@@ -72,6 +73,7 @@ public class Arbre extends PanelDrawing {
 						public void mouseEntered(MouseEvent e) { 
 							tooltip = t;
 							ultimAccess.repaint();
+							System.out.println("toto");
 						}
 						
 						public void mouseExited(MouseEvent e) {

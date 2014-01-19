@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.io.FileInputStream;
 
 import javax.swing.JPanel;
 
@@ -18,7 +19,7 @@ public class PanelDrawing extends JPanel {
 	protected int height;
 	protected int width;
 	
-	protected Font fontHeader = new Font("Arial", Font.BOLD, 25);
+	protected Font fontHeader;
 	protected Font fontSmall = new Font("Arial", Font.BOLD, 12);
 	protected Font fontSmallItalic = new Font("Arial", Font.ITALIC, 12);
 	protected Font fontTTHeader = new Font("Arial", Font.BOLD, 17);
@@ -27,6 +28,11 @@ public class PanelDrawing extends JPanel {
 	protected Color gold = new Color(255, 215, 0);
 	
 	public PanelDrawing(String pn, int x, int y, int w, int h) {
+		try {
+			fontHeader = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(getClass().getResource("/ressources/fonts/Triforce.ttf").getFile()));
+		} catch(Exception e) {
+			fontHeader = new Font("Arial", Font.BOLD, 25);
+		}
 		panelName = pn;
 		posX = x;
 		posY = y;

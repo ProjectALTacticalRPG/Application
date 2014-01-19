@@ -19,8 +19,10 @@ public class MainPanel extends JPanel {
 	public MainPanel() {
 		elements = new ArrayList<PanelDrawing>();
 		elements.add(new Character(30, 30, 575, 110));
-		elements.add(new Arbre(635, 30, 400, 340));
+		elements.add(new Arbre(635, 30, 400, 340, this));
 		elements.add(new Shop(635, 400, 400, 270));
+		for(PanelDrawing p:elements)
+			add(p);
 	}
 	
 	protected void paintComponent(Graphics g) {

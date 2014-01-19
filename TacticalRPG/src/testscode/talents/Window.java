@@ -14,7 +14,6 @@ public class Window {
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new MainPanel());
-		f.validate();
 	}
 	
 }
