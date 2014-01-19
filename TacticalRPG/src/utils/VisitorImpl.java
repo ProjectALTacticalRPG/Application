@@ -2,11 +2,11 @@ package utils;
 
 import java.util.ArrayList;
 
-import units.Army;
-import units.ArmyMember;
-import units.InfantryManProxy;
-import units.SoldierWithShield;
-import units.SoldierWithSword;
+import units.Group;
+import units.GroupMember;
+import units.MoblinProxy;
+import units.FighterWithShield;
+import units.FighterWithSword;
 
 
 public class VisitorImpl implements Visitor {
@@ -16,7 +16,7 @@ public class VisitorImpl implements Visitor {
 	private int level = 0;
 	
 	@Override
-	public void visit(Army army) {
+	public void visit(Group army) {
 		
 		System.out.println(tab()+"Visite un nouveau groupe armé");
 		
@@ -27,8 +27,8 @@ public class VisitorImpl implements Visitor {
 		
 		level++;
 		
-		ArrayList<ArmyMember> members = army.getArmyMembers();
-		for(ArmyMember a : members){
+		ArrayList<GroupMember> members = army.getArmyMembers();
+		for(GroupMember a : members){
 			a.accept(this);
 		}
 		
@@ -50,19 +50,19 @@ public class VisitorImpl implements Visitor {
 	}
 
 	@Override
-	public void visit(SoldierWithSword sw) {
+	public void visit(FighterWithSword sw) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(SoldierWithShield sh) {
+	public void visit(FighterWithShield sh) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(InfantryManProxy im) {
+	public void visit(MoblinProxy im) {
 		System.out.println(tab()+"Visite un InfantryMan");
 		infantryMen++;
 	}

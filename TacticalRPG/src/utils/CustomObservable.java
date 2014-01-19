@@ -2,14 +2,14 @@ package utils;
 
 import java.util.ArrayList;
 
-import units.Army;
-import units.SoldierProxy;
+import units.Group;
+import units.FighterProxy;
 
 public class CustomObservable {
 
 	private ArrayList<CustomObserver> observers = new ArrayList<CustomObserver>();
 
-	public void notifyObservers(SoldierProxy s, String message) {
+	public void notifyObservers(FighterProxy s, String message) {
 
 		ArrayList<CustomObserver> temp = new ArrayList<CustomObserver>(observers);
 
@@ -17,14 +17,14 @@ public class CustomObservable {
 			obs.update(s, message);
 	}
 
-	public void notifyObservers(Army a) {
+	public void notifyObservers(Group a) {
 		ArrayList<CustomObserver> temp = new ArrayList<CustomObserver>(observers);
 		for(CustomObserver obs : temp)
 			obs.update(a);
 	}
 	
 
-	public void notifyObservers(SoldierProxy s) {
+	public void notifyObservers(FighterProxy s) {
 		ArrayList<CustomObserver> temp = new ArrayList<CustomObserver>(observers);
 
 		for(CustomObserver obs : temp)

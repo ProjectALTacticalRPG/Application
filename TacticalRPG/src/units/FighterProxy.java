@@ -6,11 +6,11 @@ import utils.CustomObservable;
 import utils.Visitor;
 
 
-public class SoldierProxy extends CustomObservable implements ArmyMember {
+public class FighterProxy extends CustomObservable implements GroupMember {
 
-	private Soldier soldier;
+	private Fighter soldier;
 
-	public SoldierProxy(Soldier s){
+	public FighterProxy(Fighter s){
 		soldier = s;
 	}
 
@@ -32,9 +32,9 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public Object upgrade(Class<?> upgrade){
 		try {
-			Constructor<?> constr = upgrade.getConstructor(Soldier.class);
+			Constructor<?> constr = upgrade.getConstructor(Fighter.class);
 			
-			soldier = (Soldier) constr.newInstance(soldier);
+			soldier = (Fighter) constr.newInstance(soldier);
 			return soldier;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,21 +44,21 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public void remove(Object obj){
 
-		Soldier previous = null;
-		Soldier it = soldier;
+		Fighter previous = null;
+		Fighter it = soldier;
 		boolean found = false;
 
-		while(it instanceof EquippedSoldier && !found){ 
-			if(it == (Soldier)obj){
+		while(it instanceof EquippedFighter && !found){ 
+			if(it == (Fighter)obj){
 				if(previous == null)
-					soldier = ((EquippedSoldier) it).soldier;
+					soldier = ((EquippedFighter) it).soldier;
 				else
-					((EquippedSoldier) previous).soldier = ((EquippedSoldier) it).soldier;
+					((EquippedFighter) previous).soldier = ((EquippedFighter) it).soldier;
 				found = true;
 			}
 			else{
 				previous = it;
-				it = ((EquippedSoldier) it).soldier;
+				it = ((EquippedFighter) it).soldier;
 			}
 		}
 	}
@@ -74,12 +74,12 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public int nbItems(){
 		
-		Soldier it = soldier;
+		Fighter it = soldier;
 		int nb = 0;
 		
-		while(it instanceof EquippedSoldier){ 
+		while(it instanceof EquippedFighter){ 
 			nb++;
-			it = ((EquippedSoldier) it).soldier;
+			it = ((EquippedFighter) it).soldier;
 		}
 		return nb;
 	}
@@ -88,7 +88,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	public void addSword(){
 		
 		try {
-			soldier = new SoldierWithSword(soldier);
+			soldier = new FighterWithSword(soldier);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,7 +97,7 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	public void addShield(){
 		
 		try {
-			soldier = new SoldierWithShield(soldier);
+			soldier = new FighterWithShield(soldier);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,41 +106,41 @@ public class SoldierProxy extends CustomObservable implements ArmyMember {
 	
 	public void removeSword(){
 
-		Soldier previous = null;
-		Soldier it = soldier;
+		Fighter previous = null;
+		Fighter it = soldier;
 		boolean found = false;
-		while(it instanceof EquippedSoldier && !found){ 
+		while(it instanceof EquippedFighter && !found){ 
 			
-			if(it instanceof SoldierWithSword){
+			if(it instanceof FighterWithSword){
 				if(previous == null)
-					soldier = ((EquippedSoldier) it).soldier;
+					soldier = ((EquippedFighter) it).soldier;
 				else
-					((EquippedSoldier) previous).soldier = ((EquippedSoldier) it).soldier;
+					((EquippedFighter) previous).soldier = ((EquippedFighter) it).soldier;
 				found = true;
 			}
 			else{
 				previous = it;
-				it = ((EquippedSoldier) it).soldier;
+				it = ((EquippedFighter) it).soldier;
 			}
 		}
 	}
 	
 	public void removeShield(){
 		
-		Soldier previous = null;
-		Soldier it = soldier;
+		Fighter previous = null;
+		Fighter it = soldier;
 		boolean found = false;
-		while(it instanceof EquippedSoldier && !found){ 
-			if(it instanceof SoldierWithShield){
+		while(it instanceof EquippedFighter && !found){ 
+			if(it instanceof FighterWithShield){
 				if(previous == null)
-					soldier = ((EquippedSoldier) it).soldier;
+					soldier = ((EquippedFighter) it).soldier;
 				else
-					((EquippedSoldier) previous).soldier = ((EquippedSoldier) it).soldier;
+					((EquippedFighter) previous).soldier = ((EquippedFighter) it).soldier;
 				found = true;
 			}
 			else{
 				previous = it;
-				it = ((EquippedSoldier) it).soldier;
+				it = ((EquippedFighter) it).soldier;
 			}
 		}
 	}

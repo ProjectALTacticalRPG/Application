@@ -1,11 +1,11 @@
 package utils;
 
-import units.Army;
-import units.SoldierProxy;
+import units.Group;
+import units.FighterProxy;
 
 public interface CustomObserver {
 
-	public void update(SoldierProxy s, String message);
-	public void update(Army a);
-	public void update(SoldierProxy s);
+	public void update(FighterProxy s, String message);
+	public void update(Group a);
+	public void update(FighterProxy s);
 }

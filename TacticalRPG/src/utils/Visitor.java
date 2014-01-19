@@ -1,15 +1,15 @@
 package utils;
 
-import units.Army;
-import units.InfantryManProxy;
-import units.SoldierWithShield;
-import units.SoldierWithSword;
+import units.Group;
+import units.MoblinProxy;
+import units.FighterWithShield;
+import units.FighterWithSword;
 
 
 public interface Visitor {
-	public void visit(Army army);
-	public void visit(InfantryManProxy im);
-	public void visit(SoldierWithSword sw);
-	public void visit(SoldierWithShield sh);
+	public void visit(Group army);
+	public void visit(MoblinProxy im);
+	public void visit(FighterWithSword sw);
+	public void visit(FighterWithShield sh);
 	public void printSoldiers();
 }

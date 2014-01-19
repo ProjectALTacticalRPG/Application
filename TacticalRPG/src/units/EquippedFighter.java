@@ -1,20 +1,20 @@
 package units;
 
 
-public abstract class EquippedSoldier extends AbstractSoldier{
+public abstract class EquippedFighter extends AbstractFighter{
 
-	protected Soldier soldier;
+	protected Fighter soldier;
 	
-	public EquippedSoldier(Soldier s) throws Exception {
-		Soldier it = s;
+	public EquippedFighter(Fighter s) throws Exception {
+		Fighter it = s;
 		int nb = 1;
 		
-		while(it instanceof EquippedSoldier){
+		while(it instanceof EquippedFighter){
 			nb++;
 			if(nb > 2)
 				throw new Exception("Deux objets déjà équipés");
 			
-			it = ((EquippedSoldier) it).soldier;
+			it = ((EquippedFighter) it).soldier;
 		}
 		
 		soldier = s;

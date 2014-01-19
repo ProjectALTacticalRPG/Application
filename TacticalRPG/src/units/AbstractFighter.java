@@ -1,6 +1,6 @@
 package units;
 
-public abstract class AbstractSoldier implements Soldier {
+public abstract class AbstractFighter implements Fighter {
 	
 	private int damage;
 	private int health;

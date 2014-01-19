@@ -3,32 +3,34 @@ package units;
 import utils.Visitor;
 
 
-public class SoldierWithShield extends EquippedSoldier{
-
-	private int itemDefense;
+public class FighterWithSword extends EquippedFighter{
 	
-	public SoldierWithShield(int itemDefense, Soldier s) throws Exception {
+	private int itemDmg;
+	private int itemDefense;
+
+	public FighterWithSword(Fighter s) throws Exception {
 		super(s);
-		this.itemDefense = itemDefense;
+		this.itemDmg = 50;
+		this.itemDefense = 5;
 	}
 	
-	public SoldierWithShield(Soldier s) throws Exception {
+	public FighterWithSword(int itemDmg, int itemDefense, AbstractFighter s) throws Exception {
 		super(s);
-		this.itemDefense = 20;
+		this.itemDmg = itemDmg;
+		this.itemDefense = itemDefense;
 	}
 	
 	@Override
 	public int strike() {
-		return super.strike();
+		return itemDmg + super.strike();
 	}
 
 	@Override
 	public void parry(int attack) {
+		
 		int effAttack = attack - itemDefense;
 		if(effAttack > 0)
 			super.parry(effAttack);
-		else
-			System.out.println("Attaque parée");
 	}
 
 	@Override

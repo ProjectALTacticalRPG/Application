@@ -7,18 +7,18 @@ import utils.CustomObserver;
 import utils.Visitable;
 import utils.Visitor;
 
-public class Army extends CustomObservable implements ArmyMember, Visitable {
+public class Group extends CustomObservable implements GroupMember, Visitable {
 
-	private ArrayList<ArmyMember> members = new ArrayList<ArmyMember>();
+	private ArrayList<GroupMember> members = new ArrayList<GroupMember>();
 	private String name;
 	private boolean unused = true;
 	
 	
-	public Army(){
+	public Group(){
 		
 	}
 	
-	public Army(String name){
+	public Group(String name){
 		this.name = name;
 	}
 	
@@ -26,12 +26,12 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public void parry(int damage) {
 		int dmgPerArmy = damage / members.size();
 		
-		for(ArmyMember a: members){
+		for(GroupMember a: members){
 			a.parry(dmgPerArmy);
 		}
 		
-		ArrayList<ArmyMember> membersTemp = new ArrayList<ArmyMember>();
-		for(ArmyMember a: members){
+		ArrayList<GroupMember> membersTemp = new ArrayList<GroupMember>();
+		for(GroupMember a: members){
 			if(a.isAlive())
 				membersTemp.add(a);
 		}
@@ -44,13 +44,13 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	public int strike() {
 		int damage = 0;
 		
-		for(ArmyMember a : members){
+		for(GroupMember a : members){
 			damage += a.strike();
 		}
 		return damage;
 	}
 	
-	public boolean addMember(ArmyMember army){
+	public boolean addMember(GroupMember army){
 		if(!checkMember(army)){
 			members.add(army);
 			unused = false;
@@ -59,31 +59,31 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		return false;
 	}
 	
-	public void removeMember(ArmyMember army){
+	public void removeMember(GroupMember army){
 		members.remove(army);
 	}
 
 	@Override
 	public void addSword() {
-		for(ArmyMember a: members)
+		for(GroupMember a: members)
 			a.addSword();
 	}
 
 	@Override
 	public void addShield() {
-		for(ArmyMember a : members)
+		for(GroupMember a : members)
 			a.addShield();
 	}
 
 	@Override
 	public void removeSword() {
-		for(ArmyMember a : members)
+		for(GroupMember a : members)
 			a.removeSword();
 	}
 
 	@Override
 	public void removeShield() {
-		for(ArmyMember a : members)
+		for(GroupMember a : members)
 			a.removeShield();
 	}
 
@@ -92,15 +92,15 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 		
 		int health = 0;
 		
-		for(ArmyMember a : members){
+		for(GroupMember a : members){
 			health += a.getHealth();
 		}
 		
 		return health;
 	}
 	
-	public ArrayList<ArmyMember> getArmyMembers(){
-		return new ArrayList<ArmyMember>(members);
+	public ArrayList<GroupMember> getArmyMembers(){
+		return new ArrayList<GroupMember>(members);
 	}
 
 	@Override
@@ -111,11 +111,11 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 			return (members.size() > 0) ? true : false;
 	}
 	
-	public boolean checkMember(ArmyMember member){
+	public boolean checkMember(GroupMember member){
 		boolean result = false;
-		for(ArmyMember a : members){
-			if(a instanceof Army){
-				result = ((Army) a).checkMember(member);
+		for(GroupMember a : members){
+			if(a instanceof Group){
+				result = ((Group) a).checkMember(member);
 			}
 			else if(a == member){
 				return true;
@@ -135,11 +135,11 @@ public class Army extends CustomObservable implements ArmyMember, Visitable {
 	
 	public void addObs(CustomObserver o){
 		this.addObserver(o);
-		for(ArmyMember a : members){
-			if(a instanceof SoldierProxy)
-				((SoldierProxy) a).addObserver(o);
-			else if(a instanceof Army)
-				((Army)a).addObs(o);
+		for(GroupMember a : members){
+			if(a instanceof FighterProxy)
+				((FighterProxy) a).addObserver(o);
+			else if(a instanceof Group)
+				((Group)a).addObs(o);
 		}
 	}
 }
