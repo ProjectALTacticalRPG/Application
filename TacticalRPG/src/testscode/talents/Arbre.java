@@ -1,24 +1,11 @@
 package testscode.talents;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.FlowLayout; 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout; 
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
 
 
 public class Arbre extends PanelDrawing {
@@ -54,8 +41,22 @@ public class Arbre extends PanelDrawing {
 		talents.add(new Talent("Erudit", "erudit", "Augmente l'expérience reçue   de 5/10/15/20%", 2, erudit, 4, 0, 0, null));
 		talents.add(new Talent("Richesse", "richesse", "Augmente l'or reçu de         2.5/5/7.5/10%", 2, richesse, 4, 0, 0, null));
 		
+		int i = 0;
+		int j = 0;
+		this.setLayout(null);
+	
 		for(final Talent t:talents) {
+			
 			this.add(t);
+			t.setSize(50, 50);
+			t.setLocation(685 + i * 80, 95 + j * 90);
+			if(i==3) {
+				i = 0;
+				j++;
+			}
+			else
+				i++;
+			
 			if(!t.getIsNull()) {
 				t.addMouseListener(
 					new MouseAdapter(){
@@ -82,6 +83,14 @@ public class Arbre extends PanelDrawing {
 						}
 					}
 				);
+				
+				t.addMouseMotionListener(new MouseMotionAdapter(){
+					public void mouseMoved(MouseEvent e) { 
+						tooltip = t;
+						ultimAccess.repaint();
+						System.out.println("toto");
+					}
+				});
 			}
 		}
 	}
@@ -94,10 +103,8 @@ public class Arbre extends PanelDrawing {
 		g2d.setFont(fontSmall);
 		int i = 0;
 		int j = 0;
+		
 		for(final Talent t:talents) {
-			this.add(t);
-			t.setSize(50, 50);
-			t.setLocation(685 + i * 80, 95 + j * 90);
 			if(t.getIsNull()) {
 				t.setVisible(false);
 			}
