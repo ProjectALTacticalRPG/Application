@@ -32,15 +32,19 @@ public class Character extends PanelDrawing {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		super.paintComponent(g2d);
-		g2d.setColor(Color.WHITE);
 		g2d.setFont(fontExp);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Niveau : " + level, posX+11, posY+56);
+		g2d.setColor(Color.WHITE);
 		g2d.drawString("Niveau : " + level, posX+12, posY+55);
 		g2d.setColor(new Color(76, 166, 107));
 		g2d.fillRect(posX+12, posY+65, calcWidth(), 30);
 		g2d.setColor(gold);
 		g2d.drawRect(posX+12, posY+65, width-24, 30);
-		g2d.setColor(Color.WHITE);
 		g2d.setFont(fontExp);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Experience : " + roundToInt(exp_get) + "/" + roundToInt(exp_max) + " (" + calcPercent() + "%)", posX+21, posY+86);
+		g2d.setColor(Color.WHITE);
 		g2d.drawString("Experience : " + roundToInt(exp_get) + "/" + roundToInt(exp_max) + " (" + calcPercent() + "%)", posX+22, posY+85);
 	}
 	

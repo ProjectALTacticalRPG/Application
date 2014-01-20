@@ -49,8 +49,10 @@ public class PanelDrawing extends JPanel {
 		g2d.fillRect(posX, posY, width, height);
 		g2d.setColor(new Color(255, 215, 128));
 		g2d.drawRect(posX, posY, width, height);
-		g2d.setColor(Color.white);
 		g2d.setFont(fontHeader);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString(panelName, posX+9, posY+31);
+		g2d.setColor(Color.WHITE);
 		g2d.drawString(panelName, posX+10, posY+30);
 		g2d.setFont(fontSmall);
 	}

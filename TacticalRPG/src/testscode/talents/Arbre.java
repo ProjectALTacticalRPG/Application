@@ -99,6 +99,9 @@ public class Arbre extends PanelDrawing {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(fontExp);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Points disponibles : " + nbPointsDispo, posX+9, posY+56);
+		g2d.setColor(Color.WHITE);
 		g2d.drawString("Points disponibles : " + nbPointsDispo, posX+10, posY+55);
 		g2d.setFont(fontSmall);
 		int i = 0;
