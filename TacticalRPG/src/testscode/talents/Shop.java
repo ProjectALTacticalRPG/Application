@@ -17,8 +17,8 @@ public class Shop extends PanelDrawing {
 		Graphics2D g2d = (Graphics2D)g;
 		super.paintComponent(g2d);
 		g2d.setColor(Color.white);
-		g2d.setFont(fontSmall);
-		g2d.drawString("Fonds disponibles : " + cash + " rubis", posX+12, posY+50);
+		g2d.setFont(fontExp);
+		g2d.drawString("Fonds disponibles : " + cash + " rubis", posX+12, posY+55);
 	}
 	
 }

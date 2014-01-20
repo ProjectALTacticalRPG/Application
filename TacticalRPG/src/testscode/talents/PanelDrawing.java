@@ -21,6 +21,7 @@ public class PanelDrawing extends JPanel {
 	
 	protected Font fontHeader;
 	protected Font fontSmall = new Font("Arial", Font.BOLD, 12);
+	protected Font fontExp;
 	protected Font fontSmallItalic = new Font("Arial", Font.ITALIC, 12);
 	protected Font fontTTHeader = new Font("Arial", Font.BOLD, 17);
 	protected Font fontTTDesc = new Font("Arial", Font.PLAIN, 12);
@@ -29,7 +30,8 @@ public class PanelDrawing extends JPanel {
 	
 	public PanelDrawing(String pn, int x, int y, int w, int h) {
 		try {
-			fontHeader = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(getClass().getResource("/ressources/fonts/Triforce.ttf").getFile()));
+			fontHeader = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
+			fontExp = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.PLAIN,13F);
 		} catch(Exception e) {
 			fontHeader = new Font("Arial", Font.BOLD, 25);
 		}
