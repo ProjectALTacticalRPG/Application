@@ -17,7 +17,7 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 	protected ObservableValue<Integer> life[];
 	protected ObservableValue<Boolean> endOfGame;
 
-	boolean stopGameLoop;
+	protected boolean stopGameLoop;
 	protected final Game g;
 
 	protected abstract void init();

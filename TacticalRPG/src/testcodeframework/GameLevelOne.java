@@ -2,6 +2,7 @@ package testcodeframework;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.util.Date;
 
 import gameframework.base.MoveStrategyKeyboard;
 import gameframework.game.CanvasDefaultImpl;
@@ -100,6 +101,27 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setDriver(linkDriver);
 		myLink.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		universe.addGameEntity(myLink);
+	}
+	
+	@Override
+	public void run() {
+		stopGameLoop = false;
+		// main game loop :
+		long start;
+		while (!stopGameLoop && !this.isInterrupted()) {
+			start = new Date().getTime();
+			gameBoard.paint();
+			universe.allOneStepMoves();
+			universe.processAllOverlaps();
+			try {
+				long sleepTime = 60
+						- (new Date().getTime() - start);
+				if (sleepTime > 0) {
+					Thread.sleep(sleepTime);
+				}
+			} catch (Exception e) {
+			}
+		}
 	}
 
 }
