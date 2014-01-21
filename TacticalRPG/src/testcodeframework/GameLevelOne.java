@@ -21,6 +21,7 @@ import gameframework.game.OverlapRulesApplierDefaultImpl;
 public class GameLevelOne extends GameLevelDefaultImpl {
 	
 	Canvas canvas;
+	private final static int GAME_SPEED = 40;
 	
 	static int[][] tab = { 
 		    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -114,7 +115,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			universe.allOneStepMoves();
 			universe.processAllOverlaps();
 			try {
-				long sleepTime = 60
+				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
 				if (sleepTime > 0) {
 					Thread.sleep(sleepTime);

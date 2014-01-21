@@ -4,9 +4,9 @@ import javax.swing.JFrame;
 
 import gameframework.game.GameDefaultImpl;
 
-public class UIExtended extends GameDefaultImpl {
+public class GameExtendedImpl extends GameDefaultImpl {
 
-	public UIExtended() {
+	public GameExtendedImpl() {
 		super();
 	}
 	
