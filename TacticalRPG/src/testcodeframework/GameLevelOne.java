@@ -80,7 +80,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		});
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
-		((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/middle-finger-guy-gif.gif");
+		((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/dirt_16.png");
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
 		for (int i = 0; i < 31; ++i) {
