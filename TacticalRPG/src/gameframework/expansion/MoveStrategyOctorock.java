@@ -16,8 +16,8 @@ public class MoveStrategyOctorock implements MoveStrategy {
 	public SpeedVector getSpeedVector() {
 		
 		if(hold <= 0){
-			hold = 3+random.nextInt(5);
-			int i = random.nextInt(5);
+			
+			int i = random.nextInt(6);
 
 			switch (i) {
 			case 0:
@@ -32,8 +32,15 @@ public class MoveStrategyOctorock implements MoveStrategy {
 			case 3:
 				currentMove.setDirection(new Point(0, 1));
 				break;
+			case 4:
+				currentMove.setDirection(new Point(0, 0));
+				break;
 			}
 			
+			if(i==4)
+				hold = 75;
+			else
+				hold = 4+random.nextInt(7);
 			oldDirection = currentMove.getDirection();
 		}
 		else
