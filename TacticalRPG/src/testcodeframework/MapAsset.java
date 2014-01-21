@@ -13,7 +13,7 @@ import java.awt.Rectangle;
 public class MapAsset implements Drawable, MoveBlocker, GameEntity {
 	protected DrawableImage image = null;
 	int x, y;
-	public static final int RENDERING_SIZE = 16;
+	public static final int RENDERING_SIZE = 60;
 
 	public MapAsset(Canvas defaultCanvas, int xx, int yy, String imgPath) {
 		image = new DrawableImage(imgPath, defaultCanvas);

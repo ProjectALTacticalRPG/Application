@@ -14,8 +14,8 @@ import java.awt.Rectangle;
 public class Link extends GameMovable implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
-	public static final int RENDERING_SIZE_W = 24*2;
-	public static final int RENDERING_SIZE_H = 26*2;
+	public static final int RENDERING_SIZE_W = (int) (24*1.35);
+	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
