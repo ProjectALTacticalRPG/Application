@@ -1,6 +1,7 @@
 package testcodeframework;
 
 import gameframework.base.Drawable;
+import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
@@ -14,6 +15,7 @@ import java.awt.Rectangle;
 public class Link extends GameMovable implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
+	protected DrawableImage shadow;
 	public static final int RENDERING_SIZE_W = (int) (24*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
@@ -26,6 +28,8 @@ Overlappable {
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 8);
 		spriteManager.setTypes("down", "left", "right", "up", 
 				"down_static", "right_static", "left_static", "up_static");
+		
+		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
 
 	public void setInvulnerable(int timer) {
@@ -68,6 +72,26 @@ Overlappable {
 		
 		prev = spriteType;
 		spriteManager.setType(spriteType);
+		
+		int posX = getPosition().x;
+		int posY = getPosition().y+2;
+		
+		if(spriteType.contains("left")){
+			posX+=2;
+		}
+		else if(spriteType.contains("right")){
+			posX +=6;
+		}
+		else{
+			posX +=3;
+		}
+		
+		if(spriteType.contains("up"))
+			posY-=2;
+		
+		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-6, RENDERING_SIZE_H,
+				null);
+		
 		spriteManager.draw(g, getPosition());
 
 	}

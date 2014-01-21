@@ -90,7 +90,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
-	public static final int SPRITE_SIZE = 60;
+	public static final int SPRITE_SIZE = 16;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -116,14 +116,12 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/6526.gif");
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
-		for (int i = 0; i < 31; ++i) {
-			for (int j = 0; j < 28; ++j) {
-				if (tab[i][j] == 0) {
-					//universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/dirt_16.png"));
-				}
-				if (tab[i][j] == 1) {
+		for (int i = 0; i < 45; ++i) {
+			for (int j = 0; j < 80; ++j) {
+				if(j == 0 || j == 79)
 					universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/wall.png"));
-				}
+				else if(i == 0 || i == 44)
+					universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/wall.png"));
 			}
 		}
 		
@@ -135,7 +133,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
 		//myLink.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		myLink.setPosition(new Point(61,61));
+		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
 	}
 	
