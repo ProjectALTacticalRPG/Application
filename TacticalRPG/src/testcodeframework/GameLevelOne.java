@@ -4,8 +4,8 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Date;
 
-
 import gameframework.expansion.MoveStrategyKeyboardExtended;
+import gameframework.expansion.MoveStrategyOctorock;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
@@ -124,6 +124,18 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 					universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/wall.png"));
 			}
 		}
+		Octorock myOctorock;
+		for (int t = 0; t < 2; ++t) {
+			GameMovableDriverDefaultImpl octoDriv = new OctorockMovableDriver();
+			MoveStrategyOctorock ranStr = new MoveStrategyOctorock();
+			octoDriv.setStrategy(ranStr);
+			octoDriv.setmoveBlockerChecker(moveBlockerChecker);
+			myOctorock = new Octorock(canvas);
+			myOctorock.setDriver(octoDriv);
+			myOctorock.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
+			universe.addGameEntity(myOctorock);
+			//(overlapRules).addGhost(myOctorock);
+		}
 		
 		Link myLink = new Link(canvas);
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
@@ -135,6 +147,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		//myLink.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
+		
+		
 	}
 	
 	@Override
