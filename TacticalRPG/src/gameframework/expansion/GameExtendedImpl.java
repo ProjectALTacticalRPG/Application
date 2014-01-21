@@ -19,7 +19,6 @@ public class GameExtendedImpl extends GameDefaultImpl {
 	}
 	
 	public void setFrameParametersToDefault() {
-		System.out.println(resolutionW);
 		defaultCanvas.setSize(resolutionW, resolutionH);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.pack();
