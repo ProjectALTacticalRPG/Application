@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.Date;
 
 import gameframework.base.MoveStrategyKeyboard;
+import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
@@ -95,7 +96,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		Link myLink = new Link(canvas);
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
+		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended();
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
