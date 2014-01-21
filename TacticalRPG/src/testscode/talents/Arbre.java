@@ -21,7 +21,7 @@ public class Arbre extends PanelDrawing {
 		ultimAccess = m;
 		double[] puissance = {1, 2, 3.5, 5};
 		double[] armure = {1, 2, 3.5, 5};
-		double[] vivacité = {5, 10};
+		double[] vivacite = {5, 10};
 		double[] furie = {1, 2, 3.5, 5};
 		double[] blockage = {15};
 		double[] erudit = {5, 10, 15, 20};
@@ -33,7 +33,7 @@ public class Arbre extends PanelDrawing {
 		
 		talents.add(new Talent("Puissance", "puissance", "Augmente la puissance de Link de 1/2/3.5/5%", 2, puissance, 4, 0, 0, null));
 		talents.add(new Talent("Armure", "armure", "Augmente la résistance de     Link de 1/2/3.5/5%", 2, armure, 4, 0, 0, null));
-		talents.add(new Talent("Vivacité", "vivacite", "Augmente la vitesse de        déplacement de Link de 5/10%", 2, vivacité, 2, 0, 0, null));
+		talents.add(new Talent("Vivacité", "vivacite", "Augmente la vitesse de        déplacement de Link de 5/10%", 2, vivacite, 2, 0, 0, null));
 		talents.add(new Talent("Furie", "furie", "Réduit le temps entre deux    attaques de Link de 1/2/3/5%", 2, furie, 4, 0, 0, null));
 
 		talents.add(new Talent(null));

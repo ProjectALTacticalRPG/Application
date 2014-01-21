@@ -7,39 +7,35 @@ import gameframework.base.MoveStrategyKeyboard;
 
 public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 
-	private int lastKeyPressed;
+	private int movX;
+	private int movY;
 
 	@Override
 	public void keyPressed(KeyEvent event) {
-		int keycode = event.getKeyCode();
-		switch (keycode) {
-		case KeyEvent.VK_RIGHT:
-			speedVector.setDirection(new Point(1, 0));
-			lastKeyPressed = keycode;
-			break;
-		case KeyEvent.VK_LEFT:
-			speedVector.setDirection(new Point(-1, 0));
-			lastKeyPressed = keycode;
-			break;
-		case KeyEvent.VK_UP:
-			speedVector.setDirection(new Point(0, -1));
-			lastKeyPressed = keycode;
-			break;
-		case KeyEvent.VK_DOWN:
-			speedVector.setDirection(new Point(0, 1));
-			lastKeyPressed = keycode;
-			break;
-		}
+		move(event.getKeyCode(), 1);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		int keycode = event.getKeyCode();
-		if(keycode == KeyEvent.VK_RIGHT || keycode == KeyEvent.VK_LEFT 
-				|| keycode == KeyEvent.VK_UP || keycode == KeyEvent.VK_DOWN){
-			if(lastKeyPressed == keycode){
-				speedVector.setDirection(new Point(0, 0));
-			}
+		move(event.getKeyCode(), 0);
+	}
+	
+	private void move(int keycode, int value) {
+		switch (keycode) {
+		case KeyEvent.VK_RIGHT:
+			movX = value;
+			break;
+		case KeyEvent.VK_LEFT:
+			movX = -value;
+			break;
+		case KeyEvent.VK_UP:
+			movY = -value;
+			break;
+		case KeyEvent.VK_DOWN:
+			movY = value;
+			break;
 		}
+		
+		speedVector.setDirection(new Point(movX, movY));
 	}
 }
