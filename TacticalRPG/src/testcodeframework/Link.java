@@ -83,13 +83,13 @@ Overlappable {
 			posX +=6;
 		}
 		else{
-			posX +=3;
+			posX +=4;
 		}
 		
 		if(spriteType.contains("up"))
 			posY-=2;
 		
-		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-6, RENDERING_SIZE_H,
+		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
 				null);
 		
 		spriteManager.draw(g, getPosition());
