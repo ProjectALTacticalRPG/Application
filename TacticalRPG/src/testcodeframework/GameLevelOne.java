@@ -3,7 +3,9 @@ package testcodeframework;
 import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Date;
+import java.util.Random;
 
+import gameframework.expansion.MoveStrategyKeaton;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.expansion.MoveStrategyOctorock;
 import gameframework.game.CanvasDefaultImpl;
@@ -149,7 +151,18 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
 		
-		
+		Keaton myKeaton;
+		for (int t = 0; t < 2; ++t) {
+			GameMovableDriverDefaultImpl keatonDriv = new KeatonMovableDriver();
+			myKeaton = new Keaton(canvas);
+			myKeaton.setDriver(keatonDriv);
+			myKeaton.setPosition(new Point((10 + new Random().nextInt(14)) * SPRITE_SIZE, (10 + new Random().nextInt(14)) * SPRITE_SIZE));
+			universe.addGameEntity(myKeaton);
+			MoveStrategyKeaton ranStr = new MoveStrategyKeaton(myKeaton.getPosition(), myLink.getPosition());
+			keatonDriv.setStrategy(ranStr);
+			keatonDriv.setmoveBlockerChecker(moveBlockerChecker);
+			//(overlapRules).addGhost(myOctorock);
+		}
 	}
 	
 	@Override
