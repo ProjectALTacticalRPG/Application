@@ -113,7 +113,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		});
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
-		((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/6526.gif");
+		//((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/6526.gif");
+		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/6526.gif"));
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
 		for (int i = 0; i < 45; ++i) {
