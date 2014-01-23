@@ -2,8 +2,12 @@ package testcodeframework;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import utils.CalculateMatrix;
 
 import gameframework.expansion.MoveStrategyKeaton;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
@@ -101,6 +105,9 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 
 	@Override
 	protected void init() {
+		
+		CalculateMatrix cm = new CalculateMatrix();
+		ArrayList<Rectangle> collisions = cm.calculateMatrix("src/ressources/img/collisions.png");
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
@@ -115,18 +122,15 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		});
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
-		//((GameUniverseViewPortDefaultImpl)gameBoard).setBackground("src/ressources/img/6526.gif");
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/6526.gif"));
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
-		for (int i = 0; i < 45; ++i) {
-			for (int j = 0; j < 80; ++j) {
-				if(j == 0 || j == 79)
-					universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/wall.png"));
-				else if(i == 0 || i == 44)
-					universe.addGameEntity(new MapAsset(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE, "src/ressources/img/wall.png"));
-			}
+		for(int i = 0; i < collisions.size(); ++i){
+			Rectangle r = collisions.get(i);
+			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width+1, r.height+1, ""));
+			
 		}
+		
 		Octorock myOctorock;
 		for (int t = 0; t < 2; ++t) {
 			GameMovableDriverDefaultImpl octoDriv = new OctorockMovableDriver();
