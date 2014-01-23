@@ -1,7 +1,11 @@
 package gameframework.expansion;
 
-import java.awt.Point;
+import java.awt.Point; 
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
 
 import gameframework.base.MoveStrategyKeyboard;
 
@@ -9,10 +13,23 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 
 	private int movX;
 	private int movY;
+	private ArrayList<Integer> enterCode = new ArrayList<Integer>();
+	private int[] konamiCode = {38,38,40,40,37,39,37,39,66,65};
 
 	@Override
 	public void keyPressed(KeyEvent event) {
 		move(event.getKeyCode(), 1);
+		if(enterCode.size()==0 && event.getKeyCode()==38) {
+			enterCode.add(38);
+		} else if(event.getKeyCode()==konamiCode[(enterCode.size())]) {
+			enterCode.add(event.getKeyCode());
+		} else {
+			enterCode.clear();
+		}
+		if(enterCode.size()==10) {
+			System.out.println("Konami Code entered !");
+			enterCode.clear();
+		}
 	}
 
 	@Override
