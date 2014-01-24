@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import utils.CalculateMatrix;
 
@@ -29,7 +31,6 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	
 	Canvas canvas;
 	private final static int GAME_SPEED = 50;
-
 	public static final int SPRITE_SIZE = 16;
 
 	public GameLevelOne(Game g) {
@@ -48,34 +49,17 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		overlapProcessor.setOverlapRules(new OverlapRulesApplierDefaultImpl() {
-			
 			@Override
-			public void setUniverse(GameUniverse universe) {
-				
-			}
+			public void setUniverse(GameUniverse universe) {}
 		});
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
-		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/6526.gif"));
+		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
 		for(int i = 0; i < collisions.size(); ++i){
 			Rectangle r = collisions.get(i);
 			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width+1, r.height+1, ""));
-			
-		}
-		
-		Octorock myOctorock;
-		for (int t = 0; t < 2; ++t) {
-			GameMovableDriverDefaultImpl octoDriv = new OctorockMovableDriver();
-			MoveStrategyOctorock ranStr = new MoveStrategyOctorock();
-			octoDriv.setStrategy(ranStr);
-			octoDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myOctorock = new Octorock(canvas);
-			myOctorock.setDriver(octoDriv);
-			myOctorock.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-			universe.addGameEntity(myOctorock);
-			//(overlapRules).addGhost(myOctorock);
 		}
 		
 		Link myLink = new Link(canvas);
@@ -85,9 +69,17 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
-		//myLink.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+			}
+		}, 0, 1000);
+		
+		Wave w = new Wave("octorok", 5, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition());
+		w.initWave();
 		
 		Keaton myKeaton;
 		for (int t = 0; t < 2; ++t) {
@@ -99,7 +91,6 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			MoveStrategyKeaton ranStr = new MoveStrategyKeaton(myKeaton.getPosition(), myLink.getPosition());
 			keatonDriv.setStrategy(ranStr);
 			keatonDriv.setmoveBlockerChecker(moveBlockerChecker);
-			//(overlapRules).addGhost(myOctorock);
 		}
 	}
 	
