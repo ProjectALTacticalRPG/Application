@@ -20,7 +20,7 @@ public class Wave {
 	private int waveStartTime;
 	private boolean waveKilled;
 	private Canvas canvas;
-	private MoveBlockerChecker moveBlockedChecker;
+	private MoveBlockerChecker moveBlockedChecker = new MoveBlockerCheckerDefaultImpl();
 	private int spriteSize;
 	private GameUniverse universe;
 	private Point toFollow;
@@ -37,7 +37,7 @@ public class Wave {
 	}
 	
 	public void initWave() {
-		GameMovable ennemyType;
+		GameMovable ennemyType = null;
 		GameMovableDriverDefaultImpl driver = null;
 		MoveStrategy move = null;
 		for(int t = 0; t < waveLength; ++t) {
@@ -55,9 +55,10 @@ public class Wave {
 			}
 			driver.setStrategy(move);
 			driver.setmoveBlockerChecker(moveBlockedChecker);
-			ennemyType = new Octorock(canvas);
+			//ennemyType = new Octorock(canvas);
 			ennemyType.setDriver(driver);
-			universe.addGameEntity((GameEntity) ennemyType);
+			if(ennemyType != null)
+				universe.addGameEntity((GameEntity) ennemyType);
 		}
 	}
 
