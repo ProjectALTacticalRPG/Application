@@ -32,10 +32,14 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
 	private final static int GAME_SPEED = 50;
 	public static final int SPRITE_SIZE = 16;
+	private final ArrayList<Wave> waves;
+	private int timerTick;
 
 	public GameLevelOne(Game g) {
 		super(g);
 		canvas = g.getCanvas();
+		waves = new ArrayList<Wave>();
+		timerTick = 0;
 	}
 
 	@Override
@@ -71,27 +75,21 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setDriver(linkDriver);
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
+
+		waves.add(new Wave("octorok", 10, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("keaton", 10, 15, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
 		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			public void run() {
+				timerTick++;
+				for(Wave w:waves) {
+					if(w.getWaveStartTime()==timerTick) {
+						w.initWave();
+					}
+				}
 			}
 		}, 0, 1000);
-		
-		Wave w = new Wave("octorok", 5, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker);
-		w.initWave();
-		
-		Keaton myKeaton;
-		for (int t = 0; t < 2; ++t) {
-			GameMovableDriverDefaultImpl keatonDriv = new KeatonMovableDriver();
-			myKeaton = new Keaton(canvas);
-			myKeaton.setDriver(keatonDriv);
-			myKeaton.setPosition(new Point((10 + new Random().nextInt(14)) * SPRITE_SIZE, (10 + new Random().nextInt(14)) * SPRITE_SIZE));
-			universe.addGameEntity(myKeaton);
-			MoveStrategyKeaton ranStr = new MoveStrategyKeaton(myKeaton.getPosition(), myLink.getPosition());
-			keatonDriv.setStrategy(ranStr);
-			keatonDriv.setmoveBlockerChecker(moveBlockerChecker);
-		}
 	}
 	
 	@Override
