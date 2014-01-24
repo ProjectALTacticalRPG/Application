@@ -78,7 +78,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			}
 		}, 0, 1000);
 		
-		Wave w = new Wave("octorok", 5, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition());
+		Wave w = new Wave("octorok", 5, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker);
 		w.initWave();
 		
 		Keaton myKeaton;

@@ -20,12 +20,12 @@ public class Wave {
 	private int waveStartTime;
 	private boolean waveKilled;
 	private Canvas canvas;
-	private MoveBlockerChecker moveBlockedChecker = new MoveBlockerCheckerDefaultImpl();
+	private MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 	private int spriteSize;
 	private GameUniverse universe;
 	private Point toFollow;
 	
-	public Wave(String wt, int wl, int wst, Canvas c, int spSize, GameUniverse u, Point tf) {
+	public Wave(String wt, int wl, int wst, Canvas c, int spSize, GameUniverse u, Point tf, MoveBlockerChecker mc) {
 		waveType = wt;
 		waveLength = wl;
 		waveStartTime = wst;
@@ -34,6 +34,7 @@ public class Wave {
 		spriteSize = spSize;
 		universe = u;
 		toFollow = tf;
+		moveBlockerChecker = mc;
 	}
 	
 	public void initWave() {
@@ -54,7 +55,7 @@ public class Wave {
 				move = new MoveStrategyKeaton(ennemyType.getPosition(), toFollow);
 			}
 			driver.setStrategy(move);
-			driver.setmoveBlockerChecker(moveBlockedChecker);
+			driver.setmoveBlockerChecker(moveBlockerChecker);
 			//ennemyType = new Octorock(canvas);
 			ennemyType.setDriver(driver);
 			if(ennemyType != null)
