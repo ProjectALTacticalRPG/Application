@@ -2,6 +2,7 @@ package gameframework.expansion;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Label;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -30,6 +31,9 @@ public class GameExtendedImpl extends GameDefaultImpl {
 	public void createGUI() {
 		f = new JFrame("Default Game");
 		f.dispose();
+		lifeValue = new Label();
+		scoreValue = new Label();
+		currentLevelValue = new Label();
 		defaultCanvas = new CanvasDefaultImpl();
 		defaultCanvas.setSize(SPRITE_SIZE * NB_COLUMNS, SPRITE_SIZE * NB_ROWS);
 		f.add(defaultCanvas);
