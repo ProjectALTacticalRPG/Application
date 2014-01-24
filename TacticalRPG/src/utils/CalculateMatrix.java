@@ -11,7 +11,9 @@ public class CalculateMatrix {
 
 
 	ArrayList<Rectangle> boxes = new ArrayList<Rectangle>();
-	int color = (255<<24)+(255<<16)+(0<<8)+148;
+	ArrayList<Rectangle> spawns = new ArrayList<Rectangle>();
+	int colorCollisions = (255<<24)+(255<<16)+(0<<8)+148;
+	int colorSpawn = (255<<24)+(255<<16)+(50<<8)+0;
 	int white = (255<<24)+(255<<16)+(255<<8)+255;
 	int[] rgbs;
 	
@@ -32,8 +34,11 @@ public class CalculateMatrix {
 			for(y = 0; y < imgH; ++y){
 				for(x = 0; x < imgW; ++x){
 					v = rgbs[y*(imgW) + x];
-					if(v == color){
-						boxes.add(createBox(x, y, imgW, imgH));
+					if(v == colorCollisions){
+						boxes.add(createBox(x, y, imgW, imgH, colorCollisions));
+					}
+					else if(v == colorSpawn){
+						spawns.add(createBox(x, y, imgW, imgH, colorSpawn));
 					}
 				}
 			}
@@ -47,7 +52,7 @@ public class CalculateMatrix {
 	}
 
 
-	private Rectangle createBox(int x, int y, int imgW, int imgH){
+	private Rectangle createBox(int x, int y, int imgW, int imgH, int color){
 		int w = x;
 		int h = y;
 		while(w < imgW && rgbs[y*(imgW) + w] == color){
