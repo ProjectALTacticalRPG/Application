@@ -5,15 +5,12 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import utils.CalculateMatrix;
 
-import gameframework.expansion.MoveStrategyKeaton;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
-import gameframework.expansion.MoveStrategyOctorock;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
@@ -61,8 +58,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
-		for(int i = 0; i < collisions.size(); ++i){
-			Rectangle r = collisions.get(i);
+		for(Rectangle r : collisions){
 			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width+1, r.height+1, ""));
 		}
 		
@@ -78,6 +74,12 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 
 		waves.add(new Wave("octorok", 10, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
 		waves.add(new Wave("keaton", 10, 15, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
+		
+		universe.addGameEntity(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
+		universe.addGameEntity(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
+		universe.addGameEntity(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
+		universe.addGameEntity(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
+		universe.addGameEntity(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
 		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
