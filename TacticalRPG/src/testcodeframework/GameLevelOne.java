@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import utils.CalculateMatrix;
 
+import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
@@ -31,15 +32,20 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	public static final int SPRITE_SIZE = 16;
 	private final ArrayList<Wave> waves;
 	private final ArrayList<MapVisual> elementsOver;
+	private ArrayList<Rectangle> spawns;
+	private ArrayList<Rectangle> collisions;
 	private int timerTick;
+	private Link myLink;
+	private MoveBlockerChecker moveBlockerChecker;
 
 	public GameLevelOne(Game g) {
 		super(g);
 		canvas = g.getCanvas();
 		waves = new ArrayList<Wave>();
 		elementsOver = new ArrayList<MapVisual>();
+		spawns = null;
+		collisions = null;
 		timerTick = 0;
-		
 		
 		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
 		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
@@ -53,12 +59,12 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		CalculateMatrix cm = new CalculateMatrix();
 		cm.calculateMatrix("src/ressources/img/collisions.png");
-		ArrayList<Rectangle> collisions = cm.getCollisions();
-		final ArrayList<Rectangle> spawns = cm.getSpawns();
+		collisions = cm.getCollisions();
+		spawns = cm.getSpawns();
 		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
-		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
+		moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		overlapProcessor.setOverlapRules(new OverlapRulesApplierDefaultImpl() {
@@ -74,32 +80,23 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width, r.height, ""));
 		}
 		
-		Link myLink = new Link(canvas);
-		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
+		myLink = new Link(canvas);
+		universe.addGameEntity(myLink);
+		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		cine.start();
+		refreshElements();
+		waves.add(new Wave("octorok", 10, 3, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));	
+	}
+	
+	public void launchGame() {
+		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
 		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended();
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
-		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
-		universe.addGameEntity(myLink);
-		refreshElements();
-		waves.add(new Wave("octorok", 10, 5, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
-		
-		
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				timerTick++;
-				for(Wave w:waves) {
-					if(w.getWaveStartTime()==timerTick) {
-						w.initWave(spawns);
-						refreshElements();
-					}
-				}
-			}
-		}, 0, 1000);
+		launchWaves();
 	}
 	
 	@Override
@@ -121,6 +118,21 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			} catch (Exception e) {
 			}
 		}
+	}
+	
+	public void launchWaves() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				timerTick++;
+				for(Wave w:waves) {
+					if(w.getWaveStartTime()==timerTick) {
+						w.initWave(spawns);
+						refreshElements();
+					}
+				}
+			}
+		}, 0, 1000);
 	}
 	
 	public void refreshElements(){
