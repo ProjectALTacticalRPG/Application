@@ -12,6 +12,9 @@ import gameframework.game.MoveBlockerCheckerDefaultImpl;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Wave {
 
@@ -37,20 +40,20 @@ public class Wave {
 		moveBlockerChecker = mc;
 	}
 	
-	public void initWave() {
+	public void initWave(ArrayList<Rectangle> spawns) {
 		GameMovable ennemyType = null;
 		GameMovableDriverDefaultImpl driver = null;
 		MoveStrategy move = null;
 		for(int t = 0; t < waveLength; ++t) {
 			if(waveType.equals("octorok")) {
 				ennemyType = new Octorock(canvas);
-				ennemyType.setPosition(new Point(14 * spriteSize, 15 * spriteSize));
+				ennemyType.setPosition(randomSpawn(spawns));
 				driver = new OctorockMovableDriver();
 				move = new MoveStrategyOctorock();
 			}
 			if(waveType.equals("keaton")) {
 				ennemyType = new Keaton(canvas);
-				ennemyType.setPosition(new Point(14 * spriteSize, 15 * spriteSize));
+				ennemyType.setPosition(randomSpawn(spawns));
 				driver = new KeatonMovableDriver();
 				move = new MoveStrategyKeaton(ennemyType.getPosition(), toFollow);
 			}
@@ -61,6 +64,17 @@ public class Wave {
 			if(ennemyType != null)
 				universe.addGameEntity((GameEntity) ennemyType);
 		}
+	}
+
+	private Point randomSpawn(ArrayList<Rectangle> spawns) {
+		Random rdm = new Random();
+		int i = rdm.nextInt(spawns.size());
+		Rectangle r = spawns.get(i);
+		int x = 0, y = 0;
+		System.out.println(spawns.size());
+		x = r.x+rdm.nextInt(r.width)-spriteSize;
+		y = r.y+rdm.nextInt(r.height)-spriteSize;
+		return new Point(x, y);
 	}
 
 	public String getWaveType() {

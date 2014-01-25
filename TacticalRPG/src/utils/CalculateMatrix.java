@@ -17,7 +17,7 @@ public class CalculateMatrix {
 	int white = (255<<24)+(255<<16)+(255<<8)+255;
 	int[] rgbs;
 	
-	public ArrayList<Rectangle> calculateMatrix(String imgPath){
+	public void calculateMatrix(String imgPath){
 
 		BufferedImage in;
 		
@@ -43,12 +43,10 @@ public class CalculateMatrix {
 				}
 			}
 			
-			return boxes;
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 
@@ -61,11 +59,11 @@ public class CalculateMatrix {
 		}
 		Rectangle line = new Rectangle(x, y, w-x, h-y);
 		
-		while(h < imgH){
+		while(h < imgH-1){
 			++h;
 			w=line.x;
 			while(w < imgW){
-				if(rgbs[y*(imgW) + w] != color && w >= line.x && w <= line.x+line.width)
+				if(rgbs[h*(imgW) + w] != color && w >= line.x && w < line.x+line.width)
 				{
 					return line;
 				}
@@ -79,5 +77,13 @@ public class CalculateMatrix {
 		
 		return line;
 		
+	}
+	
+	public ArrayList<Rectangle> getCollisions(){
+		return boxes;
+	}
+	
+	public ArrayList<Rectangle> getSpawns(){
+		return spawns;
 	}
 }

@@ -17,7 +17,7 @@ public class MoveStrategyOctorock implements MoveStrategy {
 		
 		if(hold <= 0){
 			
-			int i = random.nextInt(6);
+			int i = random.nextInt(5);
 
 			switch (i) {
 			case 0:

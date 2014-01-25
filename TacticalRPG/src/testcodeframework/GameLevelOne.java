@@ -52,7 +52,10 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	protected void init() {
 		
 		CalculateMatrix cm = new CalculateMatrix();
-		ArrayList<Rectangle> collisions = cm.calculateMatrix("src/ressources/img/collisions.png");
+		cm.calculateMatrix("src/ressources/img/collisions.png");
+		ArrayList<Rectangle> collisions = cm.getCollisions();
+		final ArrayList<Rectangle> spawns = cm.getSpawns();
+		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
@@ -81,8 +84,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
 		refreshElements();
-		waves.add(new Wave("octorok", 10, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("octorok", 10, 5, canvas, 20, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("keaton", 10, 15, canvas, 20, universe, myLink.getPosition(), moveBlockerChecker));
 		
 		
 		Timer timer = new Timer();
@@ -91,7 +94,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				timerTick++;
 				for(Wave w:waves) {
 					if(w.getWaveStartTime()==timerTick) {
-						w.initWave();
+						w.initWave(spawns);
 						refreshElements();
 					}
 				}
