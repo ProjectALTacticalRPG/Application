@@ -1,22 +1,18 @@
 package testcodeframework;
 
 import gameframework.base.SpeedVectorDefaultImpl;
-import gameframework.game.GameLevelDefaultImpl;
-
 import java.awt.Point;
 
 public class Cinematic extends Thread {
 
 	private Link link;
-	private Point from;
 	private Point to;
-	private GameLevelDefaultImpl level;
+	private Cinematicable level;
 	
-	public Cinematic(Link myLink, Point entree, Point arrivee, GameLevelDefaultImpl lvl) {
+	public Cinematic(Link myLink, Point entree, Point arrivee, Cinematicable lvl) {
 		myLink.setPosition(entree);
 		level = lvl;
 		link = myLink;
-		from = entree;
 		to = arrivee;
 	}
 	
@@ -38,7 +34,7 @@ public class Cinematic extends Thread {
 			this.sleep(1000);
 		} catch (InterruptedException e) {}
 		link.setSpeedVector(new SpeedVectorDefaultImpl(new Point(0, 1), 0));
-		((GameLevelOne)level).launchGame();
+		level.launchGame();
 	}
 
 }

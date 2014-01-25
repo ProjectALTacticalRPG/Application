@@ -25,7 +25,7 @@ import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframework.game.OverlapRulesApplierDefaultImpl;
 
-public class GameLevelOne extends GameLevelDefaultImpl {
+public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable {
 	
 	Canvas canvas;
 	private final static int GAME_SPEED = 50;
