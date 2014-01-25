@@ -84,8 +84,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
 		refreshElements();
-		waves.add(new Wave("octorok", 10, 5, canvas, 20, universe, myLink.getPosition(), moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, 20, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("octorok", 10, 5, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
+		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
 		
 		
 		Timer timer = new Timer();
