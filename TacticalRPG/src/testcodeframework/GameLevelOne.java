@@ -30,13 +30,22 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	private final static int GAME_SPEED = 50;
 	public static final int SPRITE_SIZE = 16;
 	private final ArrayList<Wave> waves;
+	private final ArrayList<MapVisual> elementsOver;
 	private int timerTick;
 
 	public GameLevelOne(Game g) {
 		super(g);
 		canvas = g.getCanvas();
 		waves = new ArrayList<Wave>();
+		elementsOver = new ArrayList<MapVisual>();
 		timerTick = 0;
+		
+		
+		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
+		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
+		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
+		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
+		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
 	}
 
 	@Override
@@ -71,15 +80,10 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myLink.setDriver(linkDriver);
 		myLink.setPosition(new Point(39*SPRITE_SIZE, 17*SPRITE_SIZE));
 		universe.addGameEntity(myLink);
-
+		refreshElements();
 		waves.add(new Wave("octorok", 10, 5, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
 		waves.add(new Wave("keaton", 10, 15, canvas, SPRITE_SIZE, universe, myLink.getPosition(), moveBlockerChecker));
 		
-		universe.addGameEntity(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
-		universe.addGameEntity(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
-		universe.addGameEntity(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
-		universe.addGameEntity(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
-		universe.addGameEntity(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
 		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -88,6 +92,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				for(Wave w:waves) {
 					if(w.getWaveStartTime()==timerTick) {
 						w.initWave();
+						refreshElements();
 					}
 				}
 			}
@@ -112,6 +117,13 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				}
 			} catch (Exception e) {
 			}
+		}
+	}
+	
+	public void refreshElements(){
+		for(MapVisual mv : elementsOver){
+			universe.removeGameEntity(mv);
+			universe.addGameEntity(mv);
 		}
 	}
 
