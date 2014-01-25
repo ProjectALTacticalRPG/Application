@@ -71,7 +71,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
 		for(Rectangle r : collisions){
-			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width+1, r.height+1, ""));
+			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width, r.height, ""));
 		}
 		
 		Link myLink = new Link(canvas);

@@ -57,20 +57,20 @@ public class CalculateMatrix {
 			rgbs[y*(imgW) + w] = white;
 			++w;
 		}
-		Rectangle line = new Rectangle(x, y, w-x, h-y);
+		Rectangle line = new Rectangle(x, y, w-x, 1);
 		
 		while(h < imgH-1){
 			++h;
 			w=line.x;
-			while(w < imgW){
-				if(rgbs[h*(imgW) + w] != color && w >= line.x && w < line.x+line.width)
+			while(w < line.x+line.width){
+				if(rgbs[h*(imgW) + w] != color && w >= line.x)
 				{
 					return line;
 				}
 				++w;
 			}
 			for(int i = line.x; i < line.x+line.width; i++){
-				rgbs[h*(imgW) + x] = white;
+				rgbs[h*(imgW) + i] = white;
 			}
 			line.setSize(line.width, line.height+1);
 		}

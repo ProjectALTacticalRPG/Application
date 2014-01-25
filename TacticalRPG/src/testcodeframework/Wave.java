@@ -71,7 +71,6 @@ public class Wave {
 		int i = rdm.nextInt(spawns.size());
 		Rectangle r = spawns.get(i);
 		int x = 0, y = 0;
-		System.out.println(spawns.size());
 		x = r.x+rdm.nextInt(r.width)-spriteSize;
 		y = r.y+rdm.nextInt(r.height)-spriteSize;
 		return new Point(x, y);
