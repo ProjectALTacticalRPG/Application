@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import testcodeframework.Cinematicable;
+
 import gameframework.base.MoveStrategyKeyboard;
 
 public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
@@ -15,7 +17,12 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 	private int movY;
 	private ArrayList<Integer> enterCode = new ArrayList<Integer>();
 	private int[] konamiCode = {38,38,40,40,37,39,37,39,66,65};
-
+	private Cinematicable levelForKonami;
+	
+	public MoveStrategyKeyboardExtended(Cinematicable c) {
+		levelForKonami = c;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent event) {
 		move(event.getKeyCode(), 1);
@@ -28,6 +35,7 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 		}
 		if(enterCode.size()==10) {
 			System.out.println("Konami Code entered !");
+			levelForKonami.addCocotteWaveKonami();
 			enterCode.clear();
 		}
 	}
