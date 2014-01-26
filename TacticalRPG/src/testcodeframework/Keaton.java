@@ -67,22 +67,6 @@ Overlappable {
 		prev = spriteType;
 		spriteManager.setType(spriteType);
 		
-		int posX = getPosition().x;
-		int posY = getPosition().y+2;
-		
-		if(spriteType.contains("left")){
-			posX+=2;
-		}
-		else if(spriteType.contains("right")){
-			posX +=6;
-		}
-		else{
-			posX +=3;
-		}
-		
-		if(spriteType.contains("up"))
-			posY-=2;
-		
 		spriteManager.draw(g, getPosition());
 
 	}
