@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 public interface Cinematicable {
 	

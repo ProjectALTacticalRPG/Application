@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
@@ -7,27 +7,27 @@ import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 import gameframework.game.SpriteManager;
-
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Keaton extends GameMovable implements Drawable, GameEntity,
+public class Link extends GameMovable implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
 	protected DrawableImage shadow;
-	public static final int RENDERING_SIZE_W = (int) (32*1.35);
+	public static final int RENDERING_SIZE_W = (int) (24*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
-	private String prev = "down";
+	private String prev = "down_static";
 
-	public Keaton(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_keaton_v1.png",
-				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
-		spriteManager.setTypes("up", "right", "left", "down");
+	public Link(Canvas defaultCanvas) {
+		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
+				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 8);
+		spriteManager.setTypes("down", "left", "right", "up", 
+				"down_static", "right_static", "left_static", "up_static");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
@@ -57,9 +57,15 @@ Overlappable {
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
 		} else {
-			
-			spriteType = prev;
-			
+			if(prev.contains("static")){
+				spriteType = prev;
+			}
+			else if(prev.equals("right") || prev.equals("left") || prev.equals("down") || prev.equals("up")){
+				spriteType += prev + "_static";
+			}
+			else{
+				spriteType = "down_static";
+			}
 			spriteManager.reset();
 			movable = false;
 		}
@@ -77,11 +83,14 @@ Overlappable {
 			posX +=6;
 		}
 		else{
-			posX +=3;
+			posX +=4;
 		}
 		
 		if(spriteType.contains("up"))
 			posY-=2;
+		
+		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
+				null);
 		
 		spriteManager.draw(g, getPosition());
 
@@ -102,4 +111,3 @@ Overlappable {
 	}
 
 }
-

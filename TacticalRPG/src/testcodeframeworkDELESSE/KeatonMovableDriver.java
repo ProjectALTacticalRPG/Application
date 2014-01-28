@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.Movable;
 import gameframework.base.SpeedVector;

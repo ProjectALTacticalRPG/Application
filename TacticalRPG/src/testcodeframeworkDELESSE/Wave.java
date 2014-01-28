@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.MoveStrategy;
 import gameframework.expansion.MoveStrategyKeaton;
@@ -48,6 +48,8 @@ public class Wave {
 			if(waveType.equals("octorok")) {
 				ennemyType = new Octorock(canvas);
 				ennemyType.setPosition(randomSpawn(spawns));
+				Thread thread1 = new Thread((Runnable) ennemyType);
+				thread1.start();
 				driver = new OctorockMovableDriver();
 				move = new MoveStrategyOctorock();
 			}

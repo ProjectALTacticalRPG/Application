@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
@@ -13,21 +13,21 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Octorock extends GameMovable implements Drawable, GameEntity,
+public class Keaton extends GameMovable implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
 	protected DrawableImage shadow;
-	public static final int RENDERING_SIZE_W = (int) (20*1.35);
-	public static final int RENDERING_SIZE_H = (int) (17*1.35);
+	public static final int RENDERING_SIZE_W = (int) (32*1.35);
+	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
 	private String prev = "down";
 
-	public Octorock(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_octorock_v1.png",
+	public Keaton(Canvas defaultCanvas) {
+		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_keaton_v1.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
-		spriteManager.setTypes("down", "left", "right", "up");
+		spriteManager.setTypes("up", "right", "left", "down");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
@@ -82,9 +82,6 @@ Overlappable {
 		
 		if(spriteType.contains("up"))
 			posY-=2;
-		
-		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-6, RENDERING_SIZE_H,
-				null);
 		
 		spriteManager.draw(g, getPosition());
 

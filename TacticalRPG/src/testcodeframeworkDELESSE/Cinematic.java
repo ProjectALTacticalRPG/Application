@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.SpeedVectorDefaultImpl;
 import java.awt.Point;

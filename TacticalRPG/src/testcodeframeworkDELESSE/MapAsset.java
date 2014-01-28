@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.DrawableImage;
 import gameframework.game.MoveBlocker;

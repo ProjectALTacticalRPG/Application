@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -92,11 +92,9 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	public void launchGame() {
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
 		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended();
-		MyMouse mouseLst = new MyMouse();
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
-		canvas.addMouseListener(mouseLst);
 		myLink.setDriver(linkDriver);
 		launchWaves();
 	}

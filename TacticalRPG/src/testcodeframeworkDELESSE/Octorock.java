@@ -1,4 +1,4 @@
-package testFrameworkDelesse;
+package testcodeframeworkDELESSE;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
@@ -7,27 +7,27 @@ import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 import gameframework.game.SpriteManager;
+
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Link extends GameMovable implements Drawable, GameEntity,
-Overlappable {
+public class Octorock extends GameMovable implements Drawable, GameEntity,
+Overlappable, Runnable {
 	protected final SpriteManager spriteManager;
 	protected DrawableImage shadow;
-	public static final int RENDERING_SIZE_W = (int) (24*1.35);
-	public static final int RENDERING_SIZE_H = (int) (26*1.35);
+	public static final int RENDERING_SIZE_W = (int) (20*1.35);
+	public static final int RENDERING_SIZE_H = (int) (17*1.35);
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
-	private String prev = "down_static";
+	private String prev = "down";
 
-	public Link(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
-				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 8);
-		spriteManager.setTypes("down", "left", "right", "up", 
-				"down_static", "right_static", "left_static", "up_static");
+	public Octorock(Canvas defaultCanvas) {
+		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_octorock_v1.png",
+				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
+		spriteManager.setTypes("down", "left", "right", "up");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
@@ -57,15 +57,9 @@ Overlappable {
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
 		} else {
-			if(prev.contains("static")){
-				spriteType = prev;
-			}
-			else if(prev.equals("right") || prev.equals("left") || prev.equals("down") || prev.equals("up")){
-				spriteType += prev + "_static";
-			}
-			else{
-				spriteType = "down_static";
-			}
+			
+			spriteType = prev;
+			
 			spriteManager.reset();
 			movable = false;
 		}
@@ -83,13 +77,13 @@ Overlappable {
 			posX +=6;
 		}
 		else{
-			posX +=4;
+			posX +=3;
 		}
 		
 		if(spriteType.contains("up"))
 			posY-=2;
 		
-		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
+		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-6, RENDERING_SIZE_H,
 				null);
 		
 		spriteManager.draw(g, getPosition());
@@ -110,4 +104,26 @@ Overlappable {
 		return (new Rectangle(0, 0, RENDERING_SIZE_W, RENDERING_SIZE_H));
 	}
 
+	@Override
+	public void run() {
+		
+		int min =5;
+		int max=10;
+				
+		while(true)
+		{
+			 try {
+				int sec =  (int) ((min + (Math.random() * (max - min)))*1000) ;
+				Thread.sleep(sec);
+				System.out.println("Lancer un projectile");
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 }
+
