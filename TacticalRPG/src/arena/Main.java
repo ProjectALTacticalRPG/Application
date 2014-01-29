@@ -1,7 +1,7 @@
 package arena;
 import java.util.ArrayList;
 
-import testcodeframework.GameLevelOne;
+import arena.game.GameLevelOne;
 import gameframework.expansion.*;
 import gameframework.game.GameLevel;
 
