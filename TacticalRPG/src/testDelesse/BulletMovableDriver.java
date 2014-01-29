@@ -1,10 +1,10 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import gameframework.base.Movable;
 import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriverDefaultImpl;
 
-public class OctorockMovableDriver extends GameMovableDriverDefaultImpl {
+public class BulletMovableDriver extends GameMovableDriverDefaultImpl {
 
 	// A modified random strategy that makes ghosts mostly follow the alleys in
 	// one direction.

@@ -1,4 +1,4 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import java.awt.Canvas;
 import java.awt.Graphics;

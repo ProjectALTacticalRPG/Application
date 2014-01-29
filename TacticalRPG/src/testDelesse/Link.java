@@ -1,4 +1,4 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;

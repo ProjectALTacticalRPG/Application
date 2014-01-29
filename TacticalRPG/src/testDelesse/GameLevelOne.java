@@ -1,4 +1,4 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -82,16 +82,18 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		
 		myLink = new Link(canvas);
 		universe.addGameEntity(myLink);
-		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
-		cine.start();
+		myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		launchGame();
+		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		cine.start();*/
 		refreshElements();
-		waves.add(new Wave("octorok", 10, 3, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), moveBlockerChecker));	
+		waves.add(new Wave("octorok", 10, 3, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));
+		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));	
 	}
 	
 	public void launchGame() {
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
-		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended();
+		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(null);
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
@@ -133,6 +135,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 				}
 			}
 		}, 0, 1000);
+	}
+	
+	@Override
+	public void addCocotteWaveKonami() {
+		waves.add(new Wave("cocotte", 20, timerTick+1, canvas, 30, universe, myLink.getPosition(), false, moveBlockerChecker));
 	}
 	
 	public void refreshElements(){

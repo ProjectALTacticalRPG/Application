@@ -1,4 +1,4 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
@@ -13,21 +13,21 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Keaton extends GameMovable implements Drawable, GameEntity,
+public class Cocotte extends GameMovable implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
 	protected DrawableImage shadow;
-	public static final int RENDERING_SIZE_W = (int) (32*1.35);
-	public static final int RENDERING_SIZE_H = (int) (26*1.35);
+	public static final int RENDERING_SIZE_W = (int) (24);
+	public static final int RENDERING_SIZE_H = (int) (24);
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
 	private String prev = "down";
 
-	public Keaton(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_keaton_v1.png",
-				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
-		spriteManager.setTypes("up", "right", "left", "down");
+	public Cocotte(Canvas defaultCanvas) {
+		spriteManager = new SpriteManagerCustom("src/ressources/img/cocottes.png",
+				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 3, 2);
+		spriteManager.setTypes("left", "right");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
@@ -52,16 +52,8 @@ Overlappable {
 			spriteType += "right";
 		} else if (tmp.getX() == -1) {
 			spriteType += "left";
-		} else if (tmp.getY() == 1) {
-			spriteType += "down";
-		} else if (tmp.getY() == -1) {
-			spriteType += "up";
 		} else {
-			
-			spriteType = prev;
-			
-			spriteManager.reset();
-			movable = false;
+			spriteType += "left";
 		}
 		
 		prev = spriteType;
@@ -84,6 +76,8 @@ Overlappable {
 			posY-=2;
 		
 		spriteManager.draw(g, getPosition());
+		g.drawImage(shadow.getImage(), posX, posY+30, RENDERING_SIZE_W-6, RENDERING_SIZE_H,
+				null);
 
 	}
 

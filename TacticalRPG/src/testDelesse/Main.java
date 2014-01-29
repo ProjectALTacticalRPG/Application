@@ -1,4 +1,4 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import gameframework.expansion.GameExtendedImpl;
 import gameframework.game.GameLevel;

@@ -1,6 +1,7 @@
-package testcodeframeworkDELESSE;
+package testDelesse;
 
 import gameframework.base.MoveStrategy;
+import gameframework.expansion.MoveStrategyCocotte;
 import gameframework.expansion.MoveStrategyKeaton;
 import gameframework.expansion.MoveStrategyOctorock;
 import gameframework.game.GameEntity;
@@ -23,12 +24,13 @@ public class Wave {
 	private int waveStartTime;
 	private boolean waveKilled;
 	private Canvas canvas;
+	private boolean moveBlockCheckerActive;
 	private MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 	private int spriteSize;
 	private GameUniverse universe;
 	private Point toFollow;
 	
-	public Wave(String wt, int wl, int wst, Canvas c, int spSize, GameUniverse u, Point tf, MoveBlockerChecker mc) {
+	public Wave(String wt, int wl, int wst, Canvas c, int spSize, GameUniverse u, Point tf, boolean mca, MoveBlockerChecker mc) {
 		waveType = wt;
 		waveLength = wl;
 		waveStartTime = wst;
@@ -38,6 +40,7 @@ public class Wave {
 		universe = u;
 		toFollow = tf;
 		moveBlockerChecker = mc;
+		moveBlockCheckerActive = mca;
 	}
 	
 	public void initWave(ArrayList<Rectangle> spawns) {
@@ -46,12 +49,12 @@ public class Wave {
 		MoveStrategy move = null;
 		for(int t = 0; t < waveLength; ++t) {
 			if(waveType.equals("octorok")) {
-				ennemyType = new Octorock(canvas);
+				ennemyType = new Octorock(canvas,moveBlockerChecker,universe);
 				ennemyType.setPosition(randomSpawn(spawns));
-				Thread thread1 = new Thread((Runnable) ennemyType);
-				thread1.start();
-				driver = new OctorockMovableDriver();
-				move = new MoveStrategyOctorock();
+                Thread thread1 = new Thread((Runnable) ennemyType);
+                thread1.start();
+                driver = new OctorockMovableDriver();
+                move = new MoveStrategyOctorock();
 			}
 			if(waveType.equals("keaton")) {
 				ennemyType = new Keaton(canvas);
@@ -59,8 +62,15 @@ public class Wave {
 				driver = new KeatonMovableDriver();
 				move = new MoveStrategyKeaton(ennemyType.getPosition(), toFollow);
 			}
+			if(waveType.equals("cocotte")) {
+				ennemyType = new Cocotte(canvas);
+				ennemyType.setPosition(randomSpawn(spawns));
+				driver = new CocotteMovableDriver();
+				move = new MoveStrategyCocotte(ennemyType.getPosition(), toFollow);
+			}
 			driver.setStrategy(move);
-			driver.setmoveBlockerChecker(moveBlockerChecker);
+			if(moveBlockCheckerActive)
+				driver.setmoveBlockerChecker(moveBlockerChecker);
 			//ennemyType = new Octorock(canvas);
 			ennemyType.setDriver(driver);
 			if(ennemyType != null)
