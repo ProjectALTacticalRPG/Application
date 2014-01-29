@@ -11,7 +11,7 @@ import java.awt.Toolkit;
 import gameframework.base.Drawable;
 import gameframework.game.GameEntity;
 
-public class generalLevelUI implements Drawable, GameEntity {
+public class GeneralLevelUI implements Drawable, GameEntity {
 
 	private Font font1;
 	private Font font2;
@@ -19,7 +19,7 @@ public class generalLevelUI implements Drawable, GameEntity {
 	private Image heart;
 	private Image link;
 	
-	public generalLevelUI() {
+	public GeneralLevelUI() {
 		try {
 			font1 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
 			font2 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);

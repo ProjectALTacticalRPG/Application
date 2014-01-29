@@ -40,7 +40,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	private int timerTick;
 	private LinkVisual myLink;
 	private MoveBlockerChecker moveBlockerChecker;
-	private generalLevelUI levelUI;
+	private GeneralLevelUI levelUI;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -57,7 +57,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
 		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
 		
-		levelUI = new generalLevelUI();
+		levelUI = new GeneralLevelUI();
 	}
 
 	@Override
