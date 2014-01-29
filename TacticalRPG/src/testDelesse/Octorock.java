@@ -128,8 +128,8 @@ Overlappable, Runnable {
 	@Override
 	public void run() {
 		
-		int min =5;
-		int max=10;
+		int min =3;
+		int max=7;
 				
 		GameMovableDriverDefaultImpl driver = null;
 		MoveStrategy move = null;
@@ -171,6 +171,7 @@ Overlappable, Runnable {
 						 */
 						if(bullet.getSpeedVector().getDirection().getX()==0 && bullet.getSpeedVector().getDirection().getY()==0)
 						{
+							Thread.sleep(1000);
 							universe.removeGameEntity(bullet);
 							bullet = null;
 							driver = null;

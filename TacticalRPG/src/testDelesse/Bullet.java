@@ -11,13 +11,13 @@ import java.awt.Rectangle;
 
 public class Bullet extends Projectile {
 	protected final SpriteManager spriteManager;
-	public static final int RENDERING_SIZE_W = (int) (7*1.35);
-	public static final int RENDERING_SIZE_H = (int) (7*1.35);
+	public static final int RENDERING_SIZE_W = (int) (15*1.35);
+	public static final int RENDERING_SIZE_H = (int) (16*1.35);
 
 	public Bullet(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/fire.png",
-				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 1, 1);
-		spriteManager.setTypes("fire");
+				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 1, 2);
+		spriteManager.setTypes("fire","explose");
 		prev="fire";
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
@@ -28,16 +28,16 @@ public class Bullet extends Projectile {
 		movable = true;
 
 		if (tmp.getX() == 1) {
-			spriteType += "fire";
+			spriteType += "explose";
 		} else if (tmp.getX() == -1) {
-			spriteType += "fire";
+			spriteType += "explose";
 		} else if (tmp.getY() == 1) {
-			spriteType += "fire";
+			spriteType += "explose";
 		} else if (tmp.getY() == -1) {
-			spriteType += "fire";
+			spriteType += "explose";
 		} else {
 			
-			spriteType = prev;
+			spriteType = "fire";
 			
 			spriteManager.reset();
 			movable = false;
