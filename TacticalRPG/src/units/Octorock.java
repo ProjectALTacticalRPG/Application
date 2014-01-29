@@ -2,23 +2,23 @@ package units;
 
 import utils.Visitor;
 
-public class Octorok extends AbstractFighter{
+public class Octorock extends AbstractFighter{
 	
-		public Octorok(String name, int health, int damage, int parry) {
+		public Octorock(String name, int health, int damage, int parry) {
 			setHealth(health);
 			setDamage(damage);
 			setParry(parry);
 			setName(name);
 		}
 		
-		public Octorok(){
+		public Octorock(){
 			setHealth(75);
 			setDamage(1);
 			setParry(5);
 			setName("Octorok");
 		}
 		
-		public Octorok(String name){
+		public Octorock(String name){
 			setHealth(50);
 			setDamage(1);
 			setParry(5);

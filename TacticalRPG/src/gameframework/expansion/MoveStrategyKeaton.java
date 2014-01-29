@@ -13,7 +13,7 @@ public class MoveStrategyKeaton implements MoveStrategy {
 	private int hold = 0;
 	private Point oldDirection;
 	private double distanceAggro = 250;
-	private double distanceDesaggro = 400;
+	private double distanceDesaggro = 300;
 	private boolean inAggro = false;
 	Point goal, currentPosition;
 

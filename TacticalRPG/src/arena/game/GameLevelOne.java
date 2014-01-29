@@ -10,8 +10,11 @@ import java.util.TimerTask;
 
 import arena.graphics.Cinematicable;
 import arena.graphics.LinkVisual;
+import arena.graphics.LinkedEntity;
 import arena.graphics.MapAsset;
 import arena.graphics.MapVisual;
+import units.AbstractFactory;
+import units.FactoryImpl;
 import utils.CalculateMatrix;
 import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
@@ -41,6 +44,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	private LinkVisual myLink;
 	private MoveBlockerChecker moveBlockerChecker;
 	private GeneralLevelUI levelUI;
+	private AbstractFactory factory;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -50,7 +54,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		spawns = null;
 		collisions = null;
 		timerTick = 0;
-
+		factory = new FactoryImpl(canvas);
 		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
 		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
 		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
@@ -80,21 +84,52 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
+		
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
 		for(Rectangle r : collisions){
 			universe.addGameEntity(new MapAsset(canvas, r.x, r.y, r.width, r.height, ""));
 		}
 		
-		myLink = new LinkVisual(canvas);
+		myLink = factory.createLink();
 		universe.addGameEntity(myLink);
-		myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
 		launchGame();
 		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
 		cine.start();*/
 		refreshElements();
-		waves.add(new Wave("octorok", 10, 3, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));	
+		
+		//Ajout d'une vague d'octorocks
+		ArrayList<LinkedEntity> enemies = new ArrayList<LinkedEntity>();
+		for(int i = 0; i < 5; ++i){
+			enemies.add(factory.createOctorock(moveBlockerChecker));
+		}
+		waves.add(new Wave(enemies, 3, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague de keatons
+		for(int i = 0; i < 5; ++i){
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition()));
+		}
+		waves.add(new Wave(enemies, 15, 30, universe));
+		enemies.clear();
+		
+		Wave first = getNextWave(0);
+		levelUI.updateTimer(0, first);
+	}
+	
+	public Wave getNextWave(int i) {
+		Wave tmp = null;
+		for(Wave w:waves) {
+			if(tmp == null) {
+				if(w.getWaveStartTime()>i)
+					tmp = w;
+			} else {
+				if(w.getWaveStartTime()>i && w.getWaveStartTime()<tmp.getWaveStartTime())
+					tmp = w;
+			}
+		}
+		return tmp;
 	}
 	
 	public void launchGame() {
@@ -133,6 +168,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				timerTick++;
+				levelUI.updateTimer(timerTick, getNextWave(timerTick));
 				for(Wave w:waves) {
 					if(w.getWaveStartTime()==timerTick) {
 						w.initWave(spawns);
@@ -145,10 +181,15 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	
 	@Override
 	public void addCocotteWaveKonami() {
-		waves.add(new Wave("cocotte", 20, timerTick+1, canvas, 30, universe, myLink.getPosition(), false, moveBlockerChecker));
+		ArrayList<LinkedEntity> enemies = new ArrayList<LinkedEntity>();
+		for(int i = 0; i < 20; ++i){
+			enemies.add(factory.createCocotte(myLink.getPosition()));
+		}
+		waves.add(new Wave(enemies, timerTick+1, 30, universe));
+		enemies.clear();
 	}
 	
-	public void refreshElements(){
+	public void refreshElements() {
 		for(MapVisual mv : elementsOver){
 			universe.removeGameEntity(mv);
 			universe.addGameEntity(mv);
