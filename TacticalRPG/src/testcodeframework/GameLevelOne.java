@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import arena.graphics.Cinematicable;
 import utils.CalculateMatrix;
-
 import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
@@ -85,13 +85,29 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		
 		myLink = new Link(canvas);
 		universe.addGameEntity(myLink);
-		myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
-		launchGame();
-		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
-		cine.start();*/
+		/*myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		launchGame();*/
+		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		cine.start();
 		refreshElements();
 		waves.add(new Wave("octorok", 10, 3, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));
-		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));	
+		waves.add(new Wave("keaton", 10, 15, canvas, 30, universe, myLink.getPosition(), true, moveBlockerChecker));
+		Wave first = getNextWave(0);
+		levelUI.updateTimer(0, first);
+	}
+	
+	public Wave getNextWave(int i) {
+		Wave tmp = null;
+		for(Wave w:waves) {
+			if(tmp == null) {
+				if(w.getWaveStartTime()>i)
+					tmp = w;
+			} else {
+				if(w.getWaveStartTime()>i && w.getWaveStartTime()<tmp.getWaveStartTime())
+					tmp = w;
+			}
+		}
+		return tmp;
 	}
 	
 	public void launchGame() {
@@ -130,6 +146,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				timerTick++;
+				levelUI.updateTimer(timerTick, getNextWave(timerTick));
 				for(Wave w:waves) {
 					if(w.getWaveStartTime()==timerTick) {
 						w.initWave(spawns);
@@ -145,7 +162,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		waves.add(new Wave("cocotte", 20, timerTick+1, canvas, 30, universe, myLink.getPosition(), false, moveBlockerChecker));
 	}
 	
-	public void refreshElements(){
+	public void refreshElements() {
 		for(MapVisual mv : elementsOver){
 			universe.removeGameEntity(mv);
 			universe.addGameEntity(mv);
