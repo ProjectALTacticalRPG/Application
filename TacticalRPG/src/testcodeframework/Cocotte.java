@@ -22,7 +22,6 @@ Overlappable {
 	protected boolean movable = true;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
-	private String prev = "down";
 
 	public Cocotte(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/cocottes.png",
@@ -56,7 +55,6 @@ Overlappable {
 			spriteType += "left";
 		}
 		
-		prev = spriteType;
 		spriteManager.setType(spriteType);
 		
 		int posX = getPosition().x;

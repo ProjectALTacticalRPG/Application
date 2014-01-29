@@ -1,6 +1,7 @@
 package arena.graphics;
 
 import gameframework.base.SpeedVectorDefaultImpl;
+
 import java.awt.Point;
 
 public class Cinematic extends Thread {
@@ -16,6 +17,7 @@ public class Cinematic extends Thread {
 		to = arrivee;
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
 		while(link.getPosition().y < to.y) {

@@ -5,7 +5,9 @@ import gameframework.base.ObservableValue;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
+
 import javax.swing.JFrame;
+
 import java.awt.GridBagLayout;
 import java.awt.Label;
 import java.awt.Menu;
@@ -32,7 +34,9 @@ public class GameDefaultImpl implements Game, Observer {
 	public static final int NUMBER_OF_LIVES = 1;
 
 	protected CanvasDefaultImpl defaultCanvas = null;
+	@SuppressWarnings("unchecked")
 	protected ObservableValue<Integer> score[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
+	@SuppressWarnings("unchecked")
 	protected ObservableValue<Integer> life[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 
 	// initialized before each level

@@ -11,7 +11,7 @@ import java.awt.Toolkit;
 import gameframework.base.Drawable;
 import gameframework.game.GameEntity;
 
-public class generalLevelUI implements Drawable, GameEntity {
+public class GeneralLevelUI implements Drawable, GameEntity {
 
 	private Font font1;
 	private Font font2;
@@ -22,7 +22,7 @@ public class generalLevelUI implements Drawable, GameEntity {
 	private Wave nextWave;
 	private boolean firstUpdate;
 	
-	public generalLevelUI() {
+	public GeneralLevelUI() {
 		timerTick = 0;
 		nextWave = null;
 		firstUpdate = false;

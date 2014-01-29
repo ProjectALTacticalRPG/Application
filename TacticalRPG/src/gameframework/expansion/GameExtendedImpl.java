@@ -1,7 +1,5 @@
 package gameframework.expansion;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Label;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

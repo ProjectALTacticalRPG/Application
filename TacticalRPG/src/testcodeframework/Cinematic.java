@@ -19,6 +19,7 @@ public class Cinematic extends Thread {
 		to = arrivee;
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
 		while(link.getPosition().y < to.y) {
