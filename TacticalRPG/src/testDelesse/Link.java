@@ -19,7 +19,7 @@ Overlappable {
 	public static final int RENDERING_SIZE_W = (int) (24*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
-	protected boolean vulnerable = false;
+	protected boolean vulnerable = true;
 	protected int vulnerableTimer = 0;
 	private String prev = "down_static";
 

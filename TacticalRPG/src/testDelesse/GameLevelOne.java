@@ -9,7 +9,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import utils.CalculateMatrix;
-
 import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
@@ -55,22 +54,34 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	}
 
 	@Override
-	protected void init() {
+	protected void init() {	
 		
 		CalculateMatrix cm = new CalculateMatrix();
 		cm.calculateMatrix("src/ressources/img/collisions.png");
 		collisions = cm.getCollisions();
-		spawns = cm.getSpawns();
+		spawns = cm.getSpawns();		
 		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
-
+		
+		//------------------------
+		LinkOverlapRules overlapRules = new LinkOverlapRules(new Point((int) (24*1.35), (int) (26*1.35)),
+				new Point((int) (15*1.35), (int) (16*1.35)), life[0], score[0], endOfGame);
+		overlapProcessor.setOverlapRules(overlapRules);
+		//------------------------
+		
 		moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
+		
+		//-----------------------------
+		overlapRules.setUniverse(universe);
+		//-----------------------------
+		/*
 		overlapProcessor.setOverlapRules(new OverlapRulesApplierDefaultImpl() {
 			@Override
 			public void setUniverse(GameUniverse universe) {}
 		});
+		*/
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));

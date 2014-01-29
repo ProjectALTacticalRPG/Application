@@ -128,8 +128,8 @@ Overlappable, Runnable {
 	@Override
 	public void run() {
 		
-		int min =3;
-		int max=7;
+		int min =1;
+		int max=2;
 				
 		GameMovableDriverDefaultImpl driver = null;
 		MoveStrategy move = null;
@@ -179,11 +179,9 @@ Overlappable, Runnable {
 						}
 						else
 						{
+							//if(universe.)
 							Thread.sleep(1000); //Limite la maj du thread
-						}
-						
-						
-						
+						}						
 					}
 				}
 				catch (InterruptedException e) {
