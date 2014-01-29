@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import units.FighterProxy;
 import utils.DeathObserver;
+import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 
-public abstract class LinkedEntity extends GameMovable{
+public abstract class LinkedEntity extends GameMovable implements GameEntity{
 	protected FighterProxy linkWith;
 	private ArrayList<DeathObserver> observers = new ArrayList<DeathObserver>();
 
