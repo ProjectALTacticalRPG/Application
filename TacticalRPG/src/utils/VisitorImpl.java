@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import units.Group;
 import units.GroupMember;
-import units.MoblinProxy;
+import units.KeatonProxy;
 import units.FighterWithShield;
 import units.FighterWithSword;
 
@@ -18,7 +18,7 @@ public class VisitorImpl implements Visitor {
 	@Override
 	public void visit(Group army) {
 		
-		System.out.println(tab()+"Visite un nouveau groupe armé");
+		System.out.println(tab()+"Visite un nouveau groupe armï¿½");
 		
 		if(level == 0){
 			infantryMen = 0;
@@ -62,7 +62,7 @@ public class VisitorImpl implements Visitor {
 	}
 
 	@Override
-	public void visit(MoblinProxy im) {
+	public void visit(KeatonProxy im) {
 		System.out.println(tab()+"Visite un InfantryMan");
 		infantryMen++;
 	}

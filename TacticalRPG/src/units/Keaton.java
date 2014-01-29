@@ -2,23 +2,23 @@ package units;
 
 import utils.Visitor;
 
-public class Moblin extends AbstractFighter {
+public class Keaton extends AbstractFighter {
 
-	public Moblin(String name, int health, int damage, int parry) {
+	public Keaton(String name, int health, int damage, int parry) {
 		setHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName(name);
 	}
 	
-	public Moblin(){
+	public Keaton(){
 		setHealth(50);
 		setDamage(1);
 		setParry(5);
 		setName("Moblin");
 	}
 	
-	public Moblin(String name){
+	public Keaton(String name){
 		setHealth(50);
 		setDamage(1);
 		setParry(5);

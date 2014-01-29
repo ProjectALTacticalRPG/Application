@@ -2,6 +2,7 @@ package units;
 
 import java.lang.reflect.Constructor;
 
+import arena.graphics.LinkedEntity;
 import utils.CustomObservable;
 import utils.Visitor;
 
@@ -9,6 +10,7 @@ import utils.Visitor;
 public class FighterProxy extends CustomObservable implements GroupMember {
 
 	private Fighter soldier;
+	private LinkedEntity visual;
 
 	public FighterProxy(Fighter s){
 		soldier = s;
@@ -26,6 +28,14 @@ public class FighterProxy extends CustomObservable implements GroupMember {
 	    notifyObservers(this);
 	}
 
+	
+	public LinkedEntity getRepresentation(){
+		return visual;
+	}
+	
+	public void setRepresentation(LinkedEntity visual){
+		this.visual = visual;
+	}
 	
 	//**********************************************
 	//Solution introspection

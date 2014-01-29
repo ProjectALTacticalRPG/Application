@@ -1,4 +1,4 @@
-package testcodeframework;
+package arena.graphics;
 
 public interface Cinematicable {
 	

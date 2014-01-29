@@ -1,14 +1,10 @@
 package gameframework.expansion;
 
 import java.awt.Point; 
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
-import testcodeframework.Cinematicable;
-
+import arena.graphics.Cinematicable;
 import gameframework.base.MoveStrategyKeyboard;
 
 public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
