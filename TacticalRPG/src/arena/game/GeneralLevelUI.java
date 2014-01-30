@@ -5,13 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
 import arena.graphics.LinkVisual;
-
 import units.Wave;
-
 import gameframework.base.Drawable;
 import gameframework.game.GameEntity;
 
@@ -21,6 +20,8 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 	private Font font2;
 	private Image rupee;
 	private Image heart;
+	private Image sword;
+	private Image shield;
 	private Image imgLink;
 	private int timerTick;
 	private Wave nextWave;
@@ -39,6 +40,8 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 			font2 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);
 			rupee = Toolkit.getDefaultToolkit().getImage("src/ressources/img/rupee.png");
 			heart = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_hearts.png");
+			sword = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_weapons_sword.png");
+			shield = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_weapons_shield.png");
 			imgLink = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_link.png");
 		} catch (Exception e) {
 			
@@ -62,6 +65,19 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		return minutes + ":" + secondes;
 	}
 	
+	public int[] getItemImage(double x, double y, int size, float proportion, int itemLevel) {
+		int[] ret = new int[8];
+		ret[0] = (int) x;
+		ret[1] = (int) y;
+		ret[2] = (int) (ret[0]+(size*proportion));
+		ret[3] = (int) (ret[1]+(size*proportion));
+		ret[4] = size*itemLevel;
+		ret[5] = 0;
+		ret[6] = ret[4]+size;
+		ret[7] = size;
+		return ret;
+	}
+	
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
@@ -70,6 +86,9 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		g2d.fillRect(0, 20, 340, 50);
 		g2d.fillRect(0, 80, 250, 35);
 		g2d.fillRect(0, 125, 100, 35);
+		g2d.fillRect(0, 125, 100, 35);
+		g2d.fillRoundRect(628, 20, 50, 50, 5, 5);
+		g2d.fillRoundRect(688, 20, 50, 50, 5, 5);
 		g2d.setColor(Color.BLACK);
 		g2d.drawRect(-1, 20, 340, 50);
 		g2d.drawRect(-1, 80, 250, 35);
@@ -78,11 +97,17 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(font2);
 		g2d.drawString(String.valueOf(rupee_nb), 41, 151);
+		g2d.drawString("Weapons", 621, 25);
+		g2d.drawString("A", 666, 76);
+		g2d.drawString("Z", 726, 76);
 		g2d.setFont(font1);
 		g2d.drawString("Next wave :", 8, 106);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(font2);
 		g2d.drawString(String.valueOf(rupee_nb), 40, 150);
+		g2d.drawString("Weapons", 620, 24);
+		g2d.drawString("A", 665, 75);
+		g2d.drawString("Z", 725, 75);
 		g2d.setFont(font1);
 		g2d.drawString("Next wave :", 8, 105);
 		g2d.drawImage(rupee, 5, 126, null);
@@ -129,6 +154,12 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 			int sy2 = sy1 + 8;
 			g2d.drawImage(heart, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
 		}
+		Point posItemA = new Point(637, 30);
+		Point posItemB = new Point(697, 30); 
+		int[] pA = getItemImage(posItemA.getX(), posItemA.getY(), 16, 2, 0);
+		int[] pB = getItemImage(posItemB.getX(), posItemB.getY(), 16, 2, 0);
+		g2d.drawImage(sword, pA[0], pA[1], pA[2], pA[3], pA[4], pA[5], pA[6], pA[7], null);
+		g2d.drawImage(shield, pB[0], pB[1], pB[2], pB[3], pB[4], pB[5], pB[6], pB[7], null);
 	}
 
 }
