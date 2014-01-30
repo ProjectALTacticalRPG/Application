@@ -98,6 +98,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
 	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+	    myLink.addSword();
 		launchGame();
 		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
 		cine.start();*/
