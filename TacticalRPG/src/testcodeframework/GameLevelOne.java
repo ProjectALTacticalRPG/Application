@@ -112,7 +112,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	
 	public void launchGame() {
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
-		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this);
+		MoveStrategyKeyboardExtended keyStr = null;
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
