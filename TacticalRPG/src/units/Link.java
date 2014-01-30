@@ -21,7 +21,7 @@ public class Link extends AbstractFighter {
 	}
 	
 	public Link(){
-		setHealth(40);
+		setHealth(4);
 		setMaximumHealth(40);
 		setDamage(0);
 		setParry(0);

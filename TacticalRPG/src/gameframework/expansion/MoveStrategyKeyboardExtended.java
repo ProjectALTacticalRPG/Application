@@ -43,9 +43,11 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 	public void keyReleased(KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.VK_A && !link.isAttacking()){
 			link.setAttacking();
+			speedVector.setDirection(new Point(0,0));
 		}
-		else
+		else if(!link.isAttacking()){
 			move(event.getKeyCode(), 0);
+		}
 	}
 	
 	private void move(int keycode, int value) {

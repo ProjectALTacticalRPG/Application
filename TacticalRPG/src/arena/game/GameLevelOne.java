@@ -25,14 +25,12 @@ import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
 import gameframework.game.GameMovableDriverDefaultImpl;
-import gameframework.game.GameUniverse;
 import gameframework.game.GameUniverseDefaultImpl;
 import gameframework.game.GameUniverseViewPortDefaultImpl;
 import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
-import gameframework.game.OverlapRulesApplierDefaultImpl;
 
 public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable, DeathObserver {
 	
@@ -160,6 +158,8 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			universe.processAllOverlaps();
 			if(myLink.isAttacking())
 				myLink.decrementAttackTimer();
+			if(myLink.getHealth() < 5)
+				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
@@ -208,6 +208,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 
 	@Override
 	public void update(LinkedEntity l) {
+		
 		if(!l.isAlive()){
 			System.out.println(l.getClass().getSimpleName() + " is dead.");
 			universe.removeGameEntity(l);
@@ -216,8 +217,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 
 	@Override
 	public void update(LinkedEntity l, int sound) {
-		System.out.println("MEH");
-		audioReader.getSoundElement(sound).play();;
+		audioReader.getSoundElement(sound).play();
 	}
 
 }

@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 public class LinkVisual extends LinkedEntity implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
-	public static final int ATTACK_DURATION = 20;
+	public static final int ATTACK_DURATION = 6;
 	protected DrawableImage shadow;
 	protected SwordVisual sword;
 	public static final int RENDERING_SIZE_W = (int) (24*1.35);
@@ -29,7 +29,7 @@ Overlappable {
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 12);
 		spriteManager.setTypes("down", "left", "right", "up", 
 				"down_static", "right_static", "left_static", "up_static", 
-				"down_attack", "left_attack", "right_attack", "up_attack");
+				"down_attack", "left_attack", "up_attack", "right_attack");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 		sword = new SwordVisual(defaultCanvas);
@@ -52,8 +52,13 @@ Overlappable {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		movable = true;
-
-		if (tmp.getX() == 1) {
+		if(isAttacking()){
+			String s = prev;
+			s = s.replace("_static", "");
+			s = s.replace("_attack", "");
+			spriteType = s+"_attack";
+		}
+		else if (tmp.getX() == 1) {
 			spriteType += "right";
 		} else if (tmp.getX() == -1) {
 			spriteType += "left";
@@ -61,8 +66,6 @@ Overlappable {
 			spriteType += "down";
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
-		} else if(isAttacking()){
-			String s = prev.replace("_static", "");
 		} else {
 			if(prev.contains("static")){
 				spriteType = prev;
@@ -77,43 +80,38 @@ Overlappable {
 			movable = false;
 		}
 		
-		prev = spriteType;
+		if(!isAttacking())
+			prev = spriteType;
 		spriteManager.setType(spriteType);
 		
 		int posX = getPosition().x;
 		int posY = getPosition().y+2;
-		int posXE = getPosition().x;
-		int posYE = getPosition().y;
 		
 		if(spriteType.contains("left")){
-			posXE-=20;
 			posX+=2;
 		}
 		else if(spriteType.contains("right")){
 			posX +=6;
-			posXE+=20;
 		}
 		else{
 			posX +=4;
 		}
 		
-		if(spriteType.contains("up")){
-			posYE -=20;
-		}
-		else if(spriteType.contains("down")){
-			posYE+=20;
-		}
-		
 		if(spriteType.contains("up"))
 			posY-=2;
-		
-		if(isAttacking())
 			
-		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W, RENDERING_SIZE_H,
+		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
 				null);
 		
 		spriteManager.draw(g, getPosition());
 
+		if(isAttacking()){
+			//if(spriteType.contains("down")){
+				sword.getPosition().setLocation(this.getPosition().x, getPosition().y +20);
+				sword.draw(g);
+				
+			
+		}
 	}
 
 	@Override
@@ -123,6 +121,8 @@ Overlappable {
 			if (!isVulnerable()) {
 				vulnerableTimer--;
 			}
+			if(isAttacking())
+				sword.spriteManager.increment();
 		}
 	}
 
