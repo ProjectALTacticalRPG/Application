@@ -10,7 +10,7 @@ public class FighterWithSword extends EquippedFighter{
 
 	public FighterWithSword(Fighter s) throws Exception {
 		super(s);
-		this.itemDmg = 50;
+		this.itemDmg = 40;
 		this.itemDefense = 5;
 	}
 	

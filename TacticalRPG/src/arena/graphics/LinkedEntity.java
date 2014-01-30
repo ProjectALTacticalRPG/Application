@@ -46,6 +46,7 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 	
 	public void parry(int attack){
 		linkWith.parry(attack);
+		notifyObservers();
 	}
 	
 	public int strike(){

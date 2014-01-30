@@ -24,7 +24,7 @@ public class FighterProxy extends CustomObservable implements WaveMember, Fighte
 
 	@Override
 	public void parry(int attack) {
-		
+		soldier.parry(attack);
 	    notifyObservers(this);
 	}
 

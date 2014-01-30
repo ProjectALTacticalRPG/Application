@@ -64,7 +64,7 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	}
 	
 	public ArrayList<WaveMember> getWaveMembers(){
-		return new ArrayList<WaveMember>(members);
+		return members;
 	}
 
 	public boolean isAlive() {

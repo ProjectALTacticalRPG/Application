@@ -106,14 +106,14 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		//Ajout d'une vague d'octorocks
 		ArrayList<WaveMember> enemies = new ArrayList<WaveMember>();
 		for(int i = 0; i < 5; ++i){
-			enemies.add(factory.createOctorock(moveBlockerChecker));
+			enemies.add(factory.createOctorock(moveBlockerChecker, this));
 		}
 		waves.add(new Wave(enemies, 3, 30, universe));
 		enemies.clear();
 		
 		//Ajout d'une vague de keatons
 		for(int i = 0; i < 5; ++i){
-			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition()));
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
 		}
 		waves.add(new Wave(enemies, 15, 30, universe));
 		enemies.clear();
@@ -205,6 +205,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	@Override
 	public void update(LinkedEntity l) {
 		if(!l.isAlive()){
+			System.out.println(l.getClass().getSimpleName() + " is dead.");
 			universe.removeGameEntity(l);
 		}
 	}

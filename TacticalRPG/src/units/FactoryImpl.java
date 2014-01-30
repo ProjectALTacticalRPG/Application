@@ -10,6 +10,7 @@ import gameframework.game.MoveBlockerChecker;
 import java.awt.Canvas;
 import java.awt.Point;
 
+import utils.DeathObserver;
 import arena.game.CocotteMovableDriver;
 import arena.game.KeatonMovableDriver;
 import arena.game.OctorockMovableDriver;
@@ -70,6 +71,36 @@ public class FactoryImpl implements AbstractFactory {
 		MoveStrategy move = new MoveStrategyCocotte(res.getPosition(), goal);
 		driver.setStrategy(move);
 		res.setDriver(driver);
+		return res;
+	}
+
+	@Override
+	public OctorockVisual createOctorock(MoveBlockerChecker moveBlocker,
+			DeathObserver obs) {
+		OctorockVisual res = createOctorock(moveBlocker);
+		res.addObserver(obs);
+		return res;
+	}
+
+	@Override
+	public KeatonVisual createKeaton(MoveBlockerChecker moveBlocker,
+			Point goal, DeathObserver obs) {
+		KeatonVisual res = createKeaton(moveBlocker, goal);
+		res.addObserver(obs);
+		return res;
+	}
+
+	@Override
+	public CocotteVisual createCocotte(Point goal, DeathObserver obs) {
+		CocotteVisual res = createCocotte(goal);
+		res.addObserver(obs);
+		return res;
+	}
+
+	@Override
+	public LinkVisual createLink(DeathObserver obs) {
+		LinkVisual res = createLink();
+		res.addObserver(obs);
 		return res;
 	}
 
