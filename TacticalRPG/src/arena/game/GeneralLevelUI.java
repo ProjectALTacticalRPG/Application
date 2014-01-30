@@ -26,11 +26,13 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 	private Wave nextWave;
 	private boolean firstUpdate;
 	private LinkVisual link;
+	private int linkLifeTotal;
 	
 	public GeneralLevelUI(LinkVisual link) {
 		timerTick = 0;
 		nextWave = null;
 		this.link = link;
+		linkLifeTotal = link.getMaximumHealth();
 		firstUpdate = false;
 		try {
 			font1 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
@@ -101,7 +103,6 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 			g2d.drawString("None", posXd, posYd+21);
 		}
 		g2d.drawImage(imgLink, 5, 1, null);
-		int linkLifeTotal = link.getMaximumHealth();
 		int linkLifeRemaining = link.getHealth();
 		int row = 0;
 		int column = 0;
