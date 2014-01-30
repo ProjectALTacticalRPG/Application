@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import arena.graphics.Cinematicable;
+import arena.graphics.LinkVisual;
 import gameframework.base.MoveStrategyKeyboard;
 
 public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
@@ -14,9 +15,11 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 	private ArrayList<Integer> enterCode = new ArrayList<Integer>();
 	private int[] konamiCode = {38,38,40,40,37,39,37,39,66,65};
 	private Cinematicable levelForKonami;
+	private LinkVisual link;
 	
-	public MoveStrategyKeyboardExtended(Cinematicable c) {
+	public MoveStrategyKeyboardExtended(Cinematicable c, LinkVisual link) {
 		levelForKonami = c;
+		this.link = link;
 	}
 	
 	@Override
@@ -38,7 +41,11 @@ public class MoveStrategyKeyboardExtended extends MoveStrategyKeyboard {
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		move(event.getKeyCode(), 0);
+		if(event.getKeyCode() == KeyEvent.VK_A && !link.isAttacking()){
+			link.setAttacking();
+		}
+		else
+			move(event.getKeyCode(), 0);
 	}
 	
 	private void move(int keycode, int value) {

@@ -48,6 +48,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	private MoveBlockerChecker moveBlockerChecker;
 	private GeneralLevelUI levelUI;
 	private AbstractFactory factory;
+	private AudioRead audioReader;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -63,8 +64,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
 		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
 		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
-		
-		
+		audioReader = new AudioRead();
 	}
 
 	@Override
@@ -76,14 +76,13 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		spawns = cm.getSpawns();
 		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
-
+		ArenaOverlapRules overlapRules = new ArenaOverlapRules();
+		overlapProcessor.setOverlapRules(overlapRules);
 		moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
-		overlapProcessor.setOverlapRules(new OverlapRulesApplierDefaultImpl() {
-			@Override
-			public void setUniverse(GameUniverse universe) {}
-		});
+		overlapRules.setUniverse(universe);
+		overlapRules.setMoveBlockerChecker(moveBlockerChecker);
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
@@ -139,12 +138,13 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	
 	public void launchGame() {
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
-		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this);
+		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this, myLink);
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
 		launchWaves();
+		//audioReader.getPlaylistElement(0).loop();
 	}
 	
 	@Override
@@ -157,6 +157,8 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			gameBoard.paint();
 			universe.allOneStepMoves();
 			universe.processAllOverlaps();
+			if(myLink.isAttacking())
+				myLink.decrementAttackTimer();
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);

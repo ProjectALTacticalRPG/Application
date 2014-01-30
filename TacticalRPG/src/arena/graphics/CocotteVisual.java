@@ -19,8 +19,6 @@ Overlappable {
 	public static final int RENDERING_SIZE_W = (int) (24);
 	public static final int RENDERING_SIZE_H = (int) (24);
 	protected boolean movable = true;
-	protected boolean vulnerable = false;
-	protected int vulnerableTimer = 0;
 
 	public CocotteVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/cocottes.png",
@@ -28,14 +26,6 @@ Overlappable {
 		spriteManager.setTypes("left", "right");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
-	}
-
-	public void setInvulnerable(int timer) {
-		vulnerableTimer = timer;
-	}
-
-	public boolean isVulnerable() {
-		return (vulnerableTimer <= 0);
 	}
 
 	public void draw(Graphics g) {
@@ -90,6 +80,18 @@ Overlappable {
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE_W, RENDERING_SIZE_H));
+	}
+
+	@Override
+	public void addSword() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeSword() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
