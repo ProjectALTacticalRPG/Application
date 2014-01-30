@@ -19,8 +19,6 @@ Overlappable {
 	public static final int RENDERING_SIZE_W = (int) (32*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
-	protected boolean vulnerable = false;
-	protected int vulnerableTimer = 0;
 	private String prev = "down";
 
 	public KeatonVisual(Canvas defaultCanvas) {
@@ -31,21 +29,10 @@ Overlappable {
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
 
-	public void setInvulnerable(int timer) {
-		vulnerableTimer = timer;
-	}
-
-	public boolean isVulnerable() {
-		return (vulnerableTimer <= 0);
-	}
-
 	public void draw(Graphics g) {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		movable = true;
-		if (!isVulnerable()) {
-			spriteType += "invulnerable-";
-		}
 
 		if (tmp.getX() == 1) {
 			spriteType += "right";
@@ -82,6 +69,18 @@ Overlappable {
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE_W, RENDERING_SIZE_H));
+	}
+
+	@Override
+	public void addSword() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeSword() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

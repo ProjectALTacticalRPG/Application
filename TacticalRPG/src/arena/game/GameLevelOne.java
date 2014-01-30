@@ -76,14 +76,13 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		spawns = cm.getSpawns();
 		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
-
+		ArenaOverlapRules overlapRules = new ArenaOverlapRules();
+		overlapProcessor.setOverlapRules(overlapRules);
 		moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
-		overlapProcessor.setOverlapRules(new OverlapRulesApplierDefaultImpl() {
-			@Override
-			public void setUniverse(GameUniverse universe) {}
-		});
+		overlapRules.setUniverse(universe);
+		overlapRules.setMoveBlockerChecker(moveBlockerChecker);
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
@@ -139,7 +138,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	
 	public void launchGame() {
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
-		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this);
+		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this, myLink);
 		linkDriver.setStrategy(keyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
@@ -158,6 +157,8 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			gameBoard.paint();
 			universe.allOneStepMoves();
 			universe.processAllOverlaps();
+			if(myLink.isAttacking())
+				myLink.decrementAttackTimer();
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);

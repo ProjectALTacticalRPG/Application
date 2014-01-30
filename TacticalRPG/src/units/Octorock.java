@@ -15,7 +15,7 @@ public class Octorock extends AbstractFighter{
 		public Octorock(){
 			setHealth(30);
 			setMaximumHealth(30);
-			setDamage(4);
+			setDamage(2);
 			setParry(0);
 			setName("Octorock");
 		}
@@ -23,7 +23,7 @@ public class Octorock extends AbstractFighter{
 		public Octorock(String name){
 			setHealth(30);
 			setMaximumHealth(30);
-			setDamage(4);
+			setDamage(2);
 			setParry(0);
 			setName(name);
 		}

@@ -1,18 +1,21 @@
 package arena.graphics;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import units.FighterProxy;
 import units.WaveMember;
 import utils.DeathObserver;
+import gameframework.base.SpeedVector;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 
 public abstract class LinkedEntity extends GameMovable implements GameEntity, WaveMember{
 
 	protected FighterProxy linkWith;
+	protected Point lastDirection = new Point(0, 0);
 	private ArrayList<DeathObserver> observers = new ArrayList<DeathObserver>();
-
+	protected int vulnerableTimer = 0;
 	
 	public void notifyObservers() {
 		ArrayList<DeathObserver> temp = new ArrayList<DeathObserver>(observers);
@@ -56,13 +59,26 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 		return linkWith.strike();
 	}
 	
+	
 	@Override
-	public void addSword() {
-		linkWith.addSword();
+	public SpeedVector getSpeedVector() {
+		Point dir = super.getSpeedVector().getDirection();
+		if(dir.x != 0 || dir.y != 0){
+			lastDirection = (Point) dir.clone();
+		}
+		return super.getSpeedVector();
 	}
+	
+	public Point getLastDirection(){
+		return lastDirection;
+	}
+	
 
-	@Override
-	public void removeSword() {
-		linkWith.removeSword();
+	public boolean isVulnerable() {
+		return (vulnerableTimer <= 0);
+	}
+	
+	public void setInvulnerable(int timer) {
+		vulnerableTimer = timer;
 	}
 }
