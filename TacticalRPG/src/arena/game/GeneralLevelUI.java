@@ -86,7 +86,6 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		g2d.fillRect(0, 20, 340, 50);
 		g2d.fillRect(0, 80, 250, 35);
 		g2d.fillRect(0, 125, 100, 35);
-		g2d.fillRect(0, 125, 100, 35);
 		g2d.fillRoundRect(628, 20, 50, 50, 5, 5);
 		g2d.fillRoundRect(688, 20, 50, 50, 5, 5);
 		g2d.setColor(Color.BLACK);

@@ -48,6 +48,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	private MoveBlockerChecker moveBlockerChecker;
 	private GeneralLevelUI levelUI;
 	private AbstractFactory factory;
+	private AudioRead audioReader;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -63,8 +64,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
 		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
 		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
-		
-		
+		audioReader = new AudioRead();
 	}
 
 	@Override
@@ -145,6 +145,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
 		launchWaves();
+		//audioReader.getPlaylistElement(0).loop();
 	}
 	
 	@Override
