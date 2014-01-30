@@ -38,7 +38,7 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	}
 	
 	public String getWaveType() {
-		return members.get(0).getClass().getSimpleName().replace("Visual", "");
+		return members.get(0).getClass().getSimpleName().replace("Visual", "").toLowerCase();
 	}
 	
 	public boolean addMember(WaveMember wave){
@@ -104,7 +104,7 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	
 	public void initWave(ArrayList<Rectangle> spawns) {
 		for(WaveMember m : members){
-			//On effectue cette manipulation pour eviter de devalider le pointeur sur la position de l'entité dans le driver de déplacement
+			//On effectue cette manipulation pour eviter de devalider le pointeur sur la position de l'entitï¿½ dans le driver de dï¿½placement
 			if(m instanceof LinkedEntity){
 				LinkedEntity le = (LinkedEntity) m;
 				le.getPosition().setLocation(randomSpawn(spawns)); 
