@@ -24,6 +24,13 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 			obs.update(this);
 	}
 	
+	public void notifyObservers(int sound){
+		ArrayList<DeathObserver> temp = new ArrayList<DeathObserver>(observers);
+
+		for(DeathObserver obs : temp)
+			obs.update(this, sound);
+	}
+	
 	public void addObserver(DeathObserver o){
 		observers.add(o);
 	}
@@ -56,6 +63,7 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 	
 	@Override
 	public int strike(){
+		notifyObservers(arena.game.AudioRead.HIT);
 		return linkWith.strike();
 	}
 	

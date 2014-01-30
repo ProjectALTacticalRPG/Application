@@ -1,29 +1,41 @@
 package arena.game;
 import java.applet.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AudioRead implements AudioClip {
 
     private ArrayList<AudioClip> playlist;
+    private Map<Integer, AudioClip> sounds;
+    public static final int DIE = 1;
+    public static final int G_HEART = 2;
+    public static final int G_RUPEE = 3;
+    public static final int HIT = 4;
+    public static final int HURT = 5;
+    public static final int LOW_HEALTH = 6;
+    public static final int SWORD = 7;
     
     public AudioRead() {
     	try {
     		playlist = new ArrayList<AudioClip>();
+    		sounds = new HashMap<Integer, AudioClip>();
     		//playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Background.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Die.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Heart.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Rupee.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hit.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hurt.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_LowHealth.wav")));
-    		playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Sword.wav")));
+    		sounds.put(DIE, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Die.wav")));
+    		sounds.put(G_HEART, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Heart.wav")));
+    		sounds.put(G_RUPEE, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Rupee.wav")));
+    		sounds.put(HIT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hit.wav")));
+    		sounds.put(HURT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hurt.wav")));
+    		sounds.put(LOW_HEALTH, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_LowHealth.wav")));
+    		sounds.put(SWORD, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Sword.wav")));
+    		
     	} catch(Exception e) {
     		System.out.println("Erreur lors du chargement de la musique");
     	}
     }
     
-    public AudioClip getPlaylistElement(int index) {
-    	return playlist.get(index);
+    public AudioClip getSoundElement(int sound) {
+    	return sounds.get(sound);
     }
     
     public void stopAll() {

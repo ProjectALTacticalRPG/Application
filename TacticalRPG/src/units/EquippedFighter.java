@@ -42,5 +42,10 @@ public abstract class EquippedFighter extends AbstractFighter{
 	public int getMaximumHealth(){
 		return soldier.getMaximumHealth();
 	}
+	
+	@Override
+	public boolean isAlive(){
+		return soldier.isAlive();
+	}
 
 }

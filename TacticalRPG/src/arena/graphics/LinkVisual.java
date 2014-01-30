@@ -26,15 +26,17 @@ Overlappable {
 
 	public LinkVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
-				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 8);
+				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 12);
 		spriteManager.setTypes("down", "left", "right", "up", 
-				"down_static", "right_static", "left_static", "up_static");
+				"down_static", "right_static", "left_static", "up_static", 
+				"down_attack", "left_attack", "right_attack", "up_attack");
 		
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 		sword = new SwordVisual(defaultCanvas);
 	}
 	
 	public void setAttacking() {
+		notifyObservers(arena.game.AudioRead.SWORD);
 		attackingTimer = ATTACK_DURATION;
 	}
 	
@@ -59,6 +61,8 @@ Overlappable {
 			spriteType += "down";
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
+		} else if(isAttacking()){
+			String s = prev.replace("_static", "");
 		} else {
 			if(prev.contains("static")){
 				spriteType = prev;

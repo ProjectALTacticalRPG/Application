@@ -94,6 +94,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		}
 		
 		myLink = factory.createLink();
+		myLink.addObserver(this);
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
 	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
@@ -211,6 +212,12 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			System.out.println(l.getClass().getSimpleName() + " is dead.");
 			universe.removeGameEntity(l);
 		}
+	}
+
+	@Override
+	public void update(LinkedEntity l, int sound) {
+		System.out.println("MEH");
+		audioReader.getSoundElement(sound).play();;
 	}
 
 }
