@@ -18,7 +18,6 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 
 	private Font font1;
 	private Font font2;
-	private Image rupee;
 	private Image heart;
 	private Image sword;
 	private Image shield;
@@ -38,7 +37,6 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		try {
 			font1 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
 			font2 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);
-			rupee = Toolkit.getDefaultToolkit().getImage("src/ressources/img/rupee.png");
 			heart = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_hearts.png");
 			sword = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_weapons_sword.png");
 			shield = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_weapons_shield.png");
@@ -85,17 +83,12 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		g2d.setColor(new Color(0, 0, 0, 170));
 		g2d.fillRect(0, 20, 340, 50);
 		g2d.fillRect(0, 80, 250, 35);
-		g2d.fillRect(0, 125, 100, 35);
 		g2d.fillRoundRect(628, 20, 50, 50, 5, 5);
 		g2d.fillRoundRect(688, 20, 50, 50, 5, 5);
 		g2d.setColor(Color.BLACK);
 		g2d.drawRect(-1, 20, 340, 50);
 		g2d.drawRect(-1, 80, 250, 35);
-		g2d.drawRect(-1, 125, 100, 35);
-		int rupee_nb = 921;
-		g2d.setColor(Color.BLACK);
 		g2d.setFont(font2);
-		g2d.drawString(String.valueOf(rupee_nb), 41, 151);
 		g2d.drawString("Weapons", 621, 25);
 		g2d.drawString("A", 666, 76);
 		g2d.drawString("Z", 726, 76);
@@ -103,13 +96,11 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		g2d.drawString("Next wave :", 8, 106);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(font2);
-		g2d.drawString(String.valueOf(rupee_nb), 40, 150);
 		g2d.drawString("Weapons", 620, 24);
 		g2d.drawString("A", 665, 75);
 		g2d.drawString("Z", 725, 75);
 		g2d.setFont(font1);
 		g2d.drawString("Next wave :", 8, 105);
-		g2d.drawImage(rupee, 5, 126, null);
 		int posXd = 132;
 		int posYd = 83;
 		int posXs = posXd + 48;
