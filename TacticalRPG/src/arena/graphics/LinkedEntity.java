@@ -3,11 +3,12 @@ package arena.graphics;
 import java.util.ArrayList;
 
 import units.FighterProxy;
+import units.WaveMember;
 import utils.DeathObserver;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 
-public abstract class LinkedEntity extends GameMovable implements GameEntity{
+public abstract class LinkedEntity extends GameMovable implements GameEntity, WaveMember{
 	protected FighterProxy linkWith;
 	private ArrayList<DeathObserver> observers = new ArrayList<DeathObserver>();
 
@@ -37,6 +38,10 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity{
 	
 	public boolean isAlive(){
 		return linkWith.isAlive();
+	}
+	
+	public int getMaximumHealth(){
+		return linkWith.getMaximumHealth();
 	}
 	
 	public void parry(int attack){

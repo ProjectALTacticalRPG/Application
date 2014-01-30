@@ -8,6 +8,10 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
+import arena.graphics.LinkVisual;
+
+import units.Wave;
+
 import gameframework.base.Drawable;
 import gameframework.game.GameEntity;
 
@@ -17,21 +21,23 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 	private Font font2;
 	private Image rupee;
 	private Image heart;
-	private Image link;
+	private Image imgLink;
 	private int timerTick;
 	private Wave nextWave;
 	private boolean firstUpdate;
+	private LinkVisual link;
 	
-	public GeneralLevelUI() {
+	public GeneralLevelUI(LinkVisual link) {
 		timerTick = 0;
 		nextWave = null;
+		this.link = link;
 		firstUpdate = false;
 		try {
 			font1 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
 			font2 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);
 			rupee = Toolkit.getDefaultToolkit().getImage("src/ressources/img/rupee.png");
 			heart = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_hearts.png");
-			link = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_link.png");
+			imgLink = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_link.png");
 		} catch (Exception e) {
 			
 		}
@@ -94,9 +100,9 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 			g2d.setColor(Color.WHITE);	
 			g2d.drawString("None", posXd, posYd+21);
 		}
-		g2d.drawImage(link, 5, 1, null);
-		int linkLifeTotal = 20;
-		int linkLifeRemaining = 20;
+		g2d.drawImage(imgLink, 5, 1, null);
+		int linkLifeTotal = link.getMaximumHealth();
+		int linkLifeRemaining = link.getHealth();
 		int row = 0;
 		int column = 0;
 		for(int i=0; i<(linkLifeTotal/4); i++) {

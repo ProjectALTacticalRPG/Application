@@ -1,6 +1,6 @@
 package utils;
 
-import units.Group;
+import units.Wave;
 import units.FighterProxy;
 
 public class CombatReport implements CustomObserver{
@@ -23,9 +23,9 @@ public class CombatReport implements CustomObserver{
 	}
 
 	@Override
-	public void update(Group a) {
+	public void update(Wave a) {
 		if(!a.isAlive()){
-			System.out.println("Le groupe " + a.getName()+ " a été éliminé.");
+			System.out.println("Un group de " + a.getWaveType()+ " a été éliminé.");
 		}
 	}
 

@@ -6,6 +6,7 @@ public class Link extends AbstractFighter {
 
 	public Link(String name, int health, int damage, int parry) {
 		setHealth(health);
+		setMaximumHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName(name);
@@ -13,20 +14,23 @@ public class Link extends AbstractFighter {
 	
 	public Link(int health, int damage, int parry) {
 		setHealth(health);
+		setMaximumHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName("Link");
 	}
 	
 	public Link(){
-		setHealth(50);
+		setHealth(40);
+		setMaximumHealth(40);
 		setDamage(1);
 		setParry(5);
 		setName("Link");
 	}
 	
 	public Link(String name){
-		setHealth(50);
+		setHealth(40);
+		setMaximumHealth(40);
 		setDamage(1);
 		setParry(5);
 		setName(name);

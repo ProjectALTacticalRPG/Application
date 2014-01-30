@@ -6,6 +6,7 @@ public class Keaton extends AbstractFighter {
 
 	public Keaton(String name, int health, int damage, int parry) {
 		setHealth(health);
+		setMaximumHealth(health);
 		setDamage(damage);
 		setParry(parry);
 		setName(name);
@@ -13,13 +14,15 @@ public class Keaton extends AbstractFighter {
 	
 	public Keaton(){
 		setHealth(50);
+		setMaximumHealth(50);
 		setDamage(1);
 		setParry(5);
-		setName("Moblin");
+		setName("Keaton");
 	}
 	
 	public Keaton(String name){
 		setHealth(50);
+		setMaximumHealth(50);
 		setDamage(1);
 		setParry(5);
 		setName(name);

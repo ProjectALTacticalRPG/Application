@@ -7,7 +7,7 @@ import utils.CustomObservable;
 import utils.Visitor;
 
 
-public class FighterProxy extends CustomObservable implements GroupMember {
+public class FighterProxy extends CustomObservable implements WaveMember, Fighter {
 
 	private Fighter soldier;
 	private LinkedEntity visual;
@@ -175,9 +175,22 @@ public class FighterProxy extends CustomObservable implements GroupMember {
 		return soldier.isAlive();
 	}
 
+	@Override
+	public int getPreviousDmg() {
+		// Not implemented
+		return 0;
+	}
+
 
 	@Override
 	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public int getMaximumHealth() {
+		return soldier.getMaximumHealth();
 	}
 }

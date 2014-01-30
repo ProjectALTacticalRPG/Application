@@ -15,7 +15,10 @@ import arena.graphics.MapAsset;
 import arena.graphics.MapVisual;
 import units.AbstractFactory;
 import units.FactoryImpl;
+import units.Wave;
+import units.WaveMember;
 import utils.CalculateMatrix;
+import utils.DeathObserver;
 import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
@@ -31,7 +34,7 @@ import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframework.game.OverlapRulesApplierDefaultImpl;
 
-public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable {
+public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable, DeathObserver {
 	
 	Canvas canvas;
 	private final static int GAME_SPEED = 50;
@@ -61,7 +64,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
 		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
 		
-		levelUI = new GeneralLevelUI();
+		
 	}
 
 	@Override
@@ -92,6 +95,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		}
 		
 		myLink = factory.createLink();
+		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
 	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
 		launchGame();
@@ -100,7 +104,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		refreshElements();
 		
 		//Ajout d'une vague d'octorocks
-		ArrayList<LinkedEntity> enemies = new ArrayList<LinkedEntity>();
+		ArrayList<WaveMember> enemies = new ArrayList<WaveMember>();
 		for(int i = 0; i < 5; ++i){
 			enemies.add(factory.createOctorock(moveBlockerChecker));
 		}
@@ -181,7 +185,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 	
 	@Override
 	public void addCocotteWaveKonami() {
-		ArrayList<LinkedEntity> enemies = new ArrayList<LinkedEntity>();
+		ArrayList<WaveMember> enemies = new ArrayList<WaveMember>();
 		for(int i = 0; i < 20; ++i){
 			enemies.add(factory.createCocotte(myLink.getPosition()));
 		}
@@ -196,6 +200,13 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable 
 		}
 		universe.removeGameEntity(levelUI);
 		universe.addGameEntity(levelUI);
+	}
+
+	@Override
+	public void update(LinkedEntity l) {
+		if(!l.isAlive()){
+			universe.removeGameEntity(l);
+		}
 	}
 
 }

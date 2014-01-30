@@ -3,7 +3,8 @@ package units;
 public abstract class AbstractFighter implements Fighter {
 	
 	private int damage;
-	private int health;
+	private int currentHealth;
+	private int maximumHealth;
 	private int parry;
 	private int weapons = 0;
 	private String name;
@@ -14,7 +15,7 @@ public abstract class AbstractFighter implements Fighter {
 	}
 	
 	public int getHealth(){
-		return health;
+		return currentHealth;
 	}
 	
 	public int getParry(){
@@ -34,7 +35,7 @@ public abstract class AbstractFighter implements Fighter {
 	}
 	
 	public void setHealth(int health){
-		this.health = health;
+		this.currentHealth = health;
 	}
 	
 	public void setParry(int parry){
@@ -54,7 +55,7 @@ public abstract class AbstractFighter implements Fighter {
 	}
 	
 	public boolean isAlive(){
-		return health > 0;
+		return currentHealth > 0;
 	}
 	
 	public int getPreviousDmg(){
@@ -63,5 +64,13 @@ public abstract class AbstractFighter implements Fighter {
 	
 	public void setPreviousDmg(int previousDmg){
 		this.previousDmg = previousDmg;
+	}
+
+	public int getMaximumHealth() {
+		return maximumHealth;
+	}
+
+	public void setMaximumHealth(int maximumHealth) {
+		this.maximumHealth = maximumHealth;
 	}
 }

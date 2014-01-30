@@ -6,20 +6,23 @@ public class Octorock extends AbstractFighter{
 	
 		public Octorock(String name, int health, int damage, int parry) {
 			setHealth(health);
+			setMaximumHealth(health);
 			setDamage(damage);
 			setParry(parry);
 			setName(name);
 		}
 		
 		public Octorock(){
-			setHealth(75);
+			setHealth(30);
+			setMaximumHealth(30);
 			setDamage(1);
 			setParry(5);
-			setName("Octorok");
+			setName("Octorock");
 		}
 		
 		public Octorock(String name){
-			setHealth(50);
+			setHealth(30);
+			setMaximumHealth(30);
 			setDamage(1);
 			setParry(5);
 			setName(name);

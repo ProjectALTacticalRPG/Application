@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import units.Group;
+import units.Wave;
 import units.FighterProxy;
 
 public class CustomObservable {
@@ -17,7 +17,7 @@ public class CustomObservable {
 			obs.update(s, message);
 	}
 
-	public void notifyObservers(Group a) {
+	public void notifyObservers(Wave a) {
 		ArrayList<CustomObserver> temp = new ArrayList<CustomObserver>(observers);
 		for(CustomObserver obs : temp)
 			obs.update(a);
