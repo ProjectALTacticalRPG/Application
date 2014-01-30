@@ -9,6 +9,7 @@ import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 
 public abstract class LinkedEntity extends GameMovable implements GameEntity, WaveMember{
+
 	protected FighterProxy linkWith;
 	private ArrayList<DeathObserver> observers = new ArrayList<DeathObserver>();
 
@@ -44,11 +45,24 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 		return linkWith.getMaximumHealth();
 	}
 	
+	@Override
 	public void parry(int attack){
 		linkWith.parry(attack);
+		notifyObservers();
 	}
 	
+	@Override
 	public int strike(){
 		return linkWith.strike();
+	}
+	
+	@Override
+	public void addSword() {
+		linkWith.addSword();
+	}
+
+	@Override
+	public void removeSword() {
+		linkWith.removeSword();
 	}
 }

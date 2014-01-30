@@ -15,16 +15,16 @@ public class Octorock extends AbstractFighter{
 		public Octorock(){
 			setHealth(30);
 			setMaximumHealth(30);
-			setDamage(1);
-			setParry(5);
+			setDamage(4);
+			setParry(0);
 			setName("Octorock");
 		}
 		
 		public Octorock(String name){
 			setHealth(30);
 			setMaximumHealth(30);
-			setDamage(1);
-			setParry(5);
+			setDamage(4);
+			setParry(0);
 			setName(name);
 		}
 

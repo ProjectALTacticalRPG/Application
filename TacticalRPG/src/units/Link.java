@@ -23,16 +23,16 @@ public class Link extends AbstractFighter {
 	public Link(){
 		setHealth(40);
 		setMaximumHealth(40);
-		setDamage(1);
-		setParry(5);
+		setDamage(0);
+		setParry(0);
 		setName("Link");
 	}
 	
 	public Link(String name){
 		setHealth(40);
 		setMaximumHealth(40);
-		setDamage(1);
-		setParry(5);
+		setDamage(0);
+		setParry(0);
 		setName(name);
 	}
 
@@ -59,6 +59,7 @@ public class Link extends AbstractFighter {
 		
 	}
 	
+	@Override
 	public String getName(){
 		return super.getName();
 	}

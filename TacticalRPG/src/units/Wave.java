@@ -21,14 +21,14 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	private int waveStartTime;
 	private int spriteSize;
 	private GameUniverse universe;
-	
+
 	public Wave(ArrayList<WaveMember> monsters, int startTime, int spSize, GameUniverse universe) {
 		this.members = new ArrayList<WaveMember>(monsters);
 		waveStartTime = startTime;
 		spriteSize = spSize;
 		this.universe = universe;
 	}
-	
+
 	public int getWaveLength() {
 		return members.size();
 	}
@@ -36,11 +36,11 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	public int getWaveStartTime() {
 		return waveStartTime;
 	}
-	
+
 	public String getWaveType() {
 		return members.get(0).getClass().getSimpleName().replace("Visual", "").toLowerCase();
 	}
-	
+
 	public boolean addMember(WaveMember wave){
 		if(!checkMember(wave)){
 			members.add(wave);
@@ -49,22 +49,22 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 		}
 		return false;
 	}
-	
+
 	public void removeMember(WaveMember wave){
 		members.remove(wave);
 	}
 
 	public int getHealth() {
 		int health = 0;
-		
+
 		for(WaveMember a : members){
 			health += a.getHealth();
 		}
 		return health;
 	}
-	
+
 	public ArrayList<WaveMember> getWaveMembers(){
-		return new ArrayList<WaveMember>(members);
+		return members;
 	}
 
 	public boolean isAlive() {
@@ -73,7 +73,7 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 		else
 			return (members.size() > 0) ? true : false;
 	}
-	
+
 	public boolean checkMember(WaveMember member){
 		boolean result = false;
 		for(WaveMember a : members){
@@ -86,12 +86,12 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public void addObs(CustomObserver o){
 		this.addObserver(o);
 		for(WaveMember a : members){
@@ -101,7 +101,7 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 				((Wave)a).addObs(o);
 		}
 	}
-	
+
 	public void initWave(ArrayList<Rectangle> spawns) {
 		for(WaveMember m : members){
 			//On effectue cette manipulation pour eviter de devalider le pointeur sur la position de l'entit� dans le driver de d�placement
@@ -128,11 +128,36 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 
 	@Override
 	public int getMaximumHealth() {
-int health = 0;
-		
+		int health = 0;
+
 		for(WaveMember a : members){
 			health += a.getMaximumHealth();
 		}
 		return health;
+	}
+
+	@Override
+	public void addSword() {
+		for(WaveMember l : members){
+			l.addSword();
+		}
+	}
+
+	@Override
+	public void removeSword() {
+		for(WaveMember l : members){
+			l.removeSword();
+		}
+	}
+
+	@Override
+	public int strike() {
+		System.out.println("Not implemented");
+		return 0;
+	}
+
+	@Override
+	public void parry(int attack) {
+		System.out.println("Not implemented");
 	}
 }
