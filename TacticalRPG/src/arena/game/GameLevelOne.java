@@ -1,6 +1,6 @@
 package arena.game;
 
-import java.awt.Canvas;
+import java.awt.Canvas; 
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import arena.graphics.BulletVisual;
 import arena.graphics.Cinematic;
 import arena.graphics.Cinematicable;
+import arena.graphics.DeathVisual;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
 import arena.graphics.MapAsset;
@@ -28,6 +29,7 @@ import gameframework.expansion.MoveStrategyBullet;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
+import gameframework.game.GameLevel;
 import gameframework.game.GameLevelDefaultImpl;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverseDefaultImpl;
@@ -191,6 +193,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	}
 	
 	public void launchGame() {
+		levelUI.setInGame();
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
 		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this, myLink);
 		linkDriver.setStrategy(keyStr);
@@ -198,12 +201,12 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
 		launchWaves();
-		//audioReader.getPlaylistElement(0).loop();
 	}
 	
 	@Override
 	public void run() {
 		stopGameLoop = false;
+		boolean endGame = false;
 		// main game loop :
 		long start;
 		
@@ -214,23 +217,28 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			universe.processAllOverlaps();
 			myLink.updateTimers();
 			pManager.checkProjectiles();
-			if(myLink.getHealth() < 5 && !isLowLife) {
+			if(myLink.getHealth() < 5 && !isLowLife && !endGame) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
-					isLowLife = true;
-			} else if(myLink.getHealth() >= 5 && isLowLife) {
+				isLowLife = true;
+			} else if((myLink.getHealth() >= 5 && isLowLife && !endGame) || (myLink.getHealth() < 1 && isLowLife && !endGame)) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).stop();
 				isLowLife = false;
 			}
 			
 			refreshElements();
+			if(!myLink.isAlive() && !endGame) {
+				audioReader.stopAll();
+				DeathVisual d = new DeathVisual(levelUI);
+				d.start();
+				endGame = true;
+			}
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
 				if (sleepTime > 0) {
 					Thread.sleep(sleepTime);
 				}
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 		}
 	}
 	
@@ -310,6 +318,10 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	@Override
 	public void update(LinkedEntity l, int sound) {
 		audioReader.getSoundElement(sound).play();
+	}
+
+	public ArrayList<MapVisual> getElementsOver() {
+		return elementsOver;
 	}
 
 }

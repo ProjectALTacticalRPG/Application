@@ -22,6 +22,7 @@ public class levelOneTest {
 			
 			GameLevelOne g1=new GameLevelOne(g);
 			
+			assertEquals(g1.getElementsOver().size(),5);  //verifie que les chemins des cinq images au départ sont biens chargés
 			
 			levels.add(g1);
 			
@@ -29,9 +30,7 @@ public class levelOneTest {
 			
 			/*g.setFrameParametersToDefault();
 			g.setLevels(levels);
-			g.start();*/
-			
-				
+			g.start();*/				
 			
 		}
 	

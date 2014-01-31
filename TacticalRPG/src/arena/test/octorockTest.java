@@ -16,8 +16,8 @@ public class octorockTest {
             assertEquals(oct1.getName(),"Octorock");
             assertEquals(oct1.getHealth(),30);
             assertEquals(oct1.getMaximumHealth(),30);
-            assertEquals(oct1.getDamage(),1);
-            assertEquals(oct1.getParry(),5);
+            assertEquals(oct1.getDamage(),2);
+            assertEquals(oct1.getParry(),0);
             
             /*Other*/
             

@@ -16,8 +16,8 @@ public class kaetonTest {
             assertEquals(k1.getName(),"Keaton");
             assertEquals(k1.getHealth(),50);
             assertEquals(k1.getMaximumHealth(),50);
-            assertEquals(k1.getDamage(),1);
-            assertEquals(k1.getParry(),5);
+            assertEquals(k1.getDamage(),8);
+            assertEquals(k1.getParry(),0);
             
             /*Other*/
             
