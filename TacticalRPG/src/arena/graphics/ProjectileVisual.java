@@ -5,10 +5,7 @@ import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
-import gameframework.game.SpriteManager;
-
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import arena.game.Weapon;

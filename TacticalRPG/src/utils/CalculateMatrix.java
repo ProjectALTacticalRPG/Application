@@ -7,20 +7,30 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/*
+ * Cette classe permet de parser un masque de collision donné en paramètre 
+ * et de récupérer celles-ci ainsi que les spawns
+ */
 public class CalculateMatrix {
-
-
 	ArrayList<Rectangle> boxes = new ArrayList<Rectangle>();
 	ArrayList<Rectangle> spawns = new ArrayList<Rectangle>();
-	int colorCollisions = (255<<24)+(255<<16)+(0<<8)+148;
-	int colorSpawn = (255<<24)+(255<<16)+(50<<8)+0;
+	int colorCollisions = (255<<24)+(255<<16)+(0<<8)+148; //Valeur par défaut
+	int colorSpawn = (255<<24)+(255<<16)+(50<<8)+0; //Valeur par défaut
 	int white = (255<<24)+(255<<16)+(255<<8)+255;
 	int[] rgbs;
+	
+	public CalculateMatrix(int colorCollisions, int colorSpawn){
+		this.colorCollisions = colorCollisions;
+		this.colorSpawn = colorSpawn;
+	}
+	
+	public CalculateMatrix(){
+		
+	}
 	
 	public void calculateMatrix(String imgPath){
 
 		BufferedImage in;
-		
 		try {
 			in = ImageIO.read(new File(imgPath));
 			int imgW = in.getWidth();

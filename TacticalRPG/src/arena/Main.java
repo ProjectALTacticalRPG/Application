@@ -19,5 +19,4 @@ public class Main {
 		g.setLevels(levels);
 		g.start();
 	}
-
 }

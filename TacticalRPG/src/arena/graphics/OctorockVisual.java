@@ -92,15 +92,12 @@ Overlappable {
 
 	@Override
 	public void addSword() {
-		// TODO Auto-generated method stub
-		
+		//Not implemented
 	}
 
 	@Override
 	public void removeSword() {
-		// TODO Auto-generated method stub
-		
+		//Not implemented
 	}
-
 }
 

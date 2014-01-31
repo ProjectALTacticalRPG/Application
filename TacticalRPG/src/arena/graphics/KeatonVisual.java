@@ -1,7 +1,6 @@
 package arena.graphics;
 
 import gameframework.base.Drawable;
-import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
@@ -70,15 +69,12 @@ Overlappable {
 
 	@Override
 	public void addSword() {
-		// TODO Auto-generated method stub
-		
+		//Not implemented
 	}
 
 	@Override
 	public void removeSword() {
-		// TODO Auto-generated method stub
-		
+		//Not implemented
 	}
-
 }
 

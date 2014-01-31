@@ -2,13 +2,11 @@ package arena.graphics;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import arena.game.Weapon;
 
 import gameframework.base.Drawable;
-import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
@@ -17,12 +15,9 @@ import gameframework.game.SpriteManager;
 
 public class SwordVisual extends GameMovable implements Drawable, Overlappable, GameEntity, Weapon{
 	public final SpriteManager spriteManager;
-	protected DrawableImage tempSword;
 	public static final int RENDERING_SIZE_W = (int) (26*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
-	protected boolean movable = true;
 	protected boolean attacking = false;
-	boolean cooldown = false;
 	protected LinkedEntity master;
 	
 	public SwordVisual(Canvas defaultCanvas, LinkedEntity master) {
@@ -34,7 +29,6 @@ public class SwordVisual extends GameMovable implements Drawable, Overlappable, 
 
 	public void draw(Graphics g) {
 		if(isAttacking()){
-			spriteManager.reset();
 			spriteManager.draw(g, getPosition());
 		}
 	}
@@ -58,6 +52,6 @@ public class SwordVisual extends GameMovable implements Drawable, Overlappable, 
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
-		
+		//Not needed
 	}
 }

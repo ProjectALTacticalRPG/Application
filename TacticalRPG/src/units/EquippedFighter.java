@@ -15,7 +15,7 @@ public abstract class EquippedFighter extends AbstractFighter{
 		while(it instanceof EquippedFighter){
 			nb++;
 			if(nb > 1)
-				throw new Exception("Un objet d√©j√† √©quip√©");
+				throw new Exception("Un objet est dÈj‡† ÈquipÈ");
 			
 			it = ((EquippedFighter) it).soldier;
 		}

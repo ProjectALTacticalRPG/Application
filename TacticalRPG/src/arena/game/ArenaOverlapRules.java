@@ -13,6 +13,9 @@ import gameframework.game.GameUniverse;
 import gameframework.game.MoveBlockerChecker;
 import gameframework.game.OverlapRulesApplierDefaultImpl;
 
+/*
+ * Classe d'extension pour les règles d'overlap du jeu
+ */
 public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveBlockerChecker moveBlocker;
@@ -28,11 +31,11 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 
 	public void overlapRule(LinkVisual link, OctorockVisual octo){
-		//damage(link, octo);
+		damage(link, octo);
 	}
 	
 	public void overlapRule(OctorockVisual octo, LinkVisual link){
-		//damage(link, octo);
+		damage(link, octo);
 	}
 	
 	public void overlapRule(LinkVisual link, KeatonVisual keat){
@@ -40,7 +43,7 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	
 	public void overlapRule(KeatonVisual keat, LinkVisual link){
-		//damage(link, keat);
+		damage(link, keat);
 	}
 	
 	public void overlapRule(SwordVisual sword, OctorockVisual octo){

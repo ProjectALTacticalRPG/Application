@@ -2,7 +2,6 @@ package arena.graphics;
 
 import gameframework.base.DrawableImage;
 import gameframework.base.MoveStrategyDefaultImpl;
-import gameframework.expansion.MoveStrategyBullet;
 import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.SpriteManager;
@@ -45,9 +44,7 @@ public class BulletVisual extends ProjectileVisual {
 		} else if (tmp.getY() == -1) {
 			spriteType += "explose";
 		} else {
-			
 			spriteType = "fire";
-			
 			spriteManager.reset();
 			movable = false;
 		}
@@ -57,7 +54,6 @@ public class BulletVisual extends ProjectileVisual {
 		g.drawImage(shadow.getImage(), getPosition().x+4, getPosition().y+5, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
 				null);
 		spriteManager.draw(g, getPosition());
-		
 	}
 
 	@Override
@@ -68,7 +64,6 @@ public class BulletVisual extends ProjectileVisual {
 		if(explosion <= 0 && !exploded){
 			exploded = true;
 		}
-		
 		if(hit || (getSpeedVector().getDirection().getX()==0 && getSpeedVector().getDirection().getY()==0)){
 			--explosion;
 		}
@@ -90,10 +85,8 @@ public class BulletVisual extends ProjectileVisual {
 	
 	public void hasHit(){
 		hit = true;
+		//On met un driver de base pour stopper la bullet
 		GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
-		//move = new MoveStrategyStraightLine(bullet.getPosition(),getSpeedVector().getDirection());
-        
-        
         driver.setStrategy(new MoveStrategyDefaultImpl());
 		this.setDriver(driver);
 	}

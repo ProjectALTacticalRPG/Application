@@ -10,6 +10,10 @@ import gameframework.base.SpeedVector;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 
+/*
+ * On rajoute cette classe pour ne pas avoir à modifier GameMovable tout en n'ayant pas à dupliquer du code
+ * dans les entités qui héritent de GameMovable
+ */
 public abstract class LinkedEntity extends GameMovable implements GameEntity, WaveMember{
 
 	protected FighterProxy linkWith;
@@ -88,5 +92,11 @@ public abstract class LinkedEntity extends GameMovable implements GameEntity, Wa
 	
 	public void setInvulnerable(int timer) {
 		vulnerableTimer = timer;
+	}
+	
+	public void updateTimers(){
+		if (!isVulnerable()) {
+			vulnerableTimer--;
+		}
 	}
 }

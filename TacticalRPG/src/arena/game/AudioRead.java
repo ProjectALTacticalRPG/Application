@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Classe de chargement et de lecture audio
+ */
 public class AudioRead implements AudioClip {
 
     private ArrayList<AudioClip> playlist;
@@ -18,7 +21,6 @@ public class AudioRead implements AudioClip {
     	try {
     		playlist = new ArrayList<AudioClip>();
     		sounds = new HashMap<Integer, AudioClip>();
-    		//playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Background.wav")));
     		sounds.put(DIE, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Die.wav")));
     		sounds.put(HIT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hit.wav")));
     		sounds.put(HURT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hurt.wav")));
@@ -44,5 +46,4 @@ public class AudioRead implements AudioClip {
     public void play() {}
 
     public void loop() {}
-
 }

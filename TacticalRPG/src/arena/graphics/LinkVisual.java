@@ -12,10 +12,6 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import units.Wave;
 
 public class LinkVisual extends LinkedEntity implements Drawable, GameEntity,
 Overlappable {
@@ -70,15 +66,12 @@ Overlappable {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		movable = true;
+		
 		if(isAttacking()){
-
-			sword.spriteManager.setType("down");
-
 			String s = prev;
 			s = s.replace("_static", "");
 			s = s.replace("_attack", "");
 			spriteType = s+"_attack";
-
 		}
 		else if (tmp.getX() == 1) {
 			spriteType += "right";
@@ -106,6 +99,8 @@ Overlappable {
 			prev = spriteType;
 
 		spriteManager.setType(spriteType);
+		
+		
 		int posX = getPosition().x;
 		int posY = getPosition().y+2;
 
@@ -129,6 +124,8 @@ Overlappable {
 
 		if(isAttacking() && sword != null){
 			int i=0;
+			sword.spriteManager.setType("down");
+			
 			if(spriteType.contains("left")){
 				i=1;
 				sword.spriteManager.setType("left");
@@ -147,18 +144,18 @@ Overlappable {
 	public void oneStepMoveAddedBehavior() {
 		if (movable) {
 			spriteManager.increment();
-			
 		}
-		
 	}
 	
+	@Override
 	public void updateTimers(){
 		if (!isVulnerable()) {
 			vulnerableTimer--;
 		}
 		
-		if(isAttacking())
+		if(isAttacking()){
 			decrementAttackTimer();
+		}
 	}
 
 	public Rectangle getBoundingBox() {
@@ -169,7 +166,7 @@ Overlappable {
 	public void addSword() {
 		linkWith.addSword();
 		sword = new SwordVisual(canvas, this);
-		//sword.setPosition(getPosition());
+		universe.addGameEntity(sword);
 	}
 
 	@Override
