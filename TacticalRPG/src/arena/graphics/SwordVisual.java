@@ -20,7 +20,7 @@ public class SwordVisual implements Drawable, Overlappable, GameEntity{
 	public static final int RENDERING_SIZE_H = (int) (21*1.35);
 	protected boolean movable = true;
 	protected boolean attacking = false;
-
+	
 	public SwordVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/sword_mvt_down.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 1);

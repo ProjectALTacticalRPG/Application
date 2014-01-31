@@ -1,7 +1,6 @@
 package gameframework.expansion;
 
-import gameframework.base.MoveStrategy;
-import gameframework.base.MoveStrategyStraightLine;
+import gameframework.base.MoveStrategy; 
 import gameframework.base.SpeedVector;
 import gameframework.base.SpeedVectorDefaultImpl;
 

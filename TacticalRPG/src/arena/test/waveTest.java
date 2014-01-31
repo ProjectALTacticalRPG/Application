@@ -1,6 +1,4 @@
-package arena.test;
-
-import static org.junit.Assert.*;
+package arena.test; 
 
 import org.junit.Test;
 
