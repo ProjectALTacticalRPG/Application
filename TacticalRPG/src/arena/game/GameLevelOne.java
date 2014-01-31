@@ -97,6 +97,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		universe.addGameEntity(myLink);
 	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
 	    myLink.addSword();
+	    universe.addGameEntity(myLink.getSword());
 		launchGame();
 		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
 		cine.start();*/
@@ -151,6 +152,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		stopGameLoop = false;
 		// main game loop :
 		long start;
+		boolean lowhealth = false;
 		while (!stopGameLoop && !this.isInterrupted()) {
 			start = new Date().getTime();
 			gameBoard.paint();
@@ -158,8 +160,14 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			universe.processAllOverlaps();
 			if(myLink.isAttacking())
 				myLink.decrementAttackTimer();
-			if(myLink.getHealth() < 5)
+			if(myLink.getHealth() < 5 && lowhealth==false){
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
+				lowhealth = true;
+			}
+			else if((myLink.getHealth() > 4 && lowhealth == true) || !myLink.isAlive()){
+				audioReader.getSoundElement(AudioRead.LOW_HEALTH).stop();
+				lowhealth = false;
+			}
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
@@ -208,8 +216,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 
 	@Override
 	public void update(LinkedEntity l) {
-		
 		if(!l.isAlive()){
+			if(l instanceof LinkVisual){
+				audioReader.getSoundElement(AudioRead.DIE).play();
+			}
+			
 			System.out.println(l.getClass().getSimpleName() + " is dead.");
 			universe.removeGameEntity(l);
 		}

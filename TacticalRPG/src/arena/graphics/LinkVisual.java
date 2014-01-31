@@ -11,6 +11,10 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import units.Wave;
 
 public class LinkVisual extends LinkedEntity implements Drawable, GameEntity,
 Overlappable {
@@ -23,6 +27,7 @@ Overlappable {
 	protected boolean movable = true;
 	protected int attackingTimer = 0;
 	private String prev = "down_static";
+	private Canvas canvas;
 
 	public LinkVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
@@ -30,24 +35,35 @@ Overlappable {
 		spriteManager.setTypes("down", "left", "right", "up", 
 				"down_static", "right_static", "left_static", "up_static", 
 				"down_attack", "left_attack", "up_attack", "right_attack");
-		
+		canvas = defaultCanvas;
+
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
-		sword = new SwordVisual(defaultCanvas);
 	}
-	
+
 	public void setAttacking() {
-		notifyObservers(arena.game.AudioRead.SWORD);
-		attackingTimer = ATTACK_DURATION;
+		if(sword != null){
+			notifyObservers(arena.game.AudioRead.SWORD);
+			attackingTimer = ATTACK_DURATION;
+			sword.setAttacking(true);
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				public void run() {
+					sword.spriteManager.increment();
+				}
+			}, 0, 6000);
+		}
 	}
-	
+
 	public void decrementAttackTimer(){
 		--attackingTimer;
+		if(isAttacking())
+			sword.setAttacking(false);
 	}
 
 	public boolean isAttacking() {
 		return (attackingTimer > 0);
 	}
-	
+
 	public void draw(Graphics g) {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
@@ -79,14 +95,14 @@ Overlappable {
 			spriteManager.reset();
 			movable = false;
 		}
-		
+
 		if(!isAttacking())
 			prev = spriteType;
 		spriteManager.setType(spriteType);
-		
+
 		int posX = getPosition().x;
 		int posY = getPosition().y+2;
-		
+
 		if(spriteType.contains("left")){
 			posX+=2;
 		}
@@ -96,21 +112,22 @@ Overlappable {
 		else{
 			posX +=4;
 		}
-		
+
 		if(spriteType.contains("up"))
 			posY-=2;
-			
+
 		g.drawImage(shadow.getImage(), posX, posY, RENDERING_SIZE_W-8, RENDERING_SIZE_H,
 				null);
-		
+
 		spriteManager.draw(g, getPosition());
 
-		if(isAttacking()){
-			//if(spriteType.contains("down")){
+		if(isAttacking() && sword != null){
+			if(spriteType.contains("down")){
 				sword.getPosition().setLocation(this.getPosition().x, getPosition().y +20);
-				sword.draw(g);
-				
-			
+				//sword.draw(g);
+
+			}
+
 		}
 	}
 
@@ -121,8 +138,6 @@ Overlappable {
 			if (!isVulnerable()) {
 				vulnerableTimer--;
 			}
-			if(isAttacking())
-				sword.spriteManager.increment();
 		}
 	}
 
@@ -133,10 +148,16 @@ Overlappable {
 	@Override
 	public void addSword() {
 		linkWith.addSword();
+		sword = new SwordVisual(canvas);
 	}
 
 	@Override
 	public void removeSword() {
 		linkWith.removeSword();
+		sword = null;
+	}
+
+	public SwordVisual getSword(){
+		return sword;
 	}
 }
