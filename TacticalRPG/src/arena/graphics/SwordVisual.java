@@ -19,7 +19,6 @@ public class SwordVisual implements Drawable, Overlappable{
 	public static final int RENDERING_SIZE_H = (int) (21*1.35);
 	protected boolean movable = true;
 	protected int attackingTimer = 0;
-	private String prev = "down_static";
 
 	public SwordVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/sword_mvt_down.png",

@@ -1,10 +1,9 @@
 package arena.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
 
 import org.junit.Test;
 
-import units.Keaton;
 import units.Link;
 
 public class linkTest {

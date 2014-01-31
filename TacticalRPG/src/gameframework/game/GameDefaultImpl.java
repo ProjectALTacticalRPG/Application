@@ -227,6 +227,7 @@ public class GameDefaultImpl implements Game, Observer {
 		gameLevels = levels;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void update(Observable o, Object arg) {
 		if (o == endOfGame) {
 			if (endOfGame.getValue()) {

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import arena.graphics.Cinematic;
 import arena.graphics.Cinematicable;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
@@ -47,6 +48,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	private GeneralLevelUI levelUI;
 	private AbstractFactory factory;
 	private AudioRead audioReader;
+	private boolean isLowLife;
 
 	public GameLevelOne(Game g) {
 		super(g);
@@ -56,6 +58,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		spawns = null;
 		collisions = null;
 		timerTick = 0;
+		isLowLife = false;
 		factory = new FactoryImpl(canvas);
 		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
 		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
@@ -95,11 +98,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		myLink.addObserver(this);
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
-	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+	    //myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		//launchGame();
 	    myLink.addSword();
-		launchGame();
-		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
-		cine.start();*/
+		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		cine.start();
 		refreshElements();
 		
 		//Ajout d'une vague d'octorocks
@@ -114,7 +117,49 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		for(int i = 0; i < 5; ++i){
 			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
 		}
-		waves.add(new Wave(enemies, 15, 30, universe));
+		waves.add(new Wave(enemies, 23, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague de keatons
+		for(int i = 0; i < 5; ++i){
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
+		}
+		waves.add(new Wave(enemies, 53, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague d'octorocks
+		for(int i = 0; i < 10; ++i){
+			enemies.add(factory.createOctorock(moveBlockerChecker, this));
+		}
+		waves.add(new Wave(enemies, 83, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague de keatons
+		for(int i = 0; i < 10; ++i){
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
+		}
+		waves.add(new Wave(enemies, 128, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague de keatons
+		for(int i = 0; i < 15; ++i){
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
+		}
+		waves.add(new Wave(enemies, 173, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague d'octorocks
+		for(int i = 0; i < 20; ++i){
+			enemies.add(factory.createOctorock(moveBlockerChecker, this));
+		}
+		waves.add(new Wave(enemies, 218, 30, universe));
+		enemies.clear();
+		
+		//Ajout d'une vague de keatons
+		for(int i = 0; i < 25; ++i){
+			enemies.add(factory.createKeaton(moveBlockerChecker, myLink.getPosition(), this));
+		}
+		waves.add(new Wave(enemies, 278, 30, universe));
 		enemies.clear();
 		
 		Wave first = getNextWave(0);
@@ -158,8 +203,13 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			universe.processAllOverlaps();
 			if(myLink.isAttacking())
 				myLink.decrementAttackTimer();
-			if(myLink.getHealth() < 5)
+			if(myLink.getHealth() < 5 && !isLowLife) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
+				isLowLife = true;
+			} else if(myLink.getHealth() >= 5 && isLowLife) {
+				audioReader.getSoundElement(AudioRead.LOW_HEALTH).stop();
+				isLowLife = false;
+			}
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
