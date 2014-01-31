@@ -24,6 +24,7 @@ import gameframework.expansion.GameMovableDriverTweaked;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
+import gameframework.game.GameLevel;
 import gameframework.game.GameLevelDefaultImpl;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverseDefaultImpl;
@@ -274,6 +275,10 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	@Override
 	public void update(LinkedEntity l, int sound) {
 		audioReader.getSoundElement(sound).play();
+	}
+
+	public ArrayList<MapVisual> getElementsOver() {
+		return elementsOver;
 	}
 
 }
