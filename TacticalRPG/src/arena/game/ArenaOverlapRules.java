@@ -2,10 +2,12 @@ package arena.game;
 
 import java.awt.Point;
 
+import arena.graphics.BulletVisual;
 import arena.graphics.KeatonVisual;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
 import arena.graphics.OctorockVisual;
+import arena.graphics.SwordVisual;
 import gameframework.base.SpeedVectorDefaultImpl;
 import gameframework.game.GameUniverse;
 import gameframework.game.MoveBlockerChecker;
@@ -14,7 +16,7 @@ import gameframework.game.OverlapRulesApplierDefaultImpl;
 public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveBlockerChecker moveBlocker;
-	static final int INVULNERABLE_DURATION = 10;
+	static final int INVULNERABLE_DURATION = 20;
 	
 	@Override
 	public void setUniverse(GameUniverse universe) {
@@ -26,31 +28,37 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 
 	public void overlapRule(LinkVisual link, OctorockVisual octo){
-		if(link.isAttacking())
-			damage(octo, link);
-		else
-			damage(link, octo);
+		//damage(link, octo);
 	}
 	
 	public void overlapRule(OctorockVisual octo, LinkVisual link){
-		if(link.isAttacking())
-			damage(octo, link);
-		else
-			damage(link, octo);
+		//damage(link, octo);
 	}
 	
 	public void overlapRule(LinkVisual link, KeatonVisual keat){
-		if(link.isAttacking())
-			damage(keat, link);
-		else
-			damage(link, keat);
+		damage(link, keat);
 	}
 	
 	public void overlapRule(KeatonVisual keat, LinkVisual link){
-		if(link.isAttacking())
-			damage(keat, link);
-		else
-			damage(link, keat);
+		//damage(link, keat);
+	}
+	
+	public void overlapRule(SwordVisual sword, OctorockVisual octo){
+		LinkedEntity owner = sword.getOwner();
+		if(sword.isAttacking())
+			damage(octo, owner);
+	}
+	
+	public void overlapRule(SwordVisual sword, KeatonVisual keat){
+		LinkedEntity owner = sword.getOwner();
+		if(sword.isAttacking())
+			damage(keat, owner);
+	}
+	
+	public void overlapRule(LinkVisual link, BulletVisual bullet){
+		LinkedEntity owner = bullet.getOwner();
+		damage(link, owner);
+		bullet.hasHit();
 	}
 	
 	public void damage(LinkedEntity damaged, LinkedEntity damager){
@@ -58,7 +66,7 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 			damaged.parry(damager.strike());
 			damaged.setInvulnerable(INVULNERABLE_DURATION);
 			int i = 50;
-			Point p = damaged.getLastDirection();
+			Point p = damager.getLastDirection();
 			
 			while(!moveBlocker.moveValidation(damaged, new SpeedVectorDefaultImpl(p, i)) && i > 0){
 				i--;
@@ -66,7 +74,7 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 			
 			Point pl = damaged.getPosition();
 			
-			pl.setLocation(pl.x + (-p.x*i), pl.y + (-p.y*i));
+			pl.setLocation(pl.x + (p.x*i), pl.y + (p.y*i));
 		}
 	}
 }

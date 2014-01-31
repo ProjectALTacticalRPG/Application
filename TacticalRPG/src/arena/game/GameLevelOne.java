@@ -8,12 +8,15 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import arena.graphics.BulletVisual;
 import arena.graphics.Cinematic;
 import arena.graphics.Cinematicable;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
 import arena.graphics.MapAsset;
 import arena.graphics.MapVisual;
+import arena.graphics.OctorockVisual;
+import arena.graphics.ProjectileVisual;
 import units.AbstractFactory;
 import units.FactoryImpl;
 import units.Wave;
@@ -21,6 +24,7 @@ import units.WaveMember;
 import utils.CalculateMatrix;
 import utils.DeathObserver;
 import gameframework.expansion.GameMovableDriverTweaked;
+import gameframework.expansion.MoveStrategyBullet;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
@@ -48,6 +52,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	private GeneralLevelUI levelUI;
 	private AbstractFactory factory;
 	private AudioRead audioReader;
+	private ProjectileManager pManager;
 	private boolean isLowLife;
 
 	public GameLevelOne(Game g) {
@@ -71,6 +76,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	@Override
 	protected void init() {
 		
+		
 		CalculateMatrix cm = new CalculateMatrix();
 		cm.calculateMatrix("src/ressources/img/collisions.png");
 		collisions = cm.getCollisions();
@@ -82,6 +88,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
+		pManager = new ProjectileManager(universe);
 		overlapRules.setUniverse(universe);
 		overlapRules.setMoveBlockerChecker(moveBlockerChecker);
 		
@@ -95,15 +102,16 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		}
 		
 		myLink = factory.createLink();
+		myLink.setUniverse(universe);
 		myLink.addObserver(this);
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
-	    //myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
-		//launchGame();
+	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		launchGame();
 	    myLink.addSword();
 	    universe.addGameEntity(myLink.getSword());
-		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
-		cine.start();
+		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		cine.start();*/
 		refreshElements();
 		
 		//Ajout d'une vague d'octorocks
@@ -165,6 +173,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		
 		Wave first = getNextWave(0);
 		levelUI.updateTimer(0, first);
+		fireBullets();
 	}
 	
 	public Wave getNextWave(int i) {
@@ -197,14 +206,14 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		stopGameLoop = false;
 		// main game loop :
 		long start;
-		boolean lowhealth = false;
+		
 		while (!stopGameLoop && !this.isInterrupted()) {
 			start = new Date().getTime();
 			gameBoard.paint();
 			universe.allOneStepMoves();
 			universe.processAllOverlaps();
-			if(myLink.isAttacking())
-				myLink.decrementAttackTimer();
+			myLink.updateTimers();
+			pManager.checkProjectiles();
 			if(myLink.getHealth() < 5 && !isLowLife) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
 					isLowLife = true;
@@ -212,6 +221,8 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).stop();
 				isLowLife = false;
 			}
+			
+			refreshElements();
 			try {
 				long sleepTime = GAME_SPEED
 						- (new Date().getTime() - start);
@@ -223,6 +234,31 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		}
 	}
 	
+	public void fireBullets(){
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				for(Wave w: waves){
+					if(w.getWaveType().equals("octorock") && w.isAlive()){
+						OctorockVisual octo = (OctorockVisual) w.getRandomMember();
+						BulletVisual bullet = new BulletVisual(canvas, octo);
+						bullet.setPosition(octo.getPosition());
+						
+						GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
+						//move = new MoveStrategyStraightLine(bullet.getPosition(),getSpeedVector().getDirection());
+			            MoveStrategyBullet move = new MoveStrategyBullet(bullet.getPosition(), octo.getSpeedVector().getDirection());
+			            
+			            driver.setStrategy(move);
+			            driver.setmoveBlockerChecker(moveBlockerChecker);
+						bullet.setDriver(driver);
+						pManager.addProjectile(bullet);
+					}
+				}
+			}
+		}, 0, 2000);
+		
+	}
+	
 	public void launchWaves() {
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -232,7 +268,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 				for(Wave w:waves) {
 					if(w.getWaveStartTime()==timerTick) {
 						w.initWave(spawns);
-						refreshElements();
+						//refreshElements();
 					}
 				}
 			}

@@ -160,4 +160,17 @@ public class Wave extends CustomObservable implements WaveMember, Visitable {
 	public void parry(int attack) {
 		System.out.println("Not implemented");
 	}
+
+	public WaveMember getRandomMember(){
+		if(isAlive()){
+			WaveMember res;
+			Random rand = new Random();
+			int i; 
+			do{i = rand.nextInt(members.size());
+				res = members.get(i);
+			}while(!res.isAlive());
+			return res;
+		}
+		return null;
+	}
 }

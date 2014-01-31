@@ -5,6 +5,7 @@ import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.expansion.SpriteManagerCustom;
 import gameframework.game.GameEntity;
+import gameframework.game.GameUniverse;
 import gameframework.game.SpriteManager;
 
 import java.awt.Canvas;
@@ -19,7 +20,7 @@ import units.Wave;
 public class LinkVisual extends LinkedEntity implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
-	public static final int ATTACK_DURATION = 6;
+	public static final int ATTACK_DURATION = 10;
 	protected DrawableImage shadow;
 	protected SwordVisual sword;
 	public static final int RENDERING_SIZE_W = (int) (24*1.35);
@@ -28,6 +29,8 @@ Overlappable {
 	protected int attackingTimer = 0;
 	private String prev = "down_static";
 	private Canvas canvas;
+	private GameUniverse universe;
+	private Point[] swordPositions = new Point[]{new Point(-2, 30), new Point(-30, 0), new Point(30, 0), new Point(-2,-30)};
 
 	public LinkVisual(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
@@ -40,24 +43,23 @@ Overlappable {
 		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
 
+	public void setUniverse(GameUniverse universe){
+		this.universe = universe;
+	}
+
 	public void setAttacking() {
 		if(sword != null){
 			notifyObservers(arena.game.AudioRead.SWORD);
 			attackingTimer = ATTACK_DURATION;
 			sword.setAttacking(true);
-			Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-				public void run() {
-					sword.spriteManager.increment();
-				}
-			}, 0, 6000);
 		}
 	}
 
 	public void decrementAttackTimer(){
 		--attackingTimer;
-		if(isAttacking())
+		if(!isAttacking()){
 			sword.setAttacking(false);
+		}
 	}
 
 	public boolean isAttacking() {
@@ -69,10 +71,14 @@ Overlappable {
 		Point tmp = getSpeedVector().getDirection();
 		movable = true;
 		if(isAttacking()){
+
+			sword.spriteManager.setType("down");
+
 			String s = prev;
 			s = s.replace("_static", "");
 			s = s.replace("_attack", "");
 			spriteType = s+"_attack";
+
 		}
 		else if (tmp.getX() == 1) {
 			spriteType += "right";
@@ -98,8 +104,8 @@ Overlappable {
 
 		if(!isAttacking())
 			prev = spriteType;
-		spriteManager.setType(spriteType);
 
+		spriteManager.setType(spriteType);
 		int posX = getPosition().x;
 		int posY = getPosition().y+2;
 
@@ -122,12 +128,18 @@ Overlappable {
 		spriteManager.draw(g, getPosition());
 
 		if(isAttacking() && sword != null){
-			if(spriteType.contains("down")){
-				sword.getPosition().setLocation(this.getPosition().x, getPosition().y +20);
-				//sword.draw(g);
-
+			int i=0;
+			if(spriteType.contains("left")){
+				i=1;
+				sword.spriteManager.setType("left");
+			} else if(spriteType.contains("right")){
+				i=2;
+				sword.spriteManager.setType("right");
+			} else if(spriteType.contains("up")){
+				i=3;
+				sword.spriteManager.setType("up");
 			}
-
+			sword.getPosition().setLocation(this.getPosition().x+swordPositions[i].x, getPosition().y +swordPositions[i].y);
 		}
 	}
 
@@ -135,10 +147,18 @@ Overlappable {
 	public void oneStepMoveAddedBehavior() {
 		if (movable) {
 			spriteManager.increment();
-			if (!isVulnerable()) {
-				vulnerableTimer--;
-			}
+			
 		}
+		
+	}
+	
+	public void updateTimers(){
+		if (!isVulnerable()) {
+			vulnerableTimer--;
+		}
+		
+		if(isAttacking())
+			decrementAttackTimer();
 	}
 
 	public Rectangle getBoundingBox() {
@@ -148,12 +168,14 @@ Overlappable {
 	@Override
 	public void addSword() {
 		linkWith.addSword();
-		sword = new SwordVisual(canvas);
+		sword = new SwordVisual(canvas, this);
+		//sword.setPosition(getPosition());
 	}
 
 	@Override
 	public void removeSword() {
 		linkWith.removeSword();
+		universe.removeGameEntity(sword);
 		sword = null;
 	}
 

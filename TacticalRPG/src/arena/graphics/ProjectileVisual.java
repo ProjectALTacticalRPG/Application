@@ -1,4 +1,4 @@
-package testDelesse;
+package arena.graphics;
 
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
@@ -11,8 +11,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public abstract class Projectile extends GameMovable implements Drawable, GameEntity,
-Overlappable {
+import arena.game.Weapon;
+
+public abstract class ProjectileVisual extends GameMovable implements Drawable, GameEntity,
+Overlappable, Weapon {
 
 	protected DrawableImage shadow;
 	protected boolean movable = true;
@@ -21,4 +23,5 @@ Overlappable {
 	public abstract void draw(Graphics g);
 	public abstract void oneStepMoveAddedBehavior();
 	public abstract Rectangle getBoundingBox();
+	public abstract boolean isStopped();
 }
