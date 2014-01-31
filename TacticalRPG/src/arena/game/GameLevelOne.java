@@ -1,6 +1,6 @@
 package arena.game;
 
-import java.awt.Canvas;
+import java.awt.Canvas; 
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import arena.graphics.Cinematic;
 import arena.graphics.Cinematicable;
+import arena.graphics.DeathVisual;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
 import arena.graphics.MapAsset;
@@ -99,11 +100,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		myLink.addObserver(this);
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
-	    //myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
-		//launchGame();
+	    /*myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		launchGame();*/
 	    myLink.addSword();
 	    universe.addGameEntity(myLink.getSword());
-		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
+		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this, levelUI);
 		cine.start();
 		refreshElements();
 		
@@ -183,6 +184,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 	}
 	
 	public void launchGame() {
+		levelUI.setInGame();
 		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverTweaked();
 		MoveStrategyKeyboardExtended keyStr = new MoveStrategyKeyboardExtended(this, myLink);
 		linkDriver.setStrategy(keyStr);
@@ -190,15 +192,14 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		canvas.addKeyListener(keyStr);
 		myLink.setDriver(linkDriver);
 		launchWaves();
-		//audioReader.getPlaylistElement(0).loop();
 	}
 	
 	@Override
 	public void run() {
 		stopGameLoop = false;
+		boolean endGame = false;
 		// main game loop :
 		long start;
-		boolean lowhealth = false;
 		while (!stopGameLoop && !this.isInterrupted()) {
 			start = new Date().getTime();
 			gameBoard.paint();
@@ -206,12 +207,18 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			universe.processAllOverlaps();
 			if(myLink.isAttacking())
 				myLink.decrementAttackTimer();
-			if(myLink.getHealth() < 5 && !isLowLife) {
+			if(myLink.getHealth() < 5 && !isLowLife && !endGame) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).loop();
-					isLowLife = true;
-			} else if(myLink.getHealth() >= 5 && isLowLife) {
+				isLowLife = true;
+			} else if((myLink.getHealth() >= 5 && isLowLife && !endGame) || (myLink.getHealth() < 1 && isLowLife && !endGame)) {
 				audioReader.getSoundElement(AudioRead.LOW_HEALTH).stop();
 				isLowLife = false;
+			}
+			if(!myLink.isAlive() && !endGame) {
+				audioReader.stopAll();
+				DeathVisual d = new DeathVisual(levelUI);
+				d.start();
+				endGame = true;
 			}
 			try {
 				long sleepTime = GAME_SPEED
@@ -219,8 +226,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 				if (sleepTime > 0) {
 					Thread.sleep(sleepTime);
 				}
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 		}
 	}
 	
