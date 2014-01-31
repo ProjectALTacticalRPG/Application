@@ -3,6 +3,7 @@ package utils;
 import units.Wave;
 import units.FighterProxy;
 
+//Non utilisée dans ce jeu
 public interface CustomObserver {
 
 	public void update(FighterProxy s, String message);

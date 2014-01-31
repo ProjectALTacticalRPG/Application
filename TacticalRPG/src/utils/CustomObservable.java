@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import units.Wave;
 import units.FighterProxy;
 
+//Non utilisée dans ce jeu
 public class CustomObservable {
 
 	private ArrayList<CustomObserver> observers = new ArrayList<CustomObserver>();

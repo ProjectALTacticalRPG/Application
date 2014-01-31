@@ -13,7 +13,6 @@ import arena.game.GameLevelOne;
 import arena.graphics.LinkVisual;
 import units.AbstractFactory;
 import units.FactoryImpl;
-import units.Keaton;
 import units.Link;
 
 public class linkTest {
