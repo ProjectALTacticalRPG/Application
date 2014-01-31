@@ -17,7 +17,6 @@ import arena.graphics.LinkedEntity;
 import arena.graphics.MapAsset;
 import arena.graphics.MapVisual;
 import arena.graphics.OctorockVisual;
-import arena.graphics.ProjectileVisual;
 import units.AbstractFactory;
 import units.FactoryImpl;
 import units.Wave;
@@ -29,7 +28,6 @@ import gameframework.expansion.MoveStrategyBullet;
 import gameframework.expansion.MoveStrategyKeyboardExtended;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
-import gameframework.game.GameLevel;
 import gameframework.game.GameLevelDefaultImpl;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverseDefaultImpl;
@@ -67,11 +65,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		timerTick = 0;
 		isLowLife = false;
 		factory = new FactoryImpl(canvas);
-		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "src/ressources/img/elementOver_3.png"));
-		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "src/ressources/img/elementOver_2.png"));
-		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "src/ressources/img/elementOver_1.png"));
-		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "src/ressources/img/elementOver_4.png"));
-		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "src/ressources/img/elementOver_5.png"));
+		elementsOver.add(new MapVisual(canvas, 589, 335, 188, 88, "ressources/img/elementOver_3.png"));
+		elementsOver.add(new MapVisual(canvas, 932, 456, 106, 31, "ressources/img/elementOver_2.png"));
+		elementsOver.add(new MapVisual(canvas, 911, 315, 152, 58, "ressources/img/elementOver_1.png"));
+		elementsOver.add(new MapVisual(canvas, 845, 596, 110, 23, "ressources/img/elementOver_4.png"));
+		elementsOver.add(new MapVisual(canvas, 152, 371, 108, 26, "ressources/img/elementOver_5.png"));
 		audioReader = new AudioRead();
 	}
 
@@ -80,7 +78,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		
 		
 		CalculateMatrix cm = new CalculateMatrix();
-		cm.calculateMatrix("src/ressources/img/collisions.png");
+		cm.calculateMatrix("ressources/img/collisions.png");
 		collisions = cm.getCollisions();
 		spawns = cm.getSpawns();
 		
@@ -95,7 +93,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		overlapRules.setMoveBlockerChecker(moveBlockerChecker);
 		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
-		universe.addGameEntity(new MapVisual(canvas, 0, 0, "src/ressources/img/background_arena_1.gif"));
+		universe.addGameEntity(new MapVisual(canvas, 0, 0, "ressources/img/background_arena_1.gif"));
 		
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
@@ -108,12 +106,12 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 		myLink.addObserver(this);
 		levelUI = new GeneralLevelUI(myLink);
 		universe.addGameEntity(myLink);
-	    myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
-		launchGame();
+	    //myLink.setPosition(new Point(667, 17*SPRITE_SIZE));
+		//launchGame();
 	    myLink.addSword();
 	    universe.addGameEntity(myLink.getSword());
-		/*Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this);
-		cine.start();*/
+		Cinematic cine = new Cinematic(myLink, new Point(667, 3*SPRITE_SIZE), new Point(667, 17*SPRITE_SIZE), this, levelUI);
+		cine.start();
 		refreshElements();
 		
 		//Ajout d'une vague d'octorocks
@@ -253,7 +251,6 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 						bullet.setPosition(octo.getPosition());
 						
 						GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
-						//move = new MoveStrategyStraightLine(bullet.getPosition(),getSpeedVector().getDirection());
 			            MoveStrategyBullet move = new MoveStrategyBullet(bullet.getPosition(), octo.getSpeedVector().getDirection());
 			            
 			            driver.setStrategy(move);
@@ -309,8 +306,6 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Cinematicable,
 			if(l instanceof LinkVisual){
 				audioReader.getSoundElement(AudioRead.DIE).play();
 			}
-			
-			System.out.println(l.getClass().getSimpleName() + " is dead.");
 			universe.removeGameEntity(l);
 		}
 	}

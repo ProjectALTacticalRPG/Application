@@ -26,7 +26,7 @@ public class SwordVisual extends GameMovable implements Drawable, Overlappable, 
 	protected LinkedEntity master;
 	
 	public SwordVisual(Canvas defaultCanvas, LinkedEntity master) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/link_sword.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/link_sword.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 1, 4);
 		spriteManager.setTypes("up", "down", "right", "left");
 		this.master = master;

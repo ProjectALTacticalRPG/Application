@@ -23,11 +23,11 @@ public class BulletVisual extends ProjectileVisual {
 	private LinkedEntity owner;
 
 	public BulletVisual(Canvas defaultCanvas, LinkedEntity owner) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/fire.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/fire.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 1, 2);
 		spriteManager.setTypes("fire","explose");
 		prev="fire";
-		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
+		shadow = new DrawableImage("ressources/img/shadow.png", defaultCanvas);
 		this.owner = owner;
 	}
 

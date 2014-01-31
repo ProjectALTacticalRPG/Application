@@ -9,8 +9,6 @@ public class AudioRead implements AudioClip {
     private ArrayList<AudioClip> playlist;
     private Map<Integer, AudioClip> sounds;
     public static final int DIE = 1;
-    public static final int G_HEART = 2;
-    public static final int G_RUPEE = 3;
     public static final int HIT = 4;
     public static final int HURT = 5;
     public static final int LOW_HEALTH = 6;
@@ -22,8 +20,6 @@ public class AudioRead implements AudioClip {
     		sounds = new HashMap<Integer, AudioClip>();
     		//playlist.add(Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Background.wav")));
     		sounds.put(DIE, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Die.wav")));
-    		sounds.put(G_HEART, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Heart.wav")));
-    		sounds.put(G_RUPEE, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Get_Rupee.wav")));
     		sounds.put(HIT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hit.wav")));
     		sounds.put(HURT, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_Hurt.wav")));
     		sounds.put(LOW_HEALTH, Applet.newAudioClip(getClass().getResource("../../ressources/sounds/LOZ_LowHealth.wav")));

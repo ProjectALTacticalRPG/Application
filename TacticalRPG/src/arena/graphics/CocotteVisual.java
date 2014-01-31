@@ -21,11 +21,11 @@ Overlappable {
 	protected boolean movable = true;
 
 	public CocotteVisual(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/cocottes.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/cocottes.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 3, 2);
 		spriteManager.setTypes("left", "right");
 		
-		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
+		shadow = new DrawableImage("ressources/img/shadow.png", defaultCanvas);
 	}
 
 	public void draw(Graphics g) {

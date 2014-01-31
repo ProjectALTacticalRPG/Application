@@ -33,14 +33,14 @@ Overlappable {
 	private Point[] swordPositions = new Point[]{new Point(-2, 30), new Point(-30, 0), new Point(30, 0), new Point(-2,-30)};
 
 	public LinkVisual(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_link_v1.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/sprite_link_v1.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 10, 12);
 		spriteManager.setTypes("down", "left", "right", "up", 
 				"down_static", "right_static", "left_static", "up_static", 
 				"down_attack", "left_attack", "up_attack", "right_attack");
 		canvas = defaultCanvas;
 
-		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
+		shadow = new DrawableImage("ressources/img/shadow.png", defaultCanvas);
 	}
 
 	public void setUniverse(GameUniverse universe){

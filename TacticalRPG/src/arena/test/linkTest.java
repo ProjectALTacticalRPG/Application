@@ -24,7 +24,7 @@ public class linkTest {
 		 /*Default*/
      	 Link l1 = new Link();
          assertEquals(l1.getName(),"Link");
-         assertEquals(l1.getHealth(),4);
+         assertEquals(l1.getHealth(),40);
          assertEquals(l1.getMaximumHealth(),40);
          assertEquals(l1.getDamage(),0);
          assertEquals(l1.getParry(),0);

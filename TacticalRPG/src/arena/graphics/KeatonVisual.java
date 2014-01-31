@@ -15,18 +15,15 @@ import java.awt.Rectangle;
 public class KeatonVisual extends LinkedEntity implements Drawable, GameEntity,
 Overlappable {
 	protected final SpriteManager spriteManager;
-	protected DrawableImage shadow;
 	public static final int RENDERING_SIZE_W = (int) (32*1.35);
 	public static final int RENDERING_SIZE_H = (int) (26*1.35);
 	protected boolean movable = true;
 	private String prev = "down";
 
 	public KeatonVisual(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_keaton_v1.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/sprite_keaton_v1.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
 		spriteManager.setTypes("up", "right", "left", "down");
-		
-		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
 	}
 
 	public void draw(Graphics g) {

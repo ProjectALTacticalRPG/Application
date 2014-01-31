@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.io.File;
 
 import arena.graphics.LinkVisual;
 import units.Wave;
@@ -40,13 +41,13 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 		firstUpdate = false;
 		inGame = false;
 		try {
-			font1 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
-			font2 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);
-			font3 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,90F);
-			font4 = Font.createFont(0, getClass().getResourceAsStream("/ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,70F);
-			heart = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_hearts.png");
-			sword = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_weapons_sword.png");
-			imgLink = Toolkit.getDefaultToolkit().getImage("src/ressources/img/ui_link.png");
+			font1 = Font.createFont(0, new File("ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,23F);
+			font2 = Font.createFont(0, new File("ressources/fonts/arcapedi.ttf")).deriveFont(Font.BOLD,20F);
+			font3 = Font.createFont(0, new File("ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,90F);
+			font4 = Font.createFont(0, new File("ressources/fonts/Triforce.ttf")).deriveFont(Font.BOLD,70F);
+			heart = Toolkit.getDefaultToolkit().getImage("ressources/img/ui_hearts.png");
+			sword = Toolkit.getDefaultToolkit().getImage("ressources/img/ui_weapons_sword.png");
+			imgLink = Toolkit.getDefaultToolkit().getImage("ressources/img/ui_link.png");
 		} catch (Exception e) {
 			
 		}
@@ -150,7 +151,7 @@ public class GeneralLevelUI implements Drawable, GameEntity {
 			int posXs = posXd + 48;
 			int posYs = posYd + 32;
 			if(firstUpdate && nextWave!=null) {
-				g2d.drawImage(Toolkit.getDefaultToolkit().getImage("src/ressources/img/wave_"+ nextWave.getWaveType()+".png"), posXd, posYd, posXs, posYs, 0, 0, 24, 16, null);
+				g2d.drawImage(Toolkit.getDefaultToolkit().getImage("ressources/img/wave_"+ nextWave.getWaveType()+".png"), posXd, posYd, posXs, posYs, 0, 0, 24, 16, null);
 				g2d.setColor(Color.BLACK);
 				g2d.drawString(convertTimeToCountdownString(), posXd+56, posYd+22);
 				g2d.setColor(Color.WHITE);	

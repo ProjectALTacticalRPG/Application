@@ -22,11 +22,11 @@ Overlappable {
 	private String prev = "down";
 
 	public OctorockVisual(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerCustom("src/ressources/img/sprite_octorock_v1.png",
+		spriteManager = new SpriteManagerCustom("ressources/img/sprite_octorock_v1.png",
 				defaultCanvas, RENDERING_SIZE_W, RENDERING_SIZE_H, 4, 4);
 		spriteManager.setTypes("down", "left", "right", "up");
 		
-		shadow = new DrawableImage("src/ressources/img/shadow.png", defaultCanvas);
+		shadow = new DrawableImage("ressources/img/shadow.png", defaultCanvas);
 	}
 
 	public void draw(Graphics g) {
