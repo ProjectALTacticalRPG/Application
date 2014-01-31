@@ -3,6 +3,7 @@ package arena.game;
 import java.awt.Point;
 
 import arena.graphics.BulletVisual;
+import arena.graphics.CocotteVisual;
 import arena.graphics.KeatonVisual;
 import arena.graphics.LinkVisual;
 import arena.graphics.LinkedEntity;
@@ -34,16 +35,12 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 		damage(link, octo);
 	}
 	
-	public void overlapRule(OctorockVisual octo, LinkVisual link){
-		damage(link, octo);
-	}
-	
 	public void overlapRule(LinkVisual link, KeatonVisual keat){
 		damage(link, keat);
 	}
 	
-	public void overlapRule(KeatonVisual keat, LinkVisual link){
-		damage(link, keat);
+	public void overlapRule(LinkVisual link, CocotteVisual cot){
+		damageCocotte(link, cot);
 	}
 	
 	public void overlapRule(SwordVisual sword, OctorockVisual octo){
@@ -70,6 +67,23 @@ public class ArenaOverlapRules extends OverlapRulesApplierDefaultImpl {
 			damaged.setInvulnerable(INVULNERABLE_DURATION);
 			int i = 50;
 			Point p = damager.getLastDirection();
+			
+			while(!moveBlocker.moveValidation(damaged, new SpeedVectorDefaultImpl(p, i)) && i > 0){
+				i--;
+			}
+			
+			Point pl = damaged.getPosition();
+			
+			pl.setLocation(pl.x + (p.x*i), pl.y + (p.y*i));
+		}
+	}
+	
+	public void damageCocotte(LinkedEntity damaged, CocotteVisual cot){
+		if(damaged.isVulnerable()){
+			damaged.parry(CocotteVisual.DAMAGE_COCOTTE);
+			damaged.setInvulnerable(INVULNERABLE_DURATION);
+			int i = 50;
+			Point p = cot.getLastDirection();
 			
 			while(!moveBlocker.moveValidation(damaged, new SpeedVectorDefaultImpl(p, i)) && i > 0){
 				i--;

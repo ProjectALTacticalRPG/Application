@@ -18,6 +18,7 @@ Overlappable {
 	protected DrawableImage shadow;
 	public static final int RENDERING_SIZE_W = (int) (24);
 	public static final int RENDERING_SIZE_H = (int) (24);
+	public static final int DAMAGE_COCOTTE = 10;
 	protected boolean movable = true;
 
 	public CocotteVisual(Canvas defaultCanvas) {
